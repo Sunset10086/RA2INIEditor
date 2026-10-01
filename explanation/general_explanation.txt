@@ -1,0 +1,988 @@
+
+RefineryRatio=.08  建造矿厂的几率
+RefineryLimit=2  最多建造多少个矿厂
+BarracksRatio=.16 建造兵营的几率
+BarracksLimit=3  最多建造多少个兵营
+WarRatio=.24  建造工厂的几率
+WarLimit=3  最多建造多少个工厂
+DefenseRatio=.04 建造防御建筑的几率
+DefenseLimit=20   最多建造多少个防御建筑
+AARatio=.04 建造防空建筑的几率，如爱国者、防空炮和盖特机炮
+AALimit=15   最多建造多少个防空建筑
+TeslaRatio=.06   建造高级对地防御建筑的几率，如磁暴线圈、光棱塔和心灵塔
+TeslaLimit=15   最多建造多少个高级对地防御建筑
+HelipadRatio=.1 建造机场的几率
+HelipadLimit=2   最多建造多少个机场
+HarvestersPerRefinery=2,2,1 每个矿厂配备几个矿车
+
+
+
+          ;veteran factors 等级因素 
+            VeteranRatio=3.0 升级一次所必须破坏的价值为自身价值的3倍 
+            VeteranCombat=1.1 一星兵种攻击力为原来的1.1倍 
+            VeteranSpeed=1.2 它的速度为原1.2倍 
+            VeteranSight=0.0 他的视野(建议不要修改) 
+            VeteranArmor=1.5 它的生命为原1.5倍 
+            VeteranROF=0.6 他的射速（原来"1"秒一次 现在0.6秒一次） 
+            VeteranCap=2 最大可升2级(建议不要修改) 
+            InitialVeteran=no 没用
+
+            ; repair and refit 出售与修理 
+            RefundPercent=50% 出售价格为建造的50% 
+            ReloadRate=.3 航空器重装弹时间:0.3分钟 
+            RepairPercent=15% 把一个东西由"0"修到满血耗费的钱为建造钱的15% 
+            RepairRate=.016 每"2"次扳手闪动的时间间隔为0.016分钟,同时影响SelfHealing的单位
+            RepairStep=8 每次恢复8点血 (控制扳手和维修厂)
+            URepairRate=.016 每"2"次维修的时间间隔为0.016分钟(维修厂) 
+            IRepairRate=.001 每"2"次恢复的时间间隔为0.001分钟(医院) 
+            IRepairStep=20 每次恢复的血为20点(医院) 
+            TiberiumHeal=.010 在泰伯利亚之石中每2次恢复的间隔为0.01分钟(无效) 
+            SelfHealInfantryFrames=50 步兵每"2"次自我恢复的时间间隔为50帧（医院自动回血）
+            SelfHealInfantryAmount=20 步兵每次自我恢复能恢复20生命 （医院自动回血）
+            SelfHealUnitFrames=75 自疗单位每"2"次自我恢复的时间间隔为75帧 （科技商店自动回血）
+            SelfHealUnitAmount=5 自疗单位每次自我恢复能恢复5生命 （科技商店自动回血）
+
+            ; income and production 收入与产量 
+            ;BailCount=28 无效
+            BuildSpeed=.7 制作建筑时每用"1000"元要花费的时间为0.7分钟 
+            BuildupTime=.06 一个建筑制作完成 展开时要花费0.06分钟 
+            GrowthRate=5 泰伯利亚矿石每5分钟生长一次(无效) 
+            TiberiumGrows=yes 泰伯利亚矿石可以生长(无效) 
+            TiberiumSpreads=yes 泰伯利亚矿石可以延伸到本来没有的地方(无效) 
+            SeparateAircraft=yes TS残留语句 如果被设置为no 则所有带HoverPad=yes的建筑会自动生成PadAircraft=的第一个单位
+            SurvivorRate=0.4 一个建筑出售掉原本制造的钱*0.4换算为残兵出现 
+            AlliedSurvivorDivisor=500 盟军制造的建筑出售掉 原本花的钱/500为兵数 
+            SovietSurvivorDivisor=250 苏军制造的建筑出售掉 原本花的钱/250为兵数 
+            ThirdSurvivorDivisor=750 尤里制造的建筑出售掉 原本花的钱/750为兵数 
+            PlacementDelay=.05 展开时间为0.05分钟 
+            WeedCapacity=56  weed需要被一个房子收获用来制造化学飞弹的数量 
+
+            ; computer and movement controls 电脑与活动控制 
+            CurleyShuffle=yes 直升机是否可以在发射2发炮弹间移动位置 
+            BaseBias=2 敌人距我方基地过近时避免炮火误击我方单位参数 
+            BaseDefenseDelay=.25 每0.25分钟生产一次防御建筑
+            CloseEnough=2.25 假如距离目的地小于2.25单位长就认定为靠近 
+            DamageDelay=1无效
+            GameSpeedBias=1.6 单人游戏中物体速度1.6倍于原来速度 
+            Stray=2.0 队伍成员间的距离低于2时就会重新排布 
+            RelaxedStray=3.0 不严格的游离;为了顾及到AIT中的较大的团队，Gether指令被该数替代 
+            CloakDelay=.02 进入隐形之前的显形时间 
+            SuspendDelay=2 中止的AI队伍将会保持中止的时间为2分钟 
+            SuspendPriority=1 当基本防御展开时低优先权(<1)任务将被中止 
+            FlightLevel=1500 飞机默认飞行的高度 ，可以单独指定
+            ParachuteMaxFallRate=-3 降落伞最大下降速度 
+            NoParachuteMaxFallRate=-100 无降落伞最大下降速度 
+            GuardModeStray=2.0 保护其他单位的警戒距离 
+
+
+            MissileSpeedVar=.25 导弹速度衰减速率（Degenerates=yes）
+            MissileROTVar=.25 导弹转弯衰减速率（Degenerates=yes）
+            MissileSafetyAltitude=750 导弹安全高度 
+
+            ;-RTO 
+            TeamDelays=2000,2500,3500 创造部队间隔时间为?帧(困难,中等,简单) 
+
+
+            AIHateDelays=30,50,70  AI选择敌人的时间(困难,中等,简单) 
+            AIAlternateProductionCreditCutoff=1000 AI在拥有多少钱时开始造兵 
+            NodAIBuildsWalls=no 当电脑作为NOD时候是否制造墙壁(无效) 
+            AIBuildsWalls=no 电脑是否建造墙壁(无效) 
+
+              
+
+            ; -RTO* 
+            MultiplayerAICM=400,0,0 单机游戏中AI产生钱数量的系数(困难,中等,简单),应该是每分钟 
+            AIVirtualPurifiers=4,2,0 从困难到简单电脑等于拥有这么多个矿石精炼器(不包括战役) 
+            AISlaveMinerNumber=4,3,2 奴隶矿车数 
+            HarvestersPerRefinery=2,2,1每矿最多矿车数 
+            AIExtraRefineries=2,1,0额外矿车数 
+            HealScanRadius=10 医疗兵种能自动医疗的范围 
+            FillEarliestTeamProbability=100,100,100 制造最早编队的概率为100% 
+            ;-RTO 
+            MinimumAIDefensiveTeams=1,1,1 最少电脑防御编队1队 
+            MaximumAIDefensiveTeams=2,2,2 最大电脑防御编队2队 
+            TotalAITeamCap=30,30,30 电脑小队总和30队 
+            UseMinDefenseRule=yes 使用最低小队规则 
+            DissolveUnfilledTeamDelay=5000 电脑制造的第一队没造满前提下解散小队的延时
+            LargeVisceroid=VISC_LRG  
+            SmallVisceroid=VISC_SML  
+
+              
+
+            粒子炮规则区，约等于河蛋规则 
+            AIIonCannonConYardvalue=100,100,100  
+            AIIonCannonWarFactoryvalue=100,100,100 
+            AIIonCannonPowervalue=60,100,100 
+            AIIonCannonTechCentervalue=100,100,100 
+            AIIonCannonEngineervalue=1,1,1 
+            AIIonCannonThiefvalue=1,1,1 
+            AIIonCannonHarvestervalue=1,1,1 
+            AIIonCannonMCVvalue=1,1,1 
+            AIIonCannonAPCvalue=1,1,1 
+            AIIonCannonBaseDefensevalue=35,35,35 
+            ;AIIonCannonPlugvalue=40,40,40 
+            ;AIIonCannonHelipadvalue=20,20,20 
+            ;AIIonCannonTemplevalue=40,40,40 
+
+            离子风暴（闪电风暴）规则 
+            LightningDeferment=250 离子风暴从警告到降临的间隔帧数 
+            LightningDamage=250 闪电打击的伤害 
+            LightningStormDuration=180 离子风暴的持续时间 
+            LightningWarhead=IonWH 离子风暴用的弹头 
+            LightningHitDelay=10 每多少时间进行一次打击 
+            LightningScatterDelay=5 每2个闪电打击之间的暂停帧数 
+            LightningCellSpread=10 离子风暴的范围大小 
+            LightningSeparation=3 每两个云/闪电间的距离为3 
+            IonStorms=no 粒子风暴(无效)
+              
+
+            ;*** ForceShield Control ***力场护盾控制 
+            ForceShieldRadius=4 力场护盾的有效范围 
+            ForceShieldDuration=500 力场护盾的作用时间 
+            ForceShieldBlackoutDuration=1000 使用力场护盾后的停电时间  
+
+
+            ; Prism Cannon control  SJM 
+            PrismType=**** 该武器的单位名称 
+            PrismSupportModifier=150% 每增加一个反射光塔就增加150%的威力 
+            PrismSupportMax=8 最多能同时反射8个 
+            PrismSupportDelay=45 反射光延迟45帧 
+            PrismSupportDuration=15 发射出的光的消失时间15帧(像残留) 
+            PrismSupportHeight=420 该光传到光塔高420的地方 
+
+            V3RocketPauseFrames=0 发射前延迟0帧 
+            V3RocketTiltFrames=60 从V3导弹开始上移到真正点火为60帧 
+            V3RocketPitchInitial=0.21 导弹初始倾斜为0.21" *90"度 
+            V3RocketPitchFinal=0.5 导弹点火倾斜为0.5 "*90"度 
+            V3RocketTurnRate=0.05 导弹拐弯速率 
+            V3RocketRaiseRate=1 每次导弹升高多少 只对巡航导弹有效 
+            V3RocketAcceleration=0.4 发射加速度0.4 
+            V3RocketAltitude=768 达到这么高后水平移动768 
+            V3RocketDamage=200 伤害200 
+            V3RocketEliteDamage=400 精英伤害400 
+            V3RocketBodyLength=256 导弹长256 
+            V3RocketLazyCurve=yes 是否是曲线弹道 
+
+            ; Paratroop Drop control 伞兵控制 
+            ParadropRadius=1024 降落半径1024象素 
+            FogOfWar=no 是否使战争迷雾消散 
+            Visceroids=no 是否飞机随机从地图边缘飞出 
+
+
+            Meteorites=no 随机被流星砸 
+            CrewEscape=50% 乘车人员有50%机会从被毁车中逃生 
+            CameraRange=9 间谍飞机探开地图宽度9 
+            FineDiffControl=no 有五个难度级别实际上显示三个 
+            Pilot=E1 飞机上跳伞的兵种是(飞机被毁如果有兵) 
+            AlliedCrew=E1 盟军被毁建筑中出来的是 
+            SovietCrew=E2 苏方被毁建筑中出来的是 
+            ThirdCrew=INIT 尤里被毁建筑中出来的是 
+            Technician=CTECH 中立建筑被毁出来的是 
+            Engineer=ENGINEER 特殊建筑被毁出来的是 
+            PParatrooper=E1 步兵部队将和伞兵E1一样 
+ 
+            ;************ Secret Lab Section ************ 占领秘密科技实验室后可生产的兵种(可能) 
+            SecretInfantry=SNIPE,TERROR,DESO,YURI 
+            SecretUnits=TNKD,TTNK,DTRUCK 
+            SecretBuildings=GTGCAN 
+            特殊兵种登记 
+
+            ;*** Spy stuff *** 间谍 默认出厂时候的样子
+            AlliedDisguise=E1 对盟军假装为 
+            SovietDisguise=E2 对苏方假装为
+            ThirdDisguise=INIT 对尤里假装为 
+             
+            SpyPowerBlackout=1000 进入电场让其停电1000/"900"帧
+            SpyMoneyStealPercent=.5 进入矿山可偷其现金的0.5倍(对方也减少这么多) 
+            AttackCursorOnDisguise=yes 对可进行假装的人/物光标可以变为攻击样式 
+            ; SJM: Default disguise for the Mirage Tank (object type) 
+            DefaultMirageDisguises=TREE01,TREE02,TREE03,TREE04 幻影坦克可以变幻的物体 
+            InfantryBlinkDisguiseTime=20 间谍20帧闪烁一次
+
+            MaximumCheerRate=300 欢呼最长时间 
+
+            ;*** New AI type snippets *** 新AI控制 
+            AISafeDistance=20 ai集结部队距离敌方基地多远
+
+            AIMinorSuperReadyPercent=.7 敌军使用次级超武的几率 
+
+            HarvesterTooFarDistance=5 敌军将在离目的地5单位长的地方发动铁幕 
+            ChronoHarvTooFarDistance=50 敌军将在离目的地超过50单位长的地方发动超时空 
+            AlliedBaseDefenseCounts=25,20,6  
+            SovietBaseDefenseCounts=25,22,6  
+            ThirdBaseDefenseCounts=25,22,6  
+            以上三句代表敌军基础防御数 计算公式如下((基础花费-"2000")*基础防御系数/"1500")+(等级-"1")*"3" 
+
+            AIPickWallDefensePercent=50,25,10  AI建墙几率% 
+            AIRestrictReplaceTime=400 AI在墙/防御建筑/电力设施被击毁后400帧后重建 
+            ThreatPerOccupant=10 每在可驻军建筑中加入一个兵增加威胁度10 
+            ApproachTargetResetMultiplier=1.5 与目标距离超过1.5倍射程则停止追击 
+            CampaignMoneyDeltaEasy=0 选困难级难度出来时电脑带的钱多的倍数 
+            CampaignMoneyDeltaHard=0 选困难级难度出来时电脑带的钱多的倍数  
+            GuardAreaTargetingDelay=36 对警戒范围内目标进行攻击的延迟为36 
+            NormalTargetingDelay=27 普通级电脑对目标进行攻击的延迟为27 
+            AINavalYardAdjacency=20 电脑海军基地和总部间的距离不超过20 
+            DisabledDisguiseDetectionPercent=15,5,2 电脑发现幻影的几率 
+            AIAutoDeployFrameDelay=15,25,100 电脑自动展开大兵的延迟 
+            MaximumBuildingPlacementFailures=3 电脑摆放3次建筑失败则过一段时间(这个在另一条语句中有规定)再摆放 失败原因可能是人员拥挤 
+
+            TiberiumShortScan=6 
+            TiberiumLongScan=48  
+            此2句均为矿车找矿设置
+            SlaveMinerShortScan=8 奴隶矿车看这么远来决定是否要离矿近一点 
+            SlaveMinerSlaveScan=14奴矿设置
+
+            SlaveMinerLongScan=48 奴隶矿车看这么远当它寻找矿地的时候 
+            SlaveMinerScanCorrection=3 一个展开的奴隶矿车离矿超过3则需要离矿更近 
+            SlaveMinerKickFrameDelay=150 当没矿可采时150帧后自动寻找更好的地方 
+
+
+            AISuperDefenseProbability=90,50,10 超武建造几率 
+            AISuperDefenseFrames=50 超武警报时间 
+            AISuperDefenseDistance=12 武器离电脑距离低于12则攻打 
+
+            AI在各种情况下对部队的使用 
+            AICaptureNormal=75,5,5,15 当正常情况时 
+            AICaptureWounded=15,40,40,5 当单位受伤时 
+            AICaptureLowPower=15,5,75,5 当电力不足时 
+            AICaptureLowMoney=15,75,5,5 当金钱短缺时 
+            四个数值分别代表:加入AI的军队,出售该单位,将其放入反应堆,放着不动 
+            AICaptureLowMoneyMark=2000 低于2000钱就是金钱短缺 
+            AICaptureWoundedMark=.25 超过0.25生命损失就是受伤的 
+            PurifierBonus=.25 矿石精练器对获得金钱的附加为获得数的0.25倍 
+
+
+            RA2中部分特殊武器的修改 在此进行 
+            DropPodWeapon=Vulcan2  droppod的武器是Vulcan2 
+            DropPodHeight=2000  droppod出现的高度是2000 
+            DropPodSpeed=75  droppod下降的速度是75 
+            DropPodAngle=0.79 下降角度是0.79,0.4为平 1.18为纵 
+            HoverHeight=120 悬浮单位的高度120leptn 
+            HoverDampen=40%  悬浮震荡幅度 
+            HoverBob=.04 震荡间隔时间0.04分钟 
+            HoverBoost=150% 此状态下的速度为150%原速 
+            HoverAcceleration=.02  0.02分钟后加到满速 
+            HoverBrake=.03  0.03分钟后完全停止 
+            BalloonHoverHeight=1000 高度1000 
+            BalloonHoverDampen=20%  dampening effect on hover vehicle bounciness 
+
+            BalloonHoverBob=1.2 反弹间隔时间1.2分钟 
+            BalloonHoverBoost=150% 此状态下的速度为150%原速 
+            BalloonHoverAcceleration=.04  0.04分钟后加到满速 
+            BalloonHoverBrake=.03  0.03分钟后完全停止 
+
+            ; subterrainean vehicle characteristics 
+            TunnelSpeed=1  钻地速度
+
+            ; production & power effects 
+            MultipleFactory=0.8 每个工厂制造加速 原0.8倍时间 
+            MinLowPowerProductionSpeed=.5 低电量时制造速度为原0.5倍 
+            MaxLowPowerProductionSpeed=.8 中电量(黄色)制造速度为原0.8倍 
+            LowPowerPenaltyModifier=1 电力惩罚倍数 
+            GDIGateOne=GADUMY 
+            GDIGateTwo=GADUMY  
+            WallTower=GADUMY  
+            Shipyard=GAYARD,NAYARD,YAYARD 定义船厂 
+            NodGateOne=GADUMY  
+            NodGateTwo=GADUMY  
+            NodRegularPower=NAPOWR 苏军基础电力设施 
+            NodAdvancedPower=NANRCT 苏军拓展电力设施 
+            GDIPowerPlant=GAPOWR 盟军基础电力设施 
+            ThirdPowerPlant=YAPOWR 尤里基础电力设施 
+
+            ;****这里的GATE我弄不明白是什么意思 里面的GADUMY是一个奇怪的超武 
+            RepairBay=GADEPT,NADEPT,CAOUTP 定义修理厂 
+            BaseUnit=AMCV,SMCV,PCV 定义基地车 
+            HarvesterUnit=HARV,CMIN 定义矿车 
+            PadAircraft=ORCA,BEAG 定义需要在机场降落的飞机 
+            ; Bret's hack section 
+            TreeStrength=200 树木的生命 
+            WindDirection=1 风向 "0-7" "0"为正北 
+            TrackedUphill=1.0 规定SpeedType=Track的物体上山速度 
+            TrackedDownhill=1.2 规定SpeedType=Track的物体下山速度 
+            WheeledUphill=1.0 规定SpeedType=Wheel的物体上山速度 
+            WheeledDownhill=1.2 规定SpeedType=Wheel的物体下山速度 
+            LeptonsPerSightIncrease=2000 高度2000+的物体获得额外视野 
+            LeptonsPerFireIncrease=2000 高度2000+的物体获得额外照亮 
+            AttackingAircraftSightRange=2 机场起飞的飞机的视野 
+            BlendedFog=yes ra2无效代码
+            CliffBackImpassability=2 在悬崖下多少格内不能造建筑 
+            IceCrackingWeight=50.0 这个重量的物体将压碎冰层 
+
+
+            ShipSinkingWeight=3.0 海面上的船只高于这个重量的被毁将下沉而非爆炸 
+            CloakingStages=9 潜艇在海面下9高度的地方运动 
+            TiberiumTransmogrify=40 无效 
+            TreeFlammability=0.0 树木着火几率(无效) 
+            CraterLevel=1 弹坑深度 控制弹坑大小 取值"0-4" 
+            BridgeVoxelMax=3 桥被摧毁后最大碎片数目 
+            WallBuildSpeedCoefficient=3.0 墙的建造速度为普通物体制造速度的多少倍 
+            AllowShroudedSubteranneanMoves=true 是(YES)否(NO)可以看见地下物体的生命条 
+            AircraftFogReveal=6 雷达/机场可视范围(=SIGHT) 
+            MaximumQueuedObjects=29 制造栏可以预定到29 
+            MaxWaypointPathLength=15 最大路径点15个 
+
+            ; firestorm defense controls 火风暴语句,无效 
+            ChargeToDrainRatio=.333 火风暴语句,UseChargeDrain=yes的超武 激活时间占准备时间的比例
+            DamageToFirestormDamageCoefficient=.1 火风暴语句,无效 
+
+            ; veinhole monster parameters 泰伯利亚语句,无效 
+            ; VeinholeMonsterStrength=1000 泰伯利亚语句,无效 
+            VeinholeGrowthRate=300 泰伯利亚语句,无效 
+            VeinholeShrinkRate=100 泰伯利亚语句,无效 
+            MaxVeinholeGrowth=2000 泰伯利亚语句,无效 
+            VeinDamage=0 泰伯利亚语句,无效 
+            VeinholeTypeClass=VEINTREE 泰伯利亚语句,无效 
+
+            ;-RTO 
+            ; AI trigger weighting parameters 
+            AITriggerSuccessWeightDelta=20 如果这个触发成功的话 再次触发几率+20% 
+            AITriggerFailureWeightDelta=-50 如果这个触发失败的话 再次触发几率-50% 
+            AITriggerTrackRecordCoefficient=1 似乎是考虑以前的多少个触发 如果太多的话机子会很慢 
+
+            ; Some spotlight controls 
+            SpotlightSpeed=.015 泰伯利亚语句,无效 
+            SpotlightMovementRadius=2000 泰伯利亚语句,无效 
+            SpotlightLocationRadius=1000 泰伯利亚语句,无效 
+            SpotlightAcceleration=.0025 泰伯利亚语句,无效 
+            SpotlightAngle=.5 泰伯利亚语句,无效 
+
+            ; Controls for radar events 雷达事件控制器 
+            ; The events, in order, are: 事件种类 
+            ; (1) Generic Combat Event, 战斗事件 
+            ; (2) Generic Noncombat Event 非战斗事件  
+            ; (3) Dropzone Event 空降
+            ; (4) Base Under Attack Event 被攻击事件 
+            ; (5) Harvester Under Attack Event 矿车被攻击事件 
+            ; (6) Enemy Object Sensed Event 发现敌人事件 
+            ;此外还有如下事件 
+            ;(7) Unit Produced Event 单位生产事件  
+            ;(8) Unit Lost Event 单位被消灭事件 
+            ;(9) Unit Repaired Event 单位被修复事件 
+            ;(10) Building Infiltrated Event 建筑被渗透事件 
+            ;(11) Building Captured Event 建筑被占领事件 
+            ;(12) Beacon Placed Event 信标放出，用于联机 
+            ;(13) Super Weapon Detected Event 发现超武事件 
+            ;(14) Super Weapon Activated Event 激活超武事件 
+            ;(15) Bridge Repaired Event 桥被修好事件 
+            ;(16) Garrisoned Abandoned Event 要塞被迫放弃(红血)事件 
+            ;(17) Ally Base Attacked Event 盟国被攻击事件 
+            RadarEventSuppressionDistances=8, 8, 8, 8, 8, 6 雷达过这么长时间再汇报 
+            RadarEventVisibilityDurations=200,200,200,200,200,200 雷达事件可见保持时间 
+            RadarEventDurations=400,400,400,400,400,400 雷达事件的保留时间 
+            FlashFrameTime=7 闪烁一次的时间 
+            RadarCombatFlashTime=49 总闪烁时间(为闪烁时间奇数倍) 
+            RadarEventMinRadius=8 由被捕捉的目标到雷达上所产生捕捉目标之间的距离 
+
+
+            RadarEventSpeed=1.2 雷达所捕捉的目标在雷达操作者屏幕上的运行速度 
+            RadarEventRotationSpeed=.05 雷达所捕捉的目标在雷达操作者屏幕上的旋转速度 
+            RadarEventColorSpeed=.1 雷达所捕捉的目标颜色改変的速率 
+            RevealTriggerRadius=9 正如在地图册中所常见那样，那些会暴露周围发射装置的目标源射程最多也不会超过10
+
+            ; id holders for particle systems and voxel debris 
+            ExplosiveVoxelDebris=GASTANK,PIECE 爆炸的VXL名称 
+            TireVoxelDebris=TIRE 爆出的VXL轮胎名称 
+            ScrapVoxelDebris=PIECE 爆出的VXL碎片名称 
+            OKBuildingSmokeSystem=SmokeStackSys 建筑的烟雾粒子名称 
+            DamagedBuildingSmokeSystem=SmallSmokeSys被伤害的建筑烟雾粒子名称 
+            DamagedUnitSmokeSystem=VSSmokeSys 被伤害的车辆烟雾粒子名称 
+            DebrisSmokeSystem=VSSmokeSys 建筑倒塌的VXL烟雾名称 
+
+            ; Building prerequisite categories are specified here. 通配符注册表 
+            PrerequisitePower=GAPOWR,NAPOWR,NANRCT,YAPOWR 注册电厂 
+            PrerequisiteFactory=GAWEAP,NAWEAP,YAWEAP 注册战车工厂 
+            PrerequisiteBarracks=NAHAND,GAPILE,YABRCK 注册兵营 
+            PrerequisiteRadar=GAAIRC,NARADR,AMRADR,NAPSIS 注册雷达 
+            PrerequisiteTech=GATECH,NATECH,YATECH 注册高科 
+            PrerequisiteProc=GAREFN,NAREFN,YAREFN 注册矿山 
+            PrerequisiteProcAlternate=SMIN 不得修改
+
+            ; hunter seeker controls  
+            HunterSeekerDetonateProximity=150 无效语句 
+            HunterSeekerDescendProximity=700 无效语句 
+            HunterSeekerAscentSpeed=40 无效语句 
+            HunterSeekerDescentSpeed=50 无效语句 
+            HunterSeekerEmergeSpeed=6 无效语句 
+
+            ;*** Animation labels *** 
+            DamageFireTypes=FIRE01,FIRE02,FIRE03 被伤害的建筑着火的火焰样式 
+            OreTwinkle=TWNK1 矿石的闪光 
+            BarrelExplode=EXPLOLRG 矿物爆炸
+            BarrelDebris=GASTANK,PIECE 爆炸碎片 
+            BarrelParticle=SmallGreySSys 爆炸烟雾 
+            NukeTakeOff=NUKETO 核弹发射图形 
+            Wake=WAKE1 单位进入/离开水中的图象 
+            DropPod=DROPPOD,DROPPOD2 单位落地图象 
+            DeadBodies=DEATH_A,DEATH_B,DEATH_C,DEATH_D,DEATH_E,DEATH_F 步兵碎片动画 
+            MetallicDebris= 金属碎片名 
+            BridgeExplosions=TWLT026,TWLT036,TWLT050,TWLT070 桥梁破坏动画 
+            IonBlast=RING1 离子风暴弹头动画 
+            IonBeam=IONBEAM 离子风暴 
+            WeatherConClouds=WCCLOUD1,WCCLOUD2,WCCLOUD3 闪电风暴云的动画 
+            WeatherConBolts=WCLBOLT1,WCLBOLT2,WCLBOLT3 闪电风暴闪电的动画 
+            WeatherConBoltExplosion=EXPLOLB 闪电风暴弹头的动画 
+
+            ;Psychic Dominator control 
+            DominatorWarhead=DominatorWH 心灵控制器弹头 
+            DominatorDamage=1000 心灵控制器攻击力 
+            DominatorCaptureRange=1 心灵控制器对单位控制的范围 
+            DominatorFirstAnim=PDFXCLD 心灵控制器动画1 
+            DominatorSecondAnim=PDFXLOC 心灵控制器动画2 
+            DominatorFireAtPercentage=20 到总帧数的20%的时候才有伤害 
+            ChronoPlacement=CHRONOAR 转换前的地点用这个动画 
+            ChronoBeam=CHRONOBM 转换时的动画,现在已经不用这句了  
+            ChronoBlast=CHRONOFD 单位被转换的动画 
+            ChronoBlastDest=CHRONOTG; 转换后的地点用这个动画 
+            WarpIn=WARPIN  能空间转换的物体移动用这个动画 
+            ;WarpOut=WARPOUT 
+            ;WarpAway=WARPAWAY 
+            IronCurtainInvokeAnim=IRONBLST 铁幕效果动画 
+            ForceShieldInvokeAnim=FORCSHLD 力场护盾效果动画 
+            WeaponNullifyAnim=IRONFX 铁幕加身后被攻击动画 
+            ChronoSparkle1=CHRONOSK 被时空转移掉的动画 
+            InfantryExplode=S_BANG34 单位爆炸动画 
+            FlamingInfantry=FLAMEGUY 步兵着火死动画 
+            InfantryHeadPop=YURIDIE 尤里造成的大脑爆炸死动画 
+            InfantryNuked=NUKEDIE 步兵被辐射死动画 
+            InfantryVirus=VIRUSD 步兵被病毒侵袭导致爆炸的动画 
+            InfantryBrute=BRUTDIE 被狂兽人砸死动画 
+            InfantryMutate=GENDEATH 基因变异为狂兽人的动画 
+            Behind=BEHIND 被遮住时显示的动画 
+            MoveFlash=RING 光标选择物体命令他移动的光标动画 
+            Parachute=PARACH 降落伞图象动画 
+            BombParachute=PARABOMB 空中落下的炸弹的降落伞动画(RA2的残余,无效) 
+            DropZoneAnim=BEACON 伞兵降落的光标动画 
+            EMPulseSparkles=EMP_FX01  EMP动画
+
+            ; ******* Jumpjet Flight rules ******* 
+            ; Jumpjet movement controls JUMPJET的行动方式 
+            ;[JumpjetControls]  
+            TurnRate=4 转弯半径4  
+            Climb=5 爬升速度5 
+            CruiseHeight=500 巡航高度500(最少要比桥高) 
+            Acceleration=2 加速度2 
+            WobblesPerSecond=.15 每秒摆动0.15次 
+            WobbleDeviation=40 摆动幅度40 
+
+            ; ******* Special Weapon rules ******* 超武控制 
+            ; Special weapon rules are specified here. 
+            ;[SpecialWeapons] 
+            NukeWarhead=Nuke 核弹的弹头 
+            NukeDown=NukeDown 核弹下来的图象 
+            NukeProjectile=NukeUp 核弹发射的图象 
+            EMPulseWarhead=EMPuls 泰伯利亚之日语句,无效 
+            EMPulseProjectile=PulsPr 泰伯利亚之日语句,无效 
+            MutateWarhead=Mutate 基因突变的弹头 
+            MutateExplosionWarhead=MutateExplosion 基因突变(爆炸)的弹头 
+
+            ; ******* Audio / Visual rules ******* 
+            ; General controls that deal with audio or visual appearance of 
+            ; the game or the units therein are specified here. 
+            ;[AudioVisual] 
+            DetailMinFrameRateNormal=15 游戏帧数不低于15
+            DetailMinFrameRateMovie=20 电影帧数不低于20
+            DetailBufferZoneWidth=5 缓冲5帧
+
+            LineTrailColorOverride=0,0,0 小导弹的线性尾烟颜色 
+            ChronoBeamColor=128,200,255 超时空兵光线的颜色 
+            MagnaBeamColor=255,200,255 磁电坦克子弹的颜色 
+            OreTwinkleChance=30 矿石闪光的几率 
+            CreateInfantrySound= 制造新步兵时的声音 
+            CreateUnitSound= 制造新单位时的声音 
+            CreateAircraftSound= 制造新航空器(停于机场)时的声音 
+            SpySatActivationSound= SpyUplinkOn 连接上间谍卫星时的声音 
+            SpySatDeactivationSound= SpyUplinkOff 间谍卫星被切断连接时的声音 
+            UpgradeVeteranSound=UpgradeVeteran 升级为1星时的声音 
+            UpgradeEliteSound=UpgradeElite 升级为3星时的声音 
+            BaseUnderAttackSound=BaseUnderAttackSiren 建筑被攻击的声音 
+            BuildingGarrisonedSound=BuildingGarrisoned 建筑中驻军时的声音 
+            BuildingRepairedSound=BuildingRepaired 建筑被修复时的声音 
+            CheerSound=Cheer 欢呼的声音 
+            PlaceBeaconSound=BeaconPlaced 心灵信标建立时的声音 
+
+            ;GEF Used to make the damage from the brute rock the target more than it normally would. 
+            DirectRockingCoefficient=1.5  DirectRocker弹头的武器 冲击力是rocker的1.5倍
+            FallBackCoefficient=0.1 被DirectRocker弹头的武器攻击 单位回落是0.1倍
+
+
+            ;Look at the ColorAdd section for references 
+            LaserTargetColor=4 召唤米格飞机的时给建筑染上的颜色 *编者注：曾经修改 
+            IronCurtainColor=0 铁幕的颜色 
+            BerserkColor=4 混乱烟雾的颜色(就是YURI的神经突击车的攻击方式)  
+            ForceShieldColor=6 力场护盾的颜色 
+
+            StartPlanningModeSound=PlanningModeStart 进入路径点模式时的声音 
+            EndPlanningModeSound=PlanningModeEnd 退出路径点模式时的声音 
+            AddPlanningModeCommandSound=PlanningModeAdd 增加路径点时的声音 
+
+            ;******************************* 宝箱里面获取东西播放的声音 
+            CratePromoteSound=CratePromoted 经验提升 
+            CrateMoneySound=CrateMoney 金钱 
+            CrateRevealSound=CrateReveal 全部地图 
+            CrateFireSound=CrateFirePower 加强火力 
+            CrateArmourSound=CrateArmor 加强护甲 
+            CrateSpeedSound=CrateSpeed 加强速度 
+            CrateUnitSound=CrateFreeUnit 免费单位 
+
+            SinkingSound=GenLargeWaterDie 战车落水声音 
+            ImpactWaterSound=ExplosionWaterLarge 炮弹打到水里的声音 
+            ImpactLandSound= 打到地上的声音 
+            BombTickingSound=CrazyIvanBombTick 定时炸弹倒计时声音 
+            ChronoInSound=ChronoMinerTeleport 超时空转换开始声音 
+            ChronoOutSound=ChronoMinerTeleport 超时空转换结束声音 
+            BombAttachSound=CrazyIvanAttack 定时炸弹附着上去的声音 
+            YuriMindControlSound=YuriMindControl 心灵控制的声音 
+
+            ;gs Obsolete UnloadingHarvester=HORV  harvester image to use when 
+            unloading tiberium 
+            ;GEF PoseDir, despite the comments, is actually ranged from 0 to 
+            255. I fixed DeployDir, and it actually works as described. 
+            PoseDir=2 机场朝向(1,北,2东北~~~到7) 
+            DeployDir=2 单位展开朝向(同上) 
+            WaypointAnimationSpeed=10 路径点动画速度 
+            DigSound=NukeSiren 钻地声
+
+            GateUp=Dummy 闸门打开的声音 
+            GateDown=Dummy 闸门关闭的声音 
+            ShroudGrow=no 黑暗是否扩展(探开的地方逐渐变为未探开状态) 
+            ScrollMultiplier=.07 鼠标速度 
+            ShakeScreen=400 大于此生命的单位被摧毁时屏幕震荡 
+            CloakSound=NavalUnitEmerge 潜艇上浮的声音 
+            SellSound=SellBuilding 出售建筑的声音 
+            GameClosed=GameClosed 系统音 
+            IncomingMessage=MessageText 系统音 
+            MessageCharTyped=TextBleep 系统音 
+            SystemError=GenericBeep 系统错误声音 
+            OptionsChanged=OptionsChanged 选项改变声音 
+            GameForming=NewGame 系统音 
+            PlayerJoined=PlayerJoined 系统音 
+            Construction=Dummy 造东西的声音 
+            CreditTicks=CreditUp,CreditDown 扳手的声音 
+            BuildingDieSound=BuildingGenericDie 建筑倒塌的声音 
+            BuildingSlam=PlaceBuilding 建筑展开时的声音 
+            RadarOn=RadarOn 打开雷达的声音 
+            RadarOff=RadarOff 雷达关闭的声音 
+            MovieOn=MovieOn 电影打开的声音 
+            MovieOff=MovieOff 电影关闭的声音 
+            ScoldSound=MenuScold 普通错误声音 
+            TeslaCharge=TeslaCoilPowerUp 磁暴线圈放电前的声音 
+            TeslaZap= 磁暴线圈放电时的声音 
+            BuildingDamageSound=BuildingDamaged 建筑黄血的声音 
+            ChuteSound=ParachuteDrop 降落伞收起的声音 
+            GenericClick=MenuClick 系统音 
+            GenericBeep=GenericBeep 系统音 
+            BuildingDrop=PlaceBuilding 战车/兵展开为建筑时的声音 
+            StopSound=CommandBar 让单位停下来的声音 
+            GuardSound=CommandBar 让单位防御的声音 
+            ScatterSound=CommandBar 让单位散开的声音 
+            DeploySound= 双击时的声音 
+            StormSound=WeatherIntro 闪电风暴来临时的声音 
+            LightningSounds=WeatherStrike 闪电风暴放电的声音 
+
+            ShellButtonSlideSound= 系统音 
+
+            ; New Sound hooks for Mission disk - TR 
+            VoiceIFVRepair= IFVMove  IFV装载的声音 
+            SlavesFreeSound= SlaveWorkerLiberated 奴隶被解放的声音 
+            SlaveMinerDeploySound= SlaveMinerDeploy 奴隶矿车展开的声音 
+            SlaveMinerUndeploySound= SlaveMinerDeploy 奴隶矿车收起的声音 
+            BunkerWallsUpSound= TankBunkerUp 坦克进入坦克碉堡类建筑的声音 
+            BunkerWallsDownSound= TankBunkerDown 坦克离开坦克碉堡类建筑的声音 
+            RepairBridgeSound= BridgeRepaired 桥被修复的声音 
+            PsychicDominatorActivateSound=PsychicDominatorActivate 心灵控制器的声音 
+            GeneticMutatorActivateSound=GeneticMutatorActivate 基因突变器的声音 
+            PsychicRevealActivateSound=PsychicRevealActivate 心灵信标的声音 
+            MasterMindOverloadDeathSound= MasterMindOverloadVoice 精神控制车过载挂掉的声音 
+            MindClearedSound= MindCleared 精神控制车控制的单位脱离控制的声音 
+            EnterGrinderSound= GrinderGrinding 部队回收厂回收的声音 
+            LeaveGrinderSound= 脱离回收的声音 
+            EnterBioReactorSound= BioReactorEnter 复制中心回收的声音 
+            LeaveBioReactorSound= BioReactorEnter 脱离回收的声音 
+            ActivateSound= 单位开动的声音 
+            DeactivateSound= 单位停止的声音 
+            AirstrikeAbortSound=MIGMissionAborted 航空单位(需机场)起飞的声音  
+            AirstrikeAttackVoice=MIGMove 航空单位(需机场)攻击的声音  
+            SpyPlaneCamera=SpyPlaneSnapshot 间谍飞机拍照的声音 
+            SpyPlaneCameraFrames=16 间谍飞机拍照声音响16下 
+            DiskLaserChargeUp= FloatingDiscChargeUp 飞碟吸取的声音 
+            LetsDoTheTimeWarpOutAgain = ChronoScreenSound 似乎是整屏超时空转移开始的声音(YURI第一关就有) 
+            LetsDoTheTimeWarpInAgain = ChronoScreenSoundAgain 似乎是整屏超时空转移结束的声音(YURI第一关就有) 
+            Smoke=xxxx  
+            ;GEF FirestormActiveAnim=GAFSDF_A 
+            ;GEF FirestormIdleAnim=FSIDLE 
+            ;GEF FirestormGroundAnim=FSGRND 
+            ;GEF FirestormAirAnim=FSAIR 
+
+            EliteFlashTimer=150  三星闪的时间 
+            AllyReveal=yes 是否自动在自动地图上显示盟友位置 
+            ConditionRed=25% 剩余血低于25%时血条红色  
+            ConditionYellow=50% 剩余血低于50%时血条黄色 
+            DropZoneRadius=4 揭露特定区域DROPZONE周边的范围 
+            EnemyHealth=yes 是否显示选定敌人血条 
+            Gravity=6 (影响炮弹抛射体的弹道)重力为6 
+            IdleActionFrequency=.15 步兵闲置动作(例如擦枪,坐下)每0.15分钟一次 
+            MessageDelay=.6 信息显示0.6分钟 
+            MovieTime=.06 从无到有(电影)雪花点时间为0.06分钟 
+            NamedCivilians=no 是否显示平民建筑真实名称 
+            SavourDelay=.1 关卡结束/胜利 到 显示胜利的时间0.1分钟 
+            ShroudRate=4  
+            FogRate=.01 黑区扩展的时间 
+            IceGrowthRate=1.5 无效 
+            IceSolidifyFrameTime=1000 无效 
+            IceCrackSounds= 无效 
+            AmbientChangeRate=.2 透明光线效果绘制率
+            AmbientChangeStep=.2 透明光线绘制间隔
+            SpeakDelay=2 每2分钟重复一次任务提示 
+            TimerWarning=2 任务时间低于2分钟 则倒计时变红字 
+            ExtraUnitLight=.2 战车额外发光0.2 
+            ExtraInfantryLight=.2 步兵额外发光0.2 
+            ExtraAircraftLight=.2 航空器额外发光0.2 
+            LocalRadarColor=0,255,0 你自己家在雷达中的颜色 
+
+            ; ******* Crate rules ******* 
+            ; General crate rules and controls are specified here. 
+            ;[CrateRules] 
+            CrateMaximum=255 箱子数值不超过255 
+            CrateMinimum=1 箱子数值不低于1 
+            CrateRadius=3.0 箱子里的属性提升可以给3单位长内的人 
+            CrateRegen=3 每3分钟随机产生箱子 
+            SilverCrate=HealBase 单人游戏中可以产生的箱子类型 
+            SoloCrateMoney=5000 单人游戏中钱箱的钱数 
+            UnitCrateType=none 产生单位的箱子可以产生任何没有CreatGoddie=no的单位 
+            WoodCrate=Money 木箱中的东西 
+            WaterCrate=Money 水箱中的东西 
+            HealCrateSound=HealCrate获取生命(+血)箱子的声音 
+            WoodCrateImg=CRATE 木箱的形态 
+            CrateImg=CRATE 箱子的形态 
+            WaterCrateImg=WCRATE 水中箱子的形态 
+            FreeMCV=yes 能随机产生基地车 
+
+            ; ******* Combat and damage rules ******* 
+            ; General rules that control combat, damage, or related items are 
+            ;listed here. 
+            ;[CombatDamage] 
+            AmmoCrateDamage=200 瞬间伤害超过200则形成弹坑 
+            IonCannonDamage=751 离子炮伤害。RA2无效 
+            HarvesterImmune=no 矿车是否对普通伤害免疫 
+            DestroyableBridges=yes 桥是否能被破坏 
+            TiberiumExplosive=no 泰伯利亚之日语句，无效 
+            Scorches=BURN01,BURN02,BURN03,BURN04 污染类型(小弹坑) 
+            Scorches1=BURN05,BURN06,BURN07 污染类型 
+            Scorches2=BURN08,BURN09,BURN10 污染类型 
+            Scorches3=BURN11,BURN12,BURN13 污染类型 
+            Scorches4=BURN14,BURN15,BURN16 污染类型 
+            TiberiumExplosionDamage = 0 泰伯利亚之日语句,无效 
+            TiberiumStrength = -1 泰伯利亚之日语句,无效 
+            Craters=CR1,CR2,CR3,CR4,CR5,CR6 弹坑类型 
+            AtomDamage=1000 核弹伤害1000 
+            BallisticScatter=1.0 误差攻击最大距离目标1长度(例如苏防空炮) 
+            BridgeStrength=1500 桥的生命为1500 
+            C4Delay=.03 放置C4后多少时间C4爆炸 
+            C4Warhead=Super  C4的弹头 
+            V3Warhead=V3WH  V3火箭的弹头 
+            DMislWarhead=DMISLWH 无畏火箭的弹头 
+            V3EliteWarhead=V3EWH 三星V3火箭的弹头 
+            DMislEliteWarhead=DMISLEWH 三星无畏火箭的弹头 
+            CMislWarhead=CMISLWH 雷鸣导弹的弹头 
+            CMislEliteWarhead=CMISLEWH 三星雷鸣导弹的弹头 
+            CrushWarhead=Crush 碾压机动车的虚拟武器的弹头 
+
+            ;***Crazy Ivan stuff*** 
+            IvanWarhead=IvanWH 疯狂伊万炸弹弹头 
+            IvanDamage=450 疯狂伊万炸弹伤害 
+            IvanTimedDelay=450 疯狂伊万炸弹延迟时间 
+            CanDetonateTimeBomb=no 是否能手动引爆炸弹 
+            CanDetonateDeathBomb=no 是否能手动引爆装于自己部队上的炸弹 
+            IvanIconFlickerRate=8 炸弹跳动率 
+
+            ;***Urban Combat (UC) ver 2.0*** 
+            OccupyDamageMultiplier=1.2 占领建筑物后向外攻击,威力加强为原来的1.2倍 
+            OccupyROFMultiplier=1.2 占领建筑物后向外攻击,射速加强为原来的1.2倍 
+            OccupyWeaponRange=5 占领建筑物后向外攻击,射程5 
+
+            ;***Tank Bunker*** 
+            BunkerDamageMultiplier=1.3 坦克碉堡中坦克伤害加强为原来的1.3倍 
+            BunkerROFMultiplier=1.3 坦克碉堡中坦克射速加强为原来的1.3倍 
+            BunkerWeaponRangeBonus=2 坦克碉堡中坦克射程比原来的多2 
+
+            ;***MasterMind Overload*** 
+            OverloadCount=3,6,10,50 超过这个数量时过载的"等级" 
+            OverloadDamage=0,50,100,500 对应"等级"受到的伤害 
+            OverloadFrames=30,60,60,60 每多少时间受到上述的伤害 
+            ControlledAnimationType=MINDANIM 被控制的物体的附加图象 
+            PermaControlledAnimationType=MINDANIMR 被永久控制的物体的附加图象 
+            MindControlAttackLineFrames=20 精神控制线的闪动多少时间一次 
+
+
+            ;***Floating Disk Draining*** 
+            DrainMoneyFrameDelay=30  UFO吸取钱多少时间一次 
+            DrainMoneyAmount=30 一次吸取多少钱 
+            DrainAnimationType=DISKRAY 吸取的图象 
+
+            ;***Magnetron*** 
+            ;GEF if CurrentStrengthDamage then the damage a dropped unit does 
+            will be based off of it's current strength, rather than it's maximum 
+
+            ;FallingDamageMultiplier determines what this base damage will be 
+            multiplied by in order to figure out the final damage 
+            FallingDamageMultiplier=1.0 掉落伤害乘以1倍 
+            CurrentStrengthDamage=yes 扣血按照当前血百分比 NO代表按照最大值的百分比 
+
+            ;***Battle Fortress*** （战斗要塞）
+            OpenToppedRangeBonus=2 部队在可对外射击的运输工具中射程增加2 
+            OpenToppedDamageMultiplier=1.2 部队在可对外射击的运输工具中伤害加强到原来的1.2倍 
+            OpenToppedWarpDistance=7;超时空军团这么远后停止攻击
+
+              
+
+
+            DeathWeapon=DefaultDeathWeapon 该语句请不要更改 
+            IronCurtainDuration=750 铁幕持续时间750帧 
+            FirestormWarhead=FirestormWH 火风暴语句,无效 
+            IonCannonWarhead=IonCannonWH 离子炮弹头 
+            VeinholeWarhead=VeinholeWH 泰伯利亚语句,无效 
+            PsychicRevealRadius=15 GEF radius in cells that the PsychicReveal 
+            Super should clear 
+
+            ;particle system defaults 
+            DefaultFirestormExplosionSystem=FirestormSparkSys 火风暴语句,无效 
+            DefaultLargeGreySmokeSystem=BigGreySmokeSys 大灰色烟雾粒子系统 
+            DefaultSmallGreySmokeSystem=SmallGreySSys 小灰色烟雾粒子系统 
+            DefaultSparkSystem=SparkSys 火花粒子系统 
+            DefaultLargeRedSmokeSystem=BigGreySmokeSys 大烟雾粒子系统 
+            DefaultSmallRedSmokeSystem=SmallGreySSys 小烟雾粒子系统 
+            DefaultDebrisSmokeSystem=SmallGreySSys 碎片粒子系统 
+            DefaultFireStreamSystem=FireStreamSys 喷火粒子系统 
+            DefaultTestParticleSystem=TestSmokeSys 测试粒子系统的粒子系统，残留物 
+            DefaultRepairParticleSystem=WeldingSys 一单位修复另一单位的粒子系统 
+
+            Crush=1.8 当有碾压可能且距离低于1.8时开始碾压(只对电脑有效) 
+            ExpSpread=.7 应该是可爆单位爆炸后威力对于伤害的百分比 
+            FireSupress=1 在此距离内有我方单位时避免开火 
+
+            FlameDamage=Fire 火焰的粒子武器 该伤害可以扩散到其他人身上 
+            FlameDamage2=Fire2 火焰的粒子武器 该伤害不可以扩散到其他人身上 
+            HomingScatter=2.0 不准确的导向投射体最大误差范围(格) 
+            MaxDamage=10000 最大伤害不超过10000 
+            MinDamage=1 最小伤害不低于1 
+            PlayerAutoCrush=no 人类操纵单位是否自动尝试碾压敌人单位 
+            PlayerReturnFire=no 人类操纵单位是否侵略性还击敌人单位 
+            PlayerScatter=no 人类操纵单位受伤害时是否自动疏离所在地 
+            SplashList=H2O_EXP3,H2O_EXP2,H2O_EXP1 水中爆炸的水花 
+            TreeTargeting=no 鼠标在树上时是否自动出现准星 
+            TurboBoost=1.5 导弹对空中物体为原速度的1.5倍 
+            Incoming=10 当投射物射向目标的速度小于或等于此值,目标处单位将试图逃离目标区 
+            CollapseChance=100 无效语句 
+            BerzerkAllowed=no 无效语句 
+
+
+            ; Provides knobs to tweak for radiation used by desolater and friends. 
+            ;[Radiation] 
+            RadDurationMultiple=1 辐射系数(RedLevel*RadDurationMultiple为辐射持续的帧数) 
+            RadApplicationDelay=16 每16帧造成一次伤害 
+            RadLevelMax=500  RedLevel最大不超过500 ，原版最小不得低于100
+            RadLevelDelay=90 辐射衰减程度 
+            RadLightDelay=90 辐射的光衰减程度? 
+            RadLevelFactor=0.2 每个RedLevel造成0.2伤害 
+            RadLightFactor=0.1 光强系数 
+            RadTintFactor=1.0 辐射色彩系数
+
+            RadColor=0,255,0 辐射的颜色 
+            RadSiteWarhead=RadSite 辐射的弹头 
+
+
+            ; Enables customization of the effects elevation has on firing. 
+            ;[ElevationModel] 
+            ElevationIncrement=4 4以上高度的悬崖增加射程
+            ElevationIncrementBonus=2 增加2射程 
+            ElevationBonusCap=2 最大增加2
+
+            ; Enables customization of the effects walls have on shots. 
+            ;[WallModel] 
+            AlliedWallTransparency=no 对同盟国来说 墙是不是可以穿过(就是穿墙打敌人,而敌人必须打墙) 
+            WallPenetratorThreshold=50% 在打墙内人的时候 有50%是打墙了(其他的消失了) 
+            
+
+            ; ******* Multiplayer Dialog Settings ******* 单人游戏设置 
+            ;[MultiplayerDialogSettings] 
+            MinMoney=5000 可选钱数最小值 
+            Money=10000 可选钱数默认值 
+            MaxMoney=10000 可选钱数最大值 
+            MoneyIncrement=100 钱最小单位100 
+            MinUnitCount=0 最小可带兵数 
+            UnitCount=10 默认可带兵数 
+            MaxUnitCount=10 最大可带兵数 
+            GameSpeed=1 游戏速度 
+            AIDifficulty=0  AI难度设置 "0"简单 "2"困难 
+            AIPlayers=0  AI玩家设置 
+            BridgeDestruction=yes 桥可破坏否 
+            ShadowGrow=no 是否阴影区扩张 
+            Shroud=yes 是否需要自己探测地图(NO的话地图全开) 
+            Bases=yes 开始时是否有基地车 
+            TiberiumGrows=yes 矿石是否自动增长 
+            Crates=yes 宝箱是否出现 
+            CaptureTheFlag=no 是否为抢旗模式 
+            HarvesterTruce=no 矿车是否无敌 
+            MultiEngineer=no RA1一样多工程师
+            AlliesAllowed=no 是否可以结盟 
+            ShortGame=yes 是否为快速游戏 
+            FogOfWar=no 泰伯利亚之日语句,无效 
+            MCVRedeploys=yes 是否基地可以收起 
+            AllyChangeAllowed=yes 是否可以中途解盟 
+
+            ; ******* Object Heap Maximums ******* 
+
+            ; These are the absolute maximum number of these object types 
+            ; allowed in the game (at any one time). 
+            Players=8 最大8人游戏 
+
+            ; ******* AI Controls *******  AI控制 
+            ;[AI] 建筑注册是新阵营必须的
+            BuildConst=GACNST,NACNST,YACNST 基地注册 
+            BuildPower=NAPOWR,GAPOWR,YAPOWR 电场注册 
+
+            BuildRefinery=NAREFN,GAREFN,YAREFN 矿山注册 
+            BuildBarracks=NAHAND,GAPILE,YABRCK 兵营注册 
+            BuildTech=NATECH,GATECH,YATECH 高科注册 
+            BuildWeapons=GAWEAP,NAWEAP,YAWEAP 战车工厂注册 
+            BuildRadar=GAAIRC,NARADR,AMRADR,NAPSIS 雷达注册 
+            ConcreteWalls=GAWALL,NAWALL,GAFWLL 墙注册 
+            NSGates=GADUMY 南北向门注册
+            EWGates=GADUMY 东西向门注册
+            BuildNavalYard=NAYARD,GAYARD,YAYARD 船厂注册 
+            BuildDummy=GAPILL,NALASR,YAGGUN 基本防御注册 
+            NeutralTechBuildings=CAAIRP,CATHOSP,CAOILD,CAOUTP,CAMACH,CAPOWR 
+            中立科技建筑注册 
+            AlliedBaseDefenses=GAPILL,ATESLA,NASAM 盟军防御建筑注册 
+            SovietBaseDefenses=NALASR,NABNKR,TESLA,NAFLAK 苏军防御建筑注册 
+            ThirdBaseDefenses=YAGGUN,YAPSYT,NATBNK 尤里防御建筑注册 
+            AIForcePredictionFudge=5,25,80 从简单到困难 电脑防御数对于人脑攻击数的比值(具体数见价值区) 
+            GDIWallDefense=6 墙最长可以延伸到6长(一个墙就一个点,另一个墙可以在6格外,中间自动连接) 
+            GDIWallDefenseCoefficient=3 泰伯利亚之日语句,无效 
+            NodBaseDefenseCoefficient=1.2 泰伯利亚之日语句,无效 
+            GDIBaseDefenseCoefficient=1.5 泰伯利亚之日语句,无效 
+            MaximumBaseDefensevalue=60 最大防御值60 
+            ComputerBaseDefenseResponse=3 电脑防御反应速度 
+
+            AttackInterval=0.5 平均电脑进攻间隔(分钟) 
+            AttackDelay=0.5 第一波进攻在开局0.5分钟时 
+            PatrolScan=.016 电脑巡查时扫描间隔0.016分钟 
+            CreditReserve=100 电脑现金低于100时将 不会修理 
+            PathDelay=.01 道路被堵塞时电脑每0.01分钟试一次 
+            BlockagePathDelay=60 60帧后还没通则绕道 
+            AutocreateTime=1 平均1分钟制造一个单位 
+            InfantryReserve=50000 钱多于50000始终制造步兵 
+            InfantryBaseMult=1 假如制造建筑总数量乘以1比步兵量多则制造步兵 
+            PowerSurplus=50 电力富余低于50则制造电场 
+            BaseSizeAdd=3 制造的基础防御数量不能比最多的人类对手多3 
+            RefineryRatio=.16 矿山制造几率 
+            RefineryLimit=4 最多制造多少个矿山 
+            BarracksRatio=.16 兵营制造几率 
+            BarracksLimit=2 最多制造多少个兵营 
+            WarRatio=.1 战车工厂制造几率 
+            WarLimit=2 最多制造多少个战车工厂 
+            DefenseRatio=.4 防御制造几率 
+            DefenseLimit=40 最多制造多少个防御 
+            AARatio=.14 对空防御制造几率 
+            AALimit=10 最多制造多少个对空防御 
+            TeslaRatio=.16 对地防御制造几率 
+            TeslaLimit=10 最多制造多少个对地防御 
+            HelipadRatio=.1 机场制造几率 
+            HelipadLimit=2 最多制造多少个机场 
+            AirstripRatio=.12  ratio of base that should be composed of 
+            airstrips 
+            AirstripLimit=0  maximum number of airstrips to build 
+            CompEasyBonus=no 当超过一个人类玩家在此游戏中则电脑变为简单模式 
+            Paranoid=yes 电脑是否在形势不好时结盟 
+            PowerEmergency=75% 假如电力供应低于需求的75%则出售建筑以保持电力 
+            AIBaseSpacing=1 电脑建筑间隔大于1 
+
+              
+            ;[IQ]
+            MaxIQLevels=5 最大IQ等级5 
+            SuperWeapons=4 能生产超武的IQ等级4 
+            Production=5 自动生产产品IQ等级5 
+            GuardArea=2 范围防御IQ等级2 
+            RepairSell=1 0为自动维修，包括玩家
+            AutoCrush=2 自动碾压IQ等级2，改成"0"就是全自动 
+            Scatter=2 自动抗碾压IQ等级2 "0"是全自动
+            ContentScan=3 选择敌人IQ等级3 
+            Aircraft=3 自动回到机场 IQ等级3 
+            Harvester=2 矿车IQ等级2 
+            SellBack=2 出售建筑IQ等级2 
+
+
+            ; ******* Country Statistics ******* 
+
+            IncomeMult=3 矿车采钱数百分比,如果设为3则每车矿的钱数是正常的3倍   
+            Multiplay =yes  该家族（势力）是否遭遇战可用  
+            WallOwner = yes 该家族（势力）有无防护墙  
+            Suffix=Allied 后缀=联盟,即所属阵营  
+            Prefix=G 前缀=G,所属阵营简称  
+            Color = 国家显示的颜色(作用的地方未明确)(参见颜色安排) 
+            Multiplay=yes 是否能在遭遇战中选择 
+            Side=GDI 所属阵营为GDI  
+            SmartAI = 是否该国家拥有最聪明的AI,默认=no  
+            VeteranInfantry=GHOST,SNIPE 初始的步兵(步兵列表内的)为一级,可多设  
+            VeteranAircraft=ORCA 初始的飞行器(飞行器列表内的)为一级,可多设  
+            VeteranUnits=FV,CARRIER,SHAD 初始的车船(机动车列表内的)为一级,可多设  
+            BuildTimeInfantryMult=.5 建造步兵时间为原来时间的0.5倍 
+            BuildTimeAircraftMult=.5 建造空军 
+            BuildTimeUnitsMult=.5 建造陆军 
+            BuildTimeBuildingsMult=.5 建造建筑
+            BuildTimeDefensesMult=0.5 建造防御建筑(BuildCat=Combat)时间为原来时间的0.5倍
+            SpeedInfantryMult=1.5 步兵速度为原来的1.5倍 
+            SpeedAircraftMult=1.5 空军 
+            SpeedUnitsMult=1.5 陆军 
+            SpeedBuildingsMult=1.5 建筑?! 
+            CostInfantryMult=.5 步兵花费为原0.5倍 
+            CostAircraftMult=.5 空军花费为原0.5倍 
+            CostUnitsMult=.5 陆军花费为原0.5倍  
+            CostBuildingsMult=.5 建筑花费为原0.5倍
+            CostDefensesMult=.5 防御建筑(BuildCat=Combat)花费为原0.5倍
+            ArmorInfantryMult=2.0 步兵血为原2倍 
+            ArmorAircraftMult=2.0 飞机血为原2倍 
+            ArmorUnitsMult=2.0  载具血为原2倍
+            ArmorBuildingsMult=2.0  建筑血为原2倍
+            ArmorDefensesMult=2.0 防御建筑(BuildCat=Combat)血为原2倍 
+            ; 特定的国家可以对该国家的单位和建筑物的价值和能力做特殊的调整  
+
+            ; 这种调整将影响该国家的所有单位和建筑物的价值和能力  
+            ; 这只适用于遭遇战和单人任务模式,在常态游戏中(是否指网络多人类玩家作战)所有价值是1.0  
+
+            Airspeed = 所有空中单位的速度,填的数值越大速度越快,默认=1.0  
+            ; Armor = 所有单位和建筑的生命力,填的数值越大生命力越高,默认=1.0  
+            ; Cost = 花费的金钱,填的数值越大则越费钱,默认=1.0  
+            ; Firepower = 所有武器火力的调整,填的数值越大则损害越高,默认=1.0  
+            ; Groundspeed = 所有地面部队的速度,填的数越大速度越快,默认=1.0  
+            ; ROF = 对所有武器火力速度的调整,填的数越大则射速越慢,默认def=1.0  
+            ; BuildTime = 所有建筑物的建造时间调整,填的数越大则建造的时间越长,默认=1.0    
+
+              
+
+
+            ; ******* Difficulty Settings ******* 
+            ;[Easy]
+            Groundspeed=1.0 陆军速度1倍 
+            Airspeed=1.0 空军速度1倍 
+            BuildTime=.8 建造时间0.8倍于原来  
+            RepairDelay=.02 修理滞后0.02分钟 
+            BuildDelay=.03 建筑滞后0.03分钟 
+            DestroyWalls=no 电脑是否自动破坏周围敌军的墙 
+            ContentScan=yes  
+
+            ;补充： 
+
+            ChronoDelay=60 传送达到后僵直60帧时间才恢复正常，这是时空传送超武的相关定义 
+            ChronoReinfDelay=180 传送到达后僵直180帧，这是任务触发第"107"条：超时空传送援军的相关定义 
+            ChronoDistanceFactor=48 超时空行动方式离传送目标点的距离对僵直时间的影响(恢复时间:帧/格) 
+            ChronoTrigger=yes 是否让僵直时间和距离相关，是的话，距离越长僵直越久，否则的话将始终是个恒量 
+            ChronoMinimumDelay=16 超时空移动最小冷冻时间16 
+            ChronoRangeMinimum=0 在这个范围内的超时空移动，均被视为硬直时间为ChronoMinimumDelay=定义的时间 
+
+
+            AmerParaDropInf=E1,GHOST,ENGINEER 空降部队的种类（每个都需要一个飞机） 
+            AmerParaDropNum=6,6,6 空降部队对应数目 
+
+            AnimToInfantry=BRUTE 基因突变成BRUTE，可写多个，由art动画里的MakeInfantry=调用

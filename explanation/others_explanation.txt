@@ -1,0 +1,359 @@
+
+;粒子系统通用代码
+;[XXXSys]
+HoldsWhat = 粒子系统产生的粒子名称
+BehavesLike= 填写系统类型
+Spark   火花(维修车)
+Smoke   烟雾(车辆损伤等)
+Fire    火焰(喷火)
+Gas  毒气
+RailGun 轨道炮
+Spawns=yes 是否用此系统不停刷出粒子
+SpawnFrames=10 和上一句连用，刷粒子的间隔
+SpawnRadius=5 产生粒子的范围 单位为像素
+Slowdown=.0025 系统速率衰减
+ParticleCap=7 最高同时存在的粒子数目
+SpawnCutoff=13.0 多长时间后停止产生粒子
+SpawnTranslucencyCutoff=12.5 多长时间后粒子变为半透明
+
+
+;火花粒子系统(维修车)
+ParticleCap=15 火花粒子系统最高产生的粒子数目
+SparkSpawnFrames=20 产生火花粒子的所用的帧数
+SpawnSparkPercentage=.4 每次产生火花粒子的几率
+LightSize=25 火花闪光大小
+OneFrameLight=true 是否产生火花闪光
+
+
+;轨道炮粒子系统(特征为 在发射者和目标之间的连线上立刻产生一列螺旋分布的粒子)
+;[XXXWeapon]
+IsRailgun=true  是否是轨道炮(railgun)
+AttachedParticleSystem=PsyBeamSys
+HoldsWhat=XXXPart (该粒子类型非Railgun时 粒子不会运动)
+SpiralRadius=6 轨道炮粒子扩散的最大半径
+ParticlesPerCoord=a 这是railgun粒子密度,越大越密 算法为 1/a (例:填写.05 即每1/.05=20个像素产生一个粒子)
+SpiralDeltaPerCoord=b 波长 控制railgun粒子排列的弯曲度 越大弯曲度越小 算法为b/a (例:填写 .3 即.3/.05=6 每像素粒子方向绕圆柱轴心旋转.3，那么每相邻的两个粒子之间角度相差6)以上两条具体算法来自耗神
+VelocityPerturbationCoefficient=0 速度扰动系数 算法不明 影响railgun粒子出膛后的运动速度
+MovementPerturbationCoefficient=0 运动扰动系数 算法不明 影响railgun粒子出膛后的运动方向
+PositionPerturbationCoefficient=0 位置扰动系数 算法不明 影响railgun粒子出膛后的位置
+Laser=yes 轨道炮是否产生一条激光细线
+LaserColor=255,0,255 轨道炮线的颜色
+
+
+;粒子注释
+;乱七八糟的太多 说几个常见的 (以下代码并非对所有类型粒子都有效，建议用的时候复制原版写好的粒子再改数据)
+
+Image= 此粒子的外形 直接写shp名 无需且无法在art里定义 色盘默认为anim (Spark和RailGun无效)
+Translucency= 图像透明度 "25" "50" "75"
+MaxEC= 此粒子的存在时间
+StartFrame= 粒子动画的起始帧号
+EndStateAI= 粒子动画的结束帧号
+StateAIAdvance= 图像每帧持续多少帧时间 控制图像播放速度 越大越慢（相当于art里的rate，算法相反）
+Damage= 每次产生的伤害
+Warhead= 用来产生伤害的弹头(弹头范围无效)
+MaxDC= 间隔多少帧产生一次伤害
+NumLoopFrames= 多少帧是一个循环
+NextParticle= 循环结束后产生另一粒子的名称
+ColorList= 轨道炮粒子颜色渐变始末
+ColorSpeed=.009 变色速度
+Persistent= 永远是yes，当成无效代码好了
+WindEffect= 风力影响，改数值貌似没用
+Velocity= 粒子运动的速度，默认"0" 
+Deacc= 速度衰减
+DeleteOnStateLimit=yes 图像播放结束后立刻移除粒子
+Radius= 伤害范围？貌似无效，粒子最多影响1X1
+
+
+;地形ini代码
+
+RampBase=
+　　基础的斜坡地形编号，默认为"9"
+　　
+　　MMRampBase=
+　　框架模式中基础的斜坡地形编号，默认为"7"
+　　
+　　ClearTile=
+　　Clear地形编号，就是一张新建地图的地形，比如TEMPERATE和NEWUTBAN中的草地，LUNAR中的月表，原版编号都为"0"
+　　
+　　RoughTile=
+　　Rough地形编号，在TEMPERATE中为深色草地
+　　
+　　ClearToRoughLAT=
+　　当开启了自动斜面功能后，用这个地形来做Clear地形和Rough地形之间的过渡，必须有"16"个地形块，且地形素材的命名为"01",01a,01b...以此类推
+　　
+　　SandTile=
+　　Sand地形变化，在TEMPERATE中为泥地（也有翻译为碎石草地的）
+　　
+　　ClearToSandLat=
+　　和ClearToRoughLAT一个意思
+　　
+　　GreenTile=
+　　Green地形编号，在TEMPERATE中为沙地
+　　
+　　ClearToGreenLat=
+　　和ClearToRoughLAT一个意思
+　　
+　　PaveTile=
+　　Pave类地形编号，在TEMPERATE中为水泥
+　　
+　　MiscPaveTile=
+　　带着废墟和坑坑洼洼的水泥编号，也有直接翻译为废墟的
+　　
+　　ClearToPaveLat=
+　　和ClearToRoughLAT一个意思
+　　
+　　HeightBase=
+　　在框架模式中，如果没有特意设定，那么每个地形单元就显示这个地形，需要有"15"个地形块，对应"0"到"14"的高度，素材命名为"01","02","03"...依此类推
+　　
+　　BlackTile=
+　　用这个地形的素材来在游戏中渲染不存在的地形单元，如果地图没有问题，这个功能毫无用处
+　　
+　　BridgeSet=
+　　桥头地形的编号，一般来说是水泥桥头，默认为"19"
+　　
+　　WoodBridgeSet=
+　　也是桥头地形的编号，不过是木桥的
+　　
+　　TrainBridgeSet
+　　有上面两句代码的解释，这句白痴都应该明白吧
+　　
+　　BridgeTopLeft1=
+　　BridgeTopLeft2=
+　　BridgeBottomRight1=
+　　BridgeBottomRight2=
+　　BridgeTopRight1=
+　　BridgeTopRight2=
+　　BridgeBottomLeft1=
+　　BridgeBottomLeft2=
+　　是在桥头地形中，每个个方向的编号，注意这里的编号是桥头这一类地形中所包含的地形块的编号，看不懂的请对照原版桥头地形中桥头的方向
+　　后面的"1"和"2"："1"是指陆地桥头，"2"是指水岸桥头
+　　
+　　BridgeMiddle1=
+　　BridgeMiddle2=
+　　桥头地形中桥梁支柱地形的编号，也请对照原版桥头地形
+　　
+　　CliffSet=
+　　悬崖地形编号，就是用FA2悬崖绘制功能绘制出来的地形，默认为"10"　　
+
+　　CliffRamps=
+悬崖斜坡编号，也有译作大斜坡的，反正是与CliffSet接壤的
+　　
+　　WaterCliffs=
+　　水岸悬崖地形编号，默认为"15"
+　　
+　　DestroyableCliffs=
+　　可被摧毁的悬崖编号（又译作滑坡的悬崖），别问我怎么摧毁
+　　
+　　ShorePieces=
+　　水岸地形编号，默认为"12"
+　　
+　　WaterSet=
+　　水面地形编号，默认为"21"
+　　P.S:在LUNAR地形中加入了新的水面却无法随机绘制？把这个的编号换成你新增水面的编号吧
+　　
+　　Ice1Set=
+　　Ice2Set=
+　　IceShoreSet=
+　　TS残留的冰面设置　　
+　　
+　　MonorailSlopes=
+　　铁路斜坡地形编号，废弃功能
+　　
+　　Tunnels=
+　　公路的隧道口编号
+　　　　
+　　TrackTunnels=
+　　DirtTunnels=
+　　DirtTrackTunnels=
+　　这几个东西原版都是乱的，到时候乱填得了，反正都是隧道口
+　　
+　　WaterfallEast=
+　　WaterfallWest=
+　　WaterfallNorth=
+　　WaterfallSouth=
+　　四个方向的瀑布编号
+　　
+　　PavedRoads=
+　　高速公路编号
+　　
+　　PavedRoadEnds=
+　　高速公路尽头编号
+　　
+　　Medians=
+　　街道人行道编号，就是用来放在高速公路正中间的玩意
+　　
+　　RoughGround=
+　　停车场足球场游泳池地形的编号
+　　
+　　DirtRoadJunction=
+　　小路/街道分支编号，默认为"17"
+　　
+　　DirtRoadCurve=
+　　小路/街道弯道编号，默认为"16"
+　　
+　　DirtRoadStraight=
+　　小路/街道直道编号，默认为"18"
+　　
+　　WaterCaves
+　　不是什么“水中隧道”，而是水帘洞的编号
+　　
+　　PavedRoadSlopes=
+　　高速公路斜坡编号
+　　
+　　DirtRoadSlopes=
+　　小路/街道斜坡编号
+　　
+　　SlopeSetPieces=
+　　不明，似乎是和CliffRamps是一样的，反正都填一样的编号
+　　
+　　SlopeSetPieces2=
+　　似乎是SlopeSetPieces的框架模式地形编号
+　　
+　　ACliffPieces=
+　　不明，似乎也是悬崖编号，但与CliffSet不重合，在NEWURBAN中编号为"76"
+　　
+　　ACliffMMPieces=
+　　框架模式中ACliffPieces的地形编号
+　　
+　　WaterCliffAPieces=
+　　水岸悬崖编号，与WaterCliffs不重合，在NEWURBAN中编号为"78"
+　　
+　　MMWaterCliffAPieces=
+　　框架模式中WaterCliffAPieces的地形编号
+　　
+　　WaterBridge=
+　　怎么说来着？就是浅水碎石路那种玩意的编号　　
+　　
+
+　　
+　　SetName=
+　　地形在地图编辑器中显示的名字（注：这在地图编辑器的FAlanguage.ini中还能二次更改，具体方法自己摸索）
+　　
+　　FileName=
+　　地形块素材文件名前缀，后面添加"01",01a,"02",02a什么的
+　　
+　　TilesInSet=
+　　这种地型中有多少个地形块，注意"01",01a,01b这样命名的只算一个
+
+LastTilesInSet=
+　　-The number of tiles which the set used to have. This tells the
+　　game that the number of tiles in the set has changed and it should fix up
+　　the tile numbers when a map is loaded. If the map is then saved again,
+　　it will be saved with the correct tile numbers. This value should only
+　　be used to load up maps, convert the tile numbers, then save the maps
+　　out again. Then the LastTilesInSet entry should be removed or the newly
+　　fixed up maps will not load correctly.
+　　什么乱七八糟，反正原版这句代码从来没用过
+　　
+　　MarbleMadness=
+　　这种地形在框架模式下对应的地形，用于框架模式的显示
+　　
+　　NonMarbleMadness=
+　　一种用于框架模式的地形对应哪个地形，和MarbleMadness反着
+　　
+　　注：如果不加MarbleMadness，那么这种地形在框架模式下显示的就是HeightBase地形，如果你把MarbleMadness填了本身，比如编号为225的地形你填了225，那么这个地形在普通和框架模式下显示的都一样
+　　
+　　Morphable=
+　　填true或flase，指定这种地形是否能够被升高或降低？（原版中Clear可以，Rough,Green,Sand都不可以）
+　　
+　　LowRadarColor=
+　　HighRadarColor=
+　　填RGB值，似乎是指雷达图中地形显示的颜色。疑似无效，而由地形块本身的设置来决定
+　　
+　　AllowBurrowing=
+　　填true或flase，指定潜地单位能否在这种地形上下潜
+　　
+　　RequiredForRMG=
+　　填true或flase，指定这种地形能否在随机地图上出现
+　　
+　　AllowToPlace=
+　　填true或flase，指定这种地形能否在地图编辑器中调用，一般用于框架模式的地形都设定为flase
+　　
+　　ToTemperateTheater=
+　　The equivilent tile section in the temperate theater
+　　不明，似乎是在地图类型转换时地形的转换设置
+
+　　ToSnowTheater=
+　　The equivilent tile section in the snow theater
+　　不明，似乎是在地图类型转换时地形的转换设置
+　　
+　　ShadowCaster=
+　　这种地形是否能投影（在原版中没用过）
+
+
+;地图相关ini
+CD=
+需要放哪张光盘才能运行。光盘版遗留语句，最好都写成CD=2
+Scenario=
+地图文件名，自定义，battlemd.ini, mapselmd.ini里对应语句要相同
+FinalMovie=
+结束时播放哪个BIK电影，这是RA1遗留下来的垃圾语句，因为从RA2起，播放电影完全由任务地图来定义。
+DebugOnly=
+非任务入口有这条
+Description=
+在battlemd.ini中这是任务入口的特殊语句，表示鼠标悬停时在最下方显示什么说明文字，在CSF中定义
+对于非任务入口来说多余了（带括号），不知不写会不会有问题，可能选关会用到
+多人地图中代表显示的地图名
+mapselmd.ini里不用管
+
+VoiceOver=
+MapVQ= 
+Overlays= 
+Targets= 
+ClickMap= 
+不用管
+
+Briefing=Brief:Sov01md 
+游戏过程中按TAB键，显示的任务简报，在CSF中定义
+UIName=Name:Sov01md 
+决定该任务的名称，直接影响存档信息的名称
+LSLoadMessage=LoadMsg:Sov01md 
+载入画面时出现的任务信息，在任务标题栏，军事行动：任务名+地点
+LSLoadBriefing=LoadBrief:Sov01md 
+载入画面时出现的任务信息，任务目标那块
+LS640BriefLocX=20 
+LS640BriefLocY=20
+LS800BriefLocX=20
+LS800BriefLocY=20
+载入画面时出现的任务信息显示在哪个坐标位置上
+
+LS640BkgdName=LS640S01.SHP 
+无用
+LS800BkgdName=LS640S01.SHP 
+在YR中载入界面默认只能用800的分辨率，该语句决定选用哪副SHP图象作为载入图
+LS800BkgdPal=LS640S01.PAL 
+对应该SHP使用哪个调色板文件，不定义的话小心画面失色
+
+MinPlayers=
+多人地图最小玩家数
+MaxPlayers=
+多人地图最大玩家数
+GameMode=
+多人地图游戏模式
+standard 作战
+teamgame 小队联盟
+meatgrind 生死斗（隐藏）
+nukewar 核战（隐藏）
+navalwar 海战（隐藏）
+megawealth 巨富（隐藏）
+cooperative 合作战役（隐藏）
+duel 抢地盘（隐藏）
+
+MCVDeploy=
+是否允许基地重新部署
+FixedAlliance=
+是否允许结盟
+
+
+;声音相关ini
+Sounds=
+该音效的声音文件列表
+Control=
+声音文件播放方式
+Volume=
+播放音量
+Sound=
+主题音乐的文件名
+Repeat=
+是否循环播放，默认否
+

@@ -1,0 +1,2918 @@
+﻿
+WaterImage= (VehicleType)
+ 
+在水中转换为这个单位的素材，参考武装直升机，只是借用壳子.需要注意的是shp单位并不支持这个逻辑。
+使车辆瘫痪变黑，爆出火花，不能移动和开火，悬浮单位落地，能变车辆的建筑变回的车辆还是EMP状态，飞机秒杀，一切命中的防御建筑瘫痪，玩具坦克控制中心失效，要电的超武计时停止，雷达黑屏，子机发射器的子机立刻坠毁，奴矿的奴隶罢工一会，武直变形完毕后才会失效，矿车在效果结束之后才会继续挖矿。
+ EMP动画由[General]>EMPulseSparkles=EMP_FX01控制，现在每个单位可以自定义独立的EMP动画，弹头也可以设置其EMP效果。
+ 
+EMP.Sparkles= (animation)
+当该单位被EMP时显示该动画。默认[General]?EMPulseSparkles
+ 
+EMP.Sparkles= (animation) 
+弹头的EMP效果，如果设置了该语句就会覆盖单位本身的EMP效果。只有在单位本身已经没有其他EMP效果时才会表现。
+注意TS里使用Damage来控制EMP时间，在Ares中新加入了两条语句(EMP.Duration and EMP.Cap)控制，原先的语句是没用的。
+ 
+EMP.Duration= (integer - frames)
+EMP.Cap= (integer - frames)
+以上两条语句都被用来控制效果持续多长。
+每个单位都有个EMP计时器，这就是原理。
+如果你想让被EMP单位瘫痪十秒：EMP.Duration=150
+
+正数EMP.Duration，EMP.Cap大于"0"，EMP叠加效果，但是计数器最大值不会大于设定的cap，如果被此弹头攻击之前计数器已经大于这个cap，则保持不变，总之cap应该是一个武器能造成的给EMP计数器增加的最大值；EMP.Cap=0，还是EMP攻击，不过计数器无上限；EMP.Cap="-1"，EMP将EMP计数器的数字立刻变成EMP.Duration的数字，除非本来的计数器已经比EMP.Duration大了；负数 EMP.Duration，EMP计数器减少EMP.Duration的数字；EMP.Cap 大于"0"，EMP计数器按EMP.Duration减少，但是必然小于等于EMP.Cap，如果减少一次后仍大于，强制改写为EMP.Cap；EMP.Cap=0，立刻激活单位
+
+EMPAIRecoverMission= (mission) 
+当AI的单位被EMP，解除后执行的动作。默认Hunt。
+ 
+ImmuneToEMP= (boolean) 
+是否免疫EMP
+
+以下建筑默认不免疫 Powered=yes  Power=负数
+ 
+带以下标签的建筑默认不免疫
+雷达
+超武
+变车辆
+玩具坦克控制器
+裂缝/隐形产生器
+探测隐形单位
+鸡光墙
+ 
+步兵
+除Cyborg=yes以外默认免疫 
+车辆飞机
+除Organic=yes外默认不免疫
+
+人工设定的免疫会超越默认值生效
+新的老兵精英升级包括EMP免疫： VeteranAbilities=EMPIMMUNE；EliteAbilities=EMPIMMUNE
+
+EMP.Modifier= (float - multiplier)
+对EMP的抗性，只受到EMP影响的百分之几
+
+
+EngineerCaptureLevel=(float - percent)
+多少百分比血以下建筑才能一个工程师占领，在这之前工程师造成伤害
+ 
+EngineerDamage= (float - percent)
+工程师占领前一个扣多少百分比血
+ 
+EngineerAlwaysCaptureTech= (boolean) 
+总是占领科技建筑，无视血量
+ 
+EngineerDamageCursor.*=(cursor definition) 
+自定义鼠标动作
+
+AllowMultiEngineer= (bool) 
+启用多位工程师勾选框
+现在探照灯已经能够正常使用，并且更强大。
+ 
+HasSpotlight= (boolean)
+是否使用探照灯，现在探照灯能够用于单位，建筑上的按原样扫描，车上的只能往前
+ 
+Spotlight.StartHeight= (integer - leptons)
+探照灯射出的高度，默认"430"
+ 
+Spotlight.Distance= (integer - leptons)
+探照灯射出的距离
+ 
+Spotlight.AttachedTo= (enumeration - one of body|turret)
+从单位的哪个单位射出来，车体，炮塔或炮管？
+ 
+Spotlight.DisableRed= (boolean)
+Spotlight.DisableGreen= (boolean)
+Spotlight.DisableBlue= (boolean)
+光照参数（不使用红色，绿色，蓝色）
+ 
+Spotlight.DisableColor= (boolean)
+黑灯
+ 
+;以下的值填写1.0即升为精英单位，填写2.0即升为老兵单位，0.0无效果。
+ 
+Academy.InfantryVeterancy= (double - veterancy levels) 
+拥有这样的建筑后步兵以及带有Organic=yes的车辆得到多少经验
+ 
+Academy.AircraftVeterancy= (double - veterancy levels)
+拥有这样的建筑后空军以及带有ConsideredAircraft=yes的车辆得到多少经验
+ 
+Academy.VehicleVeterancy= (double - veterancy levels) 
+拥有这样的建筑后载具得到多少经验
+ 
+Academy.BuildingVeterancy= (double - veterancy levels)
+拥有这样的建筑后建筑得到多少经验
+ 
+ 
+;以下语句可以用来指定部分单位得到训练所的影响，不写的话就是默认全部一类单位
+ 
+Academy.Types= (list of TechnoTypes)
+这些单位会受到训练所的影响
+
+Academy.Ignore= (list of TechnoTypes)
+这些单位不会受到训练所的影响
+和NP有点不一样。
+ 
+ 
+;新增装甲列表，强制所有弹头或和对现有某个装甲完全一样，或全部是一个比率
+ 
+Versus.magic= (float - modifier)
+ 
+该弹头对magic护甲的伤害百分比
+ 
+因为WW弱智的拼写错误，现在旧弹头还是Verses=，不过ARES里少于"11"个也不IE，新弹头用Versus
+ 
+弹头百分比特殊值
+"0%" 不主动不还击不响应强行攻击
+"1%" 不还击不主动攻击
+"2%" 不主动攻击
+ 
+
+Versus.shit.ForceFire=
+是否对shit护甲可以强行攻击
+
+Versus.shit.Retaliate=
+是否可以对shit护甲反击
+
+Versus.shit.PassiveAcquire=
+是否对shit护甲主动攻击
+ 
+Versus.flakImmuneToFrost=0%
+Versus.flakImmuneToFrost.ForceFire=yes
+Versus.flakImmuneToFrost.Retaliate=yes
+Versus.flakImmuneToFrost.PassiveAcquire=yes
+当一个飞机受到严重损伤或者被击落时会产生一堆尾烟，这个尾烟是硬编码的，也就是说所有飞机的尾烟都是一样的，现在可以对每架飞机进行自定义。
+ 
+Smoke.Anim= (animation)
+ 
+产生的尾烟。默认SGRYSMK1
+ 
+Smoke.ChanceRed= (integer - percent)
+ 
+严重损伤时产生烟雾的密度（每帧），越大越多。默认"10"
+ 
+Smoke.ChanceDead= (integer - percent)
+ 
+被击落时产生烟雾的密度（每帧），越大越多。默认"80"
+
+ 
+AirRate= (integer - number of frames)
+ 
+如果该值大于零，规定了该单位在空中时，计划要给该单位几帧的动画，AirRate覆盖WalkRate与IdleRate，若该值为零，则禁用AirRate，默认为"0"
+ 
+ 
+VoiceAirstrikeAttack= (soundmd entry)
+空袭单位进入地图时的语音。默认AirstrikeAttackVoice
+ 
+VoiceAirstrikeAbort= (soundmd entry) 
+空袭单位在开火前，指示单位被干掉时的语音。默认AirstrikeAbortSound
+海豹的增强换装系统。
+ 
+AlternateTheaterArt= (boolean)
+例如，给单位设置Image=JUNK和AlternateTheaterArt=yes会使这个单位使用雪地装[JUNKA]，沙漠装[JUNKD] 等等，没有相应SHP默认[JUNK]，比原来的更灵活
+
+
+AttachEffect.Animation= (AnimationType)
+赋予属性的单位伴随的动画，就像伊文炸弹那样，动画要注册
+ 
+AttachEffect.Duration= (integer) 
+属性持续时间，默认为"0"
+ 
+AttachEffect.TemporalHidesAnim= (boolean)
+被超时空武器攻击时是否停止动画？默认否
+ 
+AttachEffect.SpeedMultiplier= (float - multiplier)
+速度加成
+
+AttachEffect.ArmorMultiplier= (float - multiplier)
+装甲加成
+
+AttachEffect.FirepowerMultiplier= (float - multiplier)
+伤害加成
+
+AttachEffect.ROFMultiplier= (double - multiplier) 
+ROF的因数，就像国家设置里的那样。被影响的单位的攻击间隔会乘以这里指定的数值，默认"1.0"。
+须注意，ROF数值并不是实时影响，仅在开火时赋予。因此如果一个单位处于该状态时开火，在状态结束后ROF不会对应变化。
+比如设置AE效果ROF2倍，一个ROF为"15"的单位的ROF将会变为"30"，而开火后的瞬间AE效果消失了，但ROF仍然会按照"30"计算，不会对应缩短为"15"。
+
+AttachEffect.Cloakable= (boolean)
+隐形加成
+ 
+AttachEffect.ForceDecloak= (boolean) 
+如果设置为是，那么使用该AE的单位会强制现行，默认否
+ 
+AttachEffect.DiscardOnEntry= (boolean)
+如果设置为是，那么当这个单位从地图上消失，比如进入建筑或单位里，AE效果会消失，默认否
+ 
+AttachEffect.PenetratesIronCurtain= (boolean) 
+决定该AE是否能够在目标单位/建筑上有铁幕或力盾时附加上，默认否。
+
+AttachEffect.Delay= (integer)
+该单位获得AE后多少时间内不能够再接收AE效果，负值为不重置效果。默认"0"，立刻马上
+ 
+AttachEffect.InitialDelay= (integer - frames)
+定义AE的初始间隔，即附着后多长时间生效。"0"代表立刻。默认"0"。
+
+ 
+AttachEffect.Cumulative= (boolean)
+是否能够叠加作用，默认否
+ 
+AttachEffect.AnimResetOnReapply= (boolean)
+如果不能叠加作用，再次赋予属性时会重设动画，默认否
+ 
+
+ 
+Carryall.SizeLimit= (integer)
+ 
+吊运规格的最大限制，默认为能够吊运任意单位即值为"-1"
+ 
+Carryall.Allowed= (boolean)
+ 
+这个载具能否吊运，Organic=yes和NonVehicle=yes的单位不能吊运. 如果指定那么覆盖全局，目前不可能“撤消”这个标签，所以必须指定这个标签
+ 
+蜘蛛什么的不能吊运
+该单位要成功吊运必须要有AirportBound=no并且没有Dock=，否则不能吊运
+建议不要吊运船，否则放不回水里，而扔到地上会爆掉，所以船尽量设置Carryall.Allowed=no
+
+ 
+Abductor= (boolean)
+如果设置为是，武器能够吸入单位，当该单位被摧毁时被吸入的单位会重新出现.奴隶和自己会被归属到Special，如果该单位吸满了或者该单位无法吸入，就使用正常的武器伤害，默认否
+确保这个单位有乘客位置，而且设置大小限制为"0"否则吸入会受限制
+建筑无法使用该逻辑否则IE
+ 
+Abductor.Anim= (animation)
+单位被吸入时产生的动画
+ 
+Abductor.ChangeOwner= (boolean)
+被吸入的单位是否会归属到攻击者的所属，默认否
+ 
+Abductor.AbductBelowPercent= (float)
+只有低于这个血量百分比的单位才会被吸入，默认"100%"
+ 
+Abductor.MaxHealth= (integer - hitpoints) 
+HP数值高于此处设定的话就不能被抓过来。"0"代表不检查，默认"0"。
+ 
+ImmuneToAbduction= (boolean)
+这个单位不能被吸入只会受到伤害，默认否
+ 
+PassengerTurret= (boolean)
+吸单位后会改变炮塔，吸入一个改变一次
+"0" passengers footur.vxl
+"1" passenger footur1.vxl
+"5" passengers footur5.vxl
+要用这个逻辑该单位必须使用Turret=yes，TurretCount，WeaponX
+ 
+Chronoshift.Allow= (boolean)
+指定这个单位能否被空间转移超武转移，默认是
+
+Chronoshift.IsVehicle= (boolean)
+这个建筑能否（被视为载具）被转移，默认否
+ 
+Chronoshift.Crushable= (boolean)
+如果设置为no，那么这个单位不会被超时空传送过来的单位压在下面，取而代之的是被超时空传送过来的单位被摧毁（下克上）。不要用在建筑上。默认yes
+ 
+ChronoInfantryCrush= (boolean) 
+如果设置为no，步兵传到坦克上时会死而不是把坦克摧毁。默认yes
+
+ 
+CivilianEnemy= (boolean)
+这种单位是否被视为主动攻击目标。默认否
+ 
+
+ 
+AutoRepel= (boolean)
+是否AI会把攻击友军单位的平民单位视为敌人。这能够使附近的单位阻止这种情况。默认否
+ 
+PlayerAutoRepel= (boolean)
+是否玩家会把攻击友军单位的平民单位视为敌人。这能够使附近的单位阻止这种情况。默认否
+
+Crashable= (boolean)
+飞机是否坠毁而不是爆炸，写no爆炸，写yes坠毁
+ 
+
+ 
+CrashSpin= (boolean)
+是否旋转着掉下来，如果不希望这样就写no，默认是
+注意
+该逻辑只适用飞机，基洛夫这样的实际上是载具类的不能用。
+
+CustomPalette= (filename with .pal extension)
+ 
+如果要在不同地表用不同的色盘，请使用~~~作为代表气候类型，例如：
+-CustomPalette=abcd.pal一直使用abcd.pal
+-CustomPalette=lib~~~.pal使用libtem.pal, libsno.pal, etc.
+ 
+注意
+如果用于抛射体，你需要注册
+建筑建造形状和大小随便定义，还能做多边形
+注意给战车工厂用这个会变得蛋疼，所以不要用这个逻辑
+多边形建筑用固体高度那玩意儿会蛋疼
+为了方便计算，压缩包里有个工具可以用来弄这玩意儿
+文件地址为Documentation/_downloads/custom_foundation.html
+ 
+CameoPalette= (filename, *including* the .pal extension)
+SidebarPalette= (filename, *including* the .pal extension)
+Insignia.Rookie= (filename, excluding the .shp extension)
+Insignia.Veteran= (filename, excluding the .shp extension)
+Insignia.Elite= (filename, excluding the .shp extension)
+分别对应新兵，精英，老兵时的军衔
+
+InsigniaFrame= (integer - frame index) 
+InsigniaFrame.Rookie= (integer - frame index) 
+InsigniaFrame.Veteran= (integer - frame index) 
+InsigniaFrame.Elite= (integer - frame index) 
+从军衔中使用的帧。设置"-1"来使用默认帧。默认"-1"。
+
+EnemyInsignia= (boolean)
+敌人是否能看到你的单位的等级，默认是
+
+Insignia.ShowEnemy= (boolean)
+这个单位能否把等级给敌人看，默认[General]?EnemyInsignia
+ 
+注意
+观察者还是看得到的。
+
+Parachute.Anim= (animation)
+ 
+该单位使用哪个降落伞动画，降落伞动画默认单位色盘
+指定单位获得经验的方法。
+以下本体单位不能带有Trainable=no，不然无效，如果乘客，空袭飞机，被控单位，子机带有Trainable=no，那么其获得经验将全部给予本体。
+ 
+Experience.FromPassengers= (boolean)
+载具里的乘客开火载具能够得到经验，默认是
+
+Experience.PromotePassengers= (boolean)
+如果载具满级那么乘客得到经验，默认否
+
+Experience.PassengerModifier= (float - multiplier)
+如果一个击杀是由乘客做的，那么所得经验为这个百分比，默认"100%"
+
+Experience.FromAirstrike= (boolean)
+如果一个击杀由鲍里斯那样的召唤飞机做的, 召唤者能够得到经验而不是给飞机，默认否
+
+Experience.AirstrikeModifier= (float - multiplier)
+召唤飞机摧毁对方获得的经验比，默认"100%"
+
+Experience.MindControlSelfModifier= (float - multiplier)
+控制的单位摧毁敌方，控制者获得的经验百分比，默认"0%"
+
+Experience.MindControlVictimModifier= (float - multiplier)
+控制的单位获得的经验百分比，默认"100%"
+如果控制者和战斗要塞的所有者不是盟友的话，控制战斗要塞这样的单位，里面的乘客开火摧毁敌方后获得的经验不算在里面. 控制友军单位摧毁敌方，控制者不会得经验。
+
+Experience.SpawnOwnerModifier= (float - multiplier) 
+子机摧毁敌方单位，航母获得的经验百分比，设置在航母上，默认"0%"
+
+Experience.SpawnModifier= (float - multiplier)
+子机摧毁敌方单位，子机获得的经验百分比，设置在航母上，默认"100%"
+ 
+Promote.IncludePassengers= (boolean) 
+是否所有有Trainable=yes的单位会被设置为与该载具相同的等级。默认no
+
+Missile.Custom= (boolean)
+是否为自定义导弹
+ 
+Missile.PauseFrames= (integer)
+Missile.TiltFrames= (integer)
+Missile.PitchInitial= (float)
+Missile.PitchFinal= (float)
+Missile.TurnRate= (float)
+Missile.RaiseRate= (float)
+Missile.Acceleration= (float)
+Missile.Altitude= (integer)
+Missile.Damage= (integer)
+Missile.EliteDamage= (integer)
+Missile.BodyLength= (integer)
+Missile.LazyCurve= (boolean)
+Missile.Warhead= (Warhead)
+Missile.EliteWarhead= (Warhead)
+Missile.TakeOffAnim= (Animation)
+Missile.TrailerAnim= (Animation)
+Missile.TrailerSeparation= (integer)
+相关参数，不需要翻译
+ 
+Missile.Weapon= (Weapon)
+导弹用这个武器来产生伤害，意味着可以很简单地做带辐射的导弹。如果不设置，就用Missile.Damage和Missile.Warhead产生伤害
+
+Missile.EliteWeapon= (Weapon) 
+三星时用的武器
+ 
+DamageSparks= (boolean)
+定义该单位是否会飙出DamageParticleSystems所指定的粒子系统。默认InfantryTypes是Cyborg时有，其他都不会有
+ 
+
+ 
+DamageSmokeParticleSystems= (list of ParticleSystems)
+定义使用的烟雾粒子系统。默认为所有有BehavesLike=Smoke设置的DamageParticleSystems
+
+DamageSparksParticleSystems= (list of ParticleSystems)
+定义使用的火花粒子系统。默认为所有有BehavesLike=Spark设置的DamageParticleSystems
+
+EMP.Threshold= (enumeration - one of yes|no|inair *or* integer - frames)
+制定该单位是否会被EMP摧毁. 如果使用整数那么该单位在承受如此剂量的EMP后才会被摧毁。
+正数表示达到这个量摧毁单位，填yes等同于"1"
+负值表示只有在空中达到这个量才会摧毁这个单位. 填inair等同于"-1"
+"0"就是无效，等同于no
+ 
+你可以创建一个陆地单位，在承受一定的EMP也会被摧毁，或者像武直一样的单位，陆地不会被摧毁，然而在空中承受100帧EMP后掉下来。
+被EMP，需要驾驶员的载具无驾驶员，失去控制中心控制的单位会变黑，现在可以对变黑的程度进行自定义。
+ 
+DeactivateDimEMP= (float - multiplier)
+被EMP的单位的变黑程度。默认"0.8"
+ 
+DeactivateDimOperator= (float - multiplier)
+需要驾驶员的载具无驾驶员时的变黑程度。默认"0.65"
+ 
+DeactivateDimPowered= (float - multiplier)
+失去控制的单位的变黑程度。默认"0.5"
+
+注意
+这个值一般取"0"到"1"之间，写"1"就是和原来亮度一样，如果超过"1"那么会变亮，你要做特殊效果我没话说。
+SHP类的单位是不会被这个影响的。
+
+Doggie= (boolean)
+这个步兵是否被指定为泰伯利亚恶魔，表现如下：在守备模式下趴在泰矿上，攻击接近过来的东西，并且在受伤时会跑到泰矿上治疗，这个单位需要有Crawls=yes，否则趴不下来，如果要表现得是个野生动物别忘了加上NotHuman=yes来避免死亡时的人类死亡动画
+
+ 
+Drain.Local= (boolean)
+是否一次只能吸目标建筑的电，或者该建筑被吸电是是否连带整个基地的电力，默认否
+ 
+Drain.Amount= (integer)
+吸多少电，如果是正值，那么表示该单位最多能吸多少电，或者是该建筑最多能被吸多少电，如果是负值，那么表示该单位至少能吸多少电，或者是该建筑至少能被吸多少电，默认"0"，该语句必须有上面那个语句才有效
+现在没有[General]>DropPodWeapon也是可以产生空降仓的，当然你设定也可以。
+ 
+DropPodTrailer= (AnimationType)
+空降仓降落时的尾烟。默认SMOKEY
+ 
+DropPodTypes= (list of InfantryTypes)
+空降仓里的兄贵类型，只能是步兵，可以设多个，出来的可能性都是一样的。默认none，火风暴里是E1和E2
+
+DropPodMinimum= (integer)
+丢下来的套子的最小数量。默认"0"，火风暴里是"5"
+
+DropPodMaximum= (integer)
+丢下来的套子的最大数量。默认"0"，火风暴里是"8"
+
+
+BuiltAt= (list of BuildingTypes)
+指定在哪个建筑建造
+
+Factory.ExplicitOnly= (boolean)
+是否只允许指定单位建造，默认否
+ 
+CloningFacility= (boolean)
+允许该建筑克隆载具，默认否
+ 
+Cloneable= (boolean)
+该单位能否被克隆，默认是
+
+ClonedAt= (list of BuildingTypes)
+在哪里克隆
+
+ClonedAs= (TechnoType) 
+当被克隆时，克隆成什么，如果不设定，就是单位本身。注意，不能跨类型克隆。
+和铁幕一样，机场护盾对某建筑的微观效果也能够自定义了。
+ 
+ForceShield.Modifier= (float - multiplier)
+填百分比，该建筑被罩护盾后的实际受影响时间将会是力场护盾本身的时间乘以这个值，如果填"0"那么该建筑无法罩护盾，默认"100％"
+
+
+GateDownSound= (sound name)
+开启盖特声音
+ 
+GateUpSound= (sound name)
+关闭盖特声音
+
+Gattling.Cycle= (boolean)
+当到达最后一阶盖特后，会跳回第一阶
+
+IsCow= (boolean)
+[COW]默认是，其他否，表现为像奶牛一样乱跑
+ 
+IsDesolator= (boolean)
+[DESO]默认是，其他否，表现为部署后会自动释放副武器，取决于武器的RadLevel与步兵所在格子的剩余辐射量（存疑）
+  
+
+WeaponTurretIndexX=(integer - turret index)
+在WeaponX和EliteWeaponX启用时将使用这个炮塔，通过乘客的IFVMode来定义。
+X是从"1"到WeaponCount的数。默认值为"-1"。
+注意：
+当步兵的IFVMode是0时WeaponX的X应该是"1"。例如，IFVMode=4会启用Weapon5指定的武器，使用的炮塔也是WeaponTurretIndex5。
+
+
+WeaponUINameX= (CSF label) 
+有Gunner=yes的单位可以让每一个武器有自己的提示文本
+
+VoiceIFVRepair= (soundmd entry)
+FV维修语音微观定义
+
+VoiceIFVRepair= (soundmd entry)
+FV维修语音宏观定义，只用于[FV]
+ 
+VehicleThief=yes
+是否是劫车犯
+
+VehicleThief.EnterSound= (Sound name)
+进车声音
+ 
+VehicleThief.LeaveSound= (Sound name)
+被偷载具破坏劫车犯出来的声音
+ 
+VehicleThief.BreakMindControl= (boolean)
+是否能偷窃被心灵支配的载具，当进入载具该载具会切断与控制者的联系，默认为是
+ 
+VehicleThief.OneTime= (boolean)
+劫车犯是否只能偷一次车（载具摧毁后将无法逃出）
+ 
+VehicleThief.KillPilots= (integer)
+劫车犯偷装人的车能够杀死多少人，"-1"为杀死全部人，默认为"0"
+ 
+VehicleThief.Allowed= (boolean)
+该载具是否允许被偷窃，默认为是
+ 
+注意
+劫车犯不能偷友军与中立车辆，被狙杀驾驶员的车辆不能开，但是可以连用VehicleThief=yes和CanDrive=yes来允许。
+ 
+HunterSeekerDetonateProximity= (integer)
+能够引爆目标的距离，单位是leptons。默认"0"，TS里是"150"
+
+HunterSeekerDescendProximity= (integer)
+距离目标多远是狩猎者开始下降，单位是leptons。默认"0", TS里是"700"
+
+HunterSeekerAscentSpeed= (integer)
+当升到一个更高的飞行高度时的速度。默认"0"，TS里是"40"
+
+HunterSeekerDescentSpeed= (integer)
+当降到一个更低的飞行高度时的速度。默认"0"，TS里是"50"
+
+HunterSeekerEmergeSpeed= (integer)
+从发射设施发出时的速度。默认"0"，TS里是"6"
+ 
+
+HunterSeeker.DetonateProximity= (integer)
+HunterSeeker.DescendProximity= (integer)
+HunterSeeker.AscentSpeed= (integer)
+HunterSeeker.DescentSpeed= (integer)
+HunterSeeker.EmergeSpeed= (integer)
+我想不需要翻译这个…
+ 
+
+HunterSeeker.Ignore= (boolean)
+是否狩猎者不把这个单位作为攻击目标，即使没有其他目标了狩猎者也不会对其进行攻击。默认否
+原版中步兵被InfDeath=5的动画击杀，强制使用动画列表里的那个触电死亡动画，现在可以正常指定。
+ 
+InfantryElectrocuted= (animation)
+触电死亡时用这个动画，如果不指定就寻找ELECTRO作为触电死亡动画
+这个逻辑允许被弹头击中的载具驾驶员挂掉，载具变为中立状态，就像RA3娜塔沙的F技一样，无载具的单位能够被占领。
+ 
+KillDriver= (boolean)
+该弹头能否杀死驾驶员
+ 
+KillDriver.Owner= (enumeration - civilian,special,neutral)
+驾驶员被杀后载具归属。默认special
+ 
+KillDriver.KillBelowPercent= (float)
+该弹头只有在被打击单位的生命低于这个百分比时才能杀死驾驶员。默认100%
+ 
+KillDriver.Chance= (float - percentage) 
+设定当单位可以被击杀驾驶员时，有多大的概率被击杀驾驶员。默认100%
+
+KillDriver.RemoveVeterancy= (bool)
+当一个单位被狙杀驾驶员之后，移除它的等级。默认no。
+ 
+ProtectedDriver= (boolean)
+该载具驾驶员能否被杀死。默认能
+ 
+CanDrive= (boolean)
+该载具能否占领驾驶。默认不能
+
+CanBeDriven= (boolean) 
+决定一个单位的初始驾驶员被击杀后，能否使用新的驾驶员占领。如果是，就可以。默认yes。
+现在该逻辑已经可以被CellSpread影响了。
+
+LightningRod= (boolean)
+是否能够吸引雷击
+ 
+LightningRod.Modifier= (float - modifier)
+被雷击的伤害百分比
+
+MakeInfantryOwner= (enumeration invoker|killer|victim|neutral|random)
+决定是谁的invoker看情况|killer击杀者|victim死人|neutral野生|random随机
+一堆next动画的话 MakeInfantry=应该写在最后一个，MakeInfantryOwner= 应该写第一个，动画使用单位色盘
+ 
+这东西，MakeInfantryOwner 只对InfDeathAnim, DeathAnims和地图触发生效 ，默认是看情况
+InfDeathAnim是击杀者
+DeathAnims是死人
+触发里的就是触发的拥有国家
+ 
+ 
+PoweredBy= (list of BuildingType)
+该单位被该建筑控制
+ 
+注意PoweredBy= 能够用于独立的建筑，这样就能实现两种建筑同时对该单位有操控权，即使一个建筑被摧毁另一个建筑依然能让该单位运行。
+
+ 
+Operator= (list of TechnoTypes or“_ANY_”)
+指定某个驾驶者才能操作，_ANY_的话是任意驾驶者都行，默认none，不需要驾驶者
+这个单位必须至少有一个乘客位置，建筑则需要设置InfantryAbsorb=yes或UnitAbsorb=yes
+ 
+建筑没有操作者只会表现出无法使用武器，但是诸如生产，超武，反部署，雷达等不会受到影响
+ 
+需要注意的是AI不会用这样的功能，所以应该避免AI造需要操作者的单位
+
+ 
+IsPassable= (boolean)
+该建筑所在的格子能不能让载具和步兵站在上面或者通过。默认否
+图标能使用PCX文件而不仅仅是SHP了，这可以使图标更精细。
+ 
+在artmd.ini里:
+CameoPCX= (filename, *including* the .pcx extension)
+AltCameoPCX= (filename, *including* the .pcx extension)
+指定该单位的PCX图标，格式为“filename.pcx“
+ 
+在rulesmd.ini里:
+SidebarPCX= (filename, *including* the .pcx extension)
+超武用，和上面一样
+ 
+和其他PCX文件一样，需要用索引色，并且图标PCX必须是"256"色且大小为60x48像素。
+
+Pip= (integer) 
+填数字，用pips文件内的哪一帧作为驻兵时的格子样式，pips文件名为“pips.shp”和“pips2.shp”，可行的值为"0"到总帧数"-1"，如果为无效值将会IE
+
+Prerequisite.RequiredTheaters= (list of theater names)
+需要这种气候才能造
+TEMPERATE - most maps
+SNOW - arctic/snowy maps
+URBAN - some city maps
+DESERT - some desert maps, older maps use Temperate
+LUNAR - Soviet Mission "6"
+NEWURBAN - most YR urban maps
+ 
+PrerequisiteOverride不会覆盖Prerequisite.RequiredTheaters
+ 
+ 
+Prerequisite.Negative= (list of BuildingTypes)
+有这个建筑就没法造
+ 
+PrerequisiteOverride不会覆盖Prerequisite.Negative
+ 
+ 
+Prerequisite.Lists= (integer)
+指定有多少建造前提
+
+Prerequisite.List= (list of BuildingTypes (where # is the 1-
+指定新的建造前提，想设置多少都可以（根据Prerequisite.Lists决定）
+ 
+ 
+Prerequisite.StolenTechs= (list of integers)
+指定有多少偷窃前提，其他具体的参考后面的偷窃科技条目
+ 
+ 
+FactoryOwners.Permanent= (boolean)
+FactoryOwners.HaveAllPlans= (boolean)
+占领该建筑后是否获得对应工厂的专用科技，效果为永久（即一旦占领不可撤销），默认否。
+
+FactoryOwners.HasAllPlans= (boolean)
+占领该建筑后是否获得对应工厂的专用科技，效果为临时（即一旦失去建筑则失去科技），默认否。
+ 
+FactoryOwners= (list of houses)
+这个列表内国家的工厂可以建造该单位。如果是空的，每个国家都可以建造。此外，玩家至少需要一个在该列表内国家的工厂来建造或者这些国家里至少一个的科技树来建造它。
+
+FactoryOwners.Forbidden= (list of houses)
+与上面相反，这个列表内国家的工厂不能建造该单位。
+注意
+AI无视建筑上的这两条语句，仅在单位上有效
+ 
+
+
+ 
+PrismForwarding= (enumeration - yes|no|forward|attack)
+决定此建筑是否可以递光。
+
+PrismForwarding=forward 代表此建筑可以为其他建筑递光，但自身不能接受递光。
+PrismForwarding=attack 代表此建筑可以接受递光，但自身不能为其他建筑递光。
+PrismForwarding=yes 代表此建筑具备完整的递光功能 - 既可以递光也可以接受递光。
+PrismForwarding=no 
+代表此建筑不启动递光逻辑。
+[General]>PrismType中的建筑默认yes，其他建筑默认no。
+
+PrismForwarding.Targets= (list of BuildingTypes)
+这个建筑能够递光支援的建筑
+
+PrismForwarding.MaxFeeds= (integer)
+最大支援数量，"-1"表示无限制，默认[General]>PrismSupportMax覆盖
+
+PrismForwarding.MaxChainLength= (integer)
+反向连接数量，"-1"表示无限制，默认"1"
+
+PrismForwarding.MaxNetworkSize= (integer)
+如果开火中的塔超过支援的塔，这个标签表示在递光网络的总数，不包括开火中的塔，默认[General]>PrismSupportMax覆盖
+
+PrismForwarding.SupportModifier= (float - multiplier)
+递光杀伤倍数，默认[General]>PrismSupportModifier覆盖
+
+PrismForwarding.DamageAdd= (integer - damage bonus)
+增加固定的伤害而不是倍数，默认"0"
+
+PrismForwarding.MyHeight= (integer - leptons)
+递光高度，默认[General]>PrismSupportHeight覆盖 （"3.0"已废除此标签）
+
+PrismForwarding.ToAllies= (boolean)
+是否能支援友军的塔，默认否
+
+PrismForwarding.BreakSupport= (boolean)
+可以在终止的最后一刻进行支援，而不需要重新充能，默认否
+
+PrismForwarding.ChargeDelay= (integer - frames)
+递光时充能的延迟，默认"1"，最好别动（作者如是说，这玩意儿是用来测试玩的）
+
+PrismForwarding.Intensity= (integer - laser thickness)
+随着递光增加激光的宽度
+
+Overpowerable= (boolean)
+是否能攻击递光同时进行
+
+PrismForwarding.SupportWeapon= (weapon)
+PrismForwarding.EliteSupportWeapon= (weapon)
+副武器的递光不再使用而是用这个标签的武器递光
+ 
+ProduceCashStartup=-700000
+让一个单位能够干扰雷达，进入这个单位的干扰范围内雷达将会黑掉，对自己和友军的雷达无效。
+
+RadarJamRadius= (integer - radius in cells)
+干扰范围
+
+
+ReverseEngineersVictims= (boolean)
+允许逆向工程逻辑，默认否
+
+SpyEffect.UndoReverseEngineer= (boolean)
+间谍能取消掉所有逆向工程，默认否
+
+CanBeReversed= (boolean)
+这个单位能被逆向制造，默认是
+
+ReversedAs= (TechnoType) 
+这个单位被逆向工程后，作为什么单位被给予。如果不设置则为该单位本身。默认不设置。
+在TS里支持凝固汽油弹等纵火武器的动画效果，现在这个功能已经在ARES里恢复了，这个效果由SmallFire和LargeFire这两个标签定义。
+ 
+Scorch= (boolean)
+这个动画会将[AudioVisual]>SmallFire指定的动画蔓延到周围，不过不会在水，冰，岩石等地方产生
+ 
+Flamer= (boolean)
+这个动画会在周围随机产生[AudioVisual]>SmallFire和[AudioVisual]>LargeFire指定的动画 
+ 
+
+ 
+SecretLab.PossibleBoons= (list of TechnoTypes)
+随机的可以出现的东西
+ 
+SecretLab.GenerateOnCapture= (boolean)
+每次占领都重新随机一个东西，如果否的话在进入地图就定死，反复占领也都是一个单位，默认否
+ 
+SecretLab.RequiredHouses= (list of countries)
+只有这个国家占领才能获得单位
+ 
+SecretLab.ForbiddenHouses= (list of countries)
+除了这个国家其他国家占领都能获得单位
+单位视野在YR里最多只能到"10"，和弹头范围一样现在视野也可以写更大的值。
+ 
+注意
+视野太大的话可能导致一个蛋疼的八角形的视野轮廓，所以不要滥用，更不要用这个来开全图……（这个以后或许会修复）
+
+
+ 
+SubjectToBuildings= (boolean)
+这个抛射体是否会被建筑阻挡，默认为否
+ 
+SolidLevel= (integer)
+这个抛射体所能承受的坚固程度，如果这个值高于或等于建筑的坚固程度，那么这个单位将会直接对建筑后的目标进行攻击，首先摧毁障碍再说，如果低于建筑的坚固等级，那么就不能开火，必须绕过建筑进行攻击，默认"0"
+ 
+SolidHeight= (integer - cells)
+建筑的阻挡高度，默认为"0"，即可以完全穿透，"-1"意味着可以完全阻挡，单位为格，一格等于"256"像素
+ 
+注意：不建议用在不是矩形或者镂空的建筑上，例如巴黎铁塔这种越往上越尖的建筑，因为炮弹打上去可能表现得像是在半空爆炸
+ 
+SolidLevel= (integer) 
+建筑的坚固程度，默认"1"
+ 
+
+AlliedSolidTransparency= (boolean)
+写yes的话可以透过，默认否
+
+
+SpyEffect.Custom= (boolean)
+该建筑能否渗透
+
+SpyEffect.ResetRadar= (boolean)
+是否是雷达，被黑后黑掉地图
+
+SpyEffect.RevealRadar= (boolean)
+是否把敌人的地图给你
+
+SpyEffect.KeepRadar= (boolean)
+如果启用那么会一直持续效果 
+
+SpyEffect.PowerOutageDuration= (integer - frames)
+停电时间
+
+SpyEffect.StolenMoneyAmount= (integer - credits)
+SpyEffect.StolenMoneyPercentage= (float - multiplier)
+固定偷多少钱  偷钱百分比
+两者同时定义时，效果为偷取百分之多少的钱，最多不超过多少。比如"75%"，"10000"，那么将偷取敌方"75%"当前资金，但最多只能偷到"10000"钱
+ 
+
+SpyEffect.ResetSuperweapons= (boolean)
+重新计时
+ 
+SpyEffect.SuperWeapon= (SuperWeaponType)
+获得一次该超武使用权
+ 
+SpyEffect.SuperWeaponPermanent= (boolean)
+永久使用权，需要上面语句。默认no 
+
+SpyEffect.StolenTechIndex= (integer)
+这个建筑的偷窃项（0-31）
+
+Prerequisite.StolenTechs= (list of integers)
+这个单位需要偷窃这个偷窃具有某个偷窃项的建筑才能被偷出来（0-31），可以多指定几个
+ 
+比如你要弄一个超空间尤里，需要偷窃尤里兵营和盟军机场，那么就可以给兵营的偷窃项设置"1"，机场设置"2"，然后超空间尤里设置"1","2"，这样超空间尤里就必须偷了以上两个建筑才能建造。
+ 
+如果你给[GATECH], [NATECH]或者[YATECH]（总之就是三方高科）设置了SpyEffect.Custom=yes， 那么旧的偷窃语句就不再适用。
+ 
+
+SpyEffect.UnitVeterancy= (boolean)
+是否偷窃后能让同类单位出厂老兵
+只支持步兵和载具
+
+SpyEffect.InfantryVeterancy= (boolean)  
+ 当这个建筑被渗透时，Trainable=yes的步兵初始一级。需要SpyEffect.Custom=yes. 默认no。
+ 
+SpyEffect.VehicleVeterancy= (boolean) 
+ 当这个建筑被渗透时，Trainable=yes的载具初始一级。需要SpyEffect.Custom=yes. 默认no。
+
+SpyEffect.NavalVeterancy= (boolean)  
+ 当这个建筑被渗透时，Trainable=yes的海军初始一级。需要SpyEffect.Custom= yes. 默认no。
+
+SpyEffect.AircraftVeterancy= (boolean)  
+ 当这个建筑被渗透时，Trainable=yes的飞机初始一级。需要SpyEffect.Custom= yes. 默认no。
+
+SpyEffect.BuildingVeterancy= (boolean)   
+ 当这个建筑被渗透时，Trainable=yes的建筑初始一级。需要SpyEffect.Custom= yes. 默认no。
+ 
+SpyEffect.RevealProduction= (boolean)
+是否可以看到对方在造什么
+
+不同建筑的特殊效果
+ 
+Fake=yes 显示TXT_FAKE并且在工具条显示真实名称
+Power 显示电力，格式为TXT_POWER_DRAIN2
+Storage 显示现金，格式为TXT_MONEY_FORMAT_1
+Factory 显示图标 
+
+ 
+
+SpyEffect.SabotageDelay= (integer - frames) 
+设置当该建筑被渗透时，过指定帧数后爆炸（就像被安了C4一样）。如果设定负值，则读取[CombatDamage]?C4Delay，设定"0"将取消这个功能。默认"0"。
+
+SpyEffect.Nothing= (boolean) 
+当这个建筑被渗透时，什么也不会发生。需要SpyEffect.Custom=yes，且需要没有其他SpyEffect设定。默认no。
+
+Survivor.Side#= (InfantryType) (#代表阵营例如"0"代表盟军(GDI)，"1"代表苏联(Nod)，"2"代表尤里(ThirdSide))
+什么阵营产生什么步兵，可以同一种建筑或单位但是不同阵营产生不同步兵。默认和阵营里设置的基础步兵一样
+
+Crew.TechnicianChance= (integer - percent between 0 and 100)
+产生技师的几率。有主武器的建筑默认"15"，其他"0"
+
+Survivor.Pilots= (integer)
+会产生多少单位，有Crewed=yes 默认"1"，没有就是"0"
+
+Survivor.RookiePilotChance= (integer between 0 and 100)
+Survivor.VeteranPilotChance= (integer between 0 and 100)
+Survivor.ElitePilotChance= (integer between 0 and 100)
+新兵，老兵，精英时驾驶员逃出概率，没有的话[General]?CrewEscape控制
+
+Survivor.RookiePassengerChance= (integer between 0 and 100)
+Survivor.VeteranPassengerChance= (integer between 0 and 100)
+Survivor.ElitePassengerChance= (integer between 0 and 100)
+乘客逃出概率，在空中必死
+值得一提的是逃出的驾驶员和载具获得的经验值量是相同的，相对而言。
+ 
+
+Crew.EngineerChance= (integer - percent between 0 and 100)
+占有者逃出工程师的几率（代替一般逃兵），正常情况下被占领建筑绝对不会出工程师除非加上这个语句，默认Factory=BuildingType类建筑是25（25％），其他都是0
+
+
+TeamRetaliate= (boolean)
+是否允许团队复仇。默认否
+
+ 
+ReturnStructures= (boolean)
+是否被占领建筑可以回归中立方当占有者败北或投降时，默认否
+ 
+Returnable= (boolean)
+是否该建筑可以回归中立方，默认[General]?ReturnStructures
+ 
+LostEvaEvent= (EVA event) 
+当该已经被我方占领的科技建筑被其他玩家占领时播放EVA语音。需要NeedsEngineer=yes。默认EVA_TechBuildingLost
+
+Message.Capture= (CSF label)
+占领时显示CSF。需要NeedsEngineer=yes。默认none
+
+Message.Lost= (CSF label)
+丢失时显示CSF。需要NeedsEngineer=yes。默认none
+通过该功能可以手动关闭或开启某个建筑的电源供应来停止其机能，这样可以在电力不足的时候得到应急用的电力。
+ 
+TogglePowerAllowed= (boolean)
+是否允许手动切换电源，默认否，在游戏里默认没有这个功能的热键，需要自己在键位设置里找
+ 
+TogglePowerCursor= (cursor definition)
+停电时的鼠标指针
+
+TogglePowerNoCursor= (cursor definition)
+如果该建筑不能停电，就使用这个鼠标指针
+ 
+建筑被切断电源后，和维修小扳手表现相同，敌人看不到标志，观察者可以看到，不过如果两种状态同时存在会优先表现维修小扳手，停电标志是poweroff.shp，使用鼠标色盘
+ 
+小地图切换电源指针不支持
+ 
+TogglePower= (integer)
+定义这个等级的AI会切换电源，默认-1
+ 
+TogglePowerDelay= (integer - frames)
+切换电源的延迟，默认45
+
+
+GroupAs= (string)
+把这个单位归类于该选择组里，选择组名字不能太长（低于"20"个字母），比如你可以把三种工程师都标为ENGINEER，这样选择任意一个工程师就能全选三种工程师（总感觉翻译得很啰嗦，算了不管了）
+ 
+TypeSelectUseDeploy= (boolean)
+能够变形或者部署的单位是不是在变形后依然归属于原来的选择组，默认是
+现在单位被毁可以设置其独有的EVA语音，当然也可以借此把EVA语音关闭，这样就不用给单位写不计入损失数的语句什么的了
+当然，有DontScore=yes，Insignificant=yes或者Spawned=yes的单位是不会被播报的。
+ 
+EVA.Lost= (evamd entry)
+填none就是不播报，单位默认是EVA_UnitLost，建筑默认是none
+需要控制的单位
+如果像遥控坦克这样的单位隐形，被杀死驾驶员之类的方法失去隐形后，这个反正依然能被友军的隐形装置影响。
+寄生单位
+现在蜘蛛钻隐型单位不会被甩出来。
+空中单位的隐形
+现在空中的单位也能受到隐形装置的影响
+有Cloakable=yes或CLOAK 能力升级的单位可以无视高度而隐形. 其他的则可以用以下语句来调整：
+ 
+CloakHeight= (integer) 
+在该高度下才能隐形。默认为[General]?HoverHeight的值（悬浮单位高度）
+ 
+ 
+DecloakSound= (Sound) 
+全局方面暴露出的声音，默认和 [AudioVisual]?CloakSound一样
+ 
+CloakSound= (Sound) 
+微观调控该单位进入隐形状态的声音。默认为 [AudioVisual]?CloakSound
+ 
+DecloakSound= (Sound) 
+微观调控该单位暴露出的声音。默认为 [AudioVisual]?DecloakSound
+ 
+
+
+Cloakable.Stages= (integer) 
+要经历多少层才能进入隐形状态，越小越快。默认为[General]?CloakingStages
+
+有CloakStop=yes的单位只有在静止时才隐形，移动时会暴露，有BalloonHover=yes的单位无效
+部署时才隐形
+该步兵必须有Cloakable=yes或CLOAK能力升级。
+
+
+Cloakable.Deployed= (boolean) 
+需要部署才能隐形，默认否
+ 
+Cloakable.Powered= (boolean) 
+是否要有电才隐形，默认否
+
+Cloakable.Allowed= (boolean)
+是否可以隐形，如果写否那么就算用隐形装置也不能让这玩意儿隐形，默认是
+
+
+StealthSpeakDelay= (double - minutes, defaults to 0.0) 
+在相邻两次反隐形通报中间隔几分钟。
+
+SubterraneanSpeakDelay= (double - minutes, defaults to 0.0) 
+在相邻两次反钻地通报中间隔几分钟。
+ 
+
+SensorArray.Warn= (boolean) 
+如果写否那么即使这个单位被传感器侦测到也不会发出警告。默认是
+ 
+
+
+InitialPayload.Types= (list of TechnoTypes)
+初始载荷这些单位，可以写多个，不允许写建筑和空军！由于连环套会导致死循环，所以修复了，可以放心用
+ 
+InitialPayload.Nums= (list of integers)
+数量，对应上面那个，不设定的话全部都是"1"
+
+ 
+Passengers.Allowed= (list of TechnoTypes) 
+这些单位可以进入这个单位。如果你想让所有单位都进不去，就设置成一个假单位或者一个建筑
+
+Passengers.Disallowed= (list of TechnoTypes)
+这些单位不允许进入这个单位
+ 
+
+Passengers.BySize= (boolean) 
+决定这个载具在装载乘员的时候，是否读取Size，如果no，则载具能装载相当于它Passengers数量的单位。（即所有成员只占"1"格）。默认yes。
+需要注意的是，SizeLimit是永久读取的。
+
+NoManualFire= (boolean)
+是否不能手动选择目标进行攻击，仅依靠单位自身判断进行攻击。默认no
+ 
+NoManualUnload= (boolean)
+是否不能手动卸载乘员。默认no
+ 
+NoManualEnter= (boolean)
+是否不能手动装载乘员。默认no
+
+NoSelfGuardArea= (boolean)
+是否不能手动区域防御。默认no
+
+Saboteur= (boolean)
+是否这个步兵可以进入可破坏建筑。这个建筑将会像按了C4一样被摧毁，并且破坏者在这个过程中被消耗。需要Infiltrate=yes。不能和偷车贼逻辑，CanDrive=yes, C4和Occupier=yes语句连用。默认为no
+ 
+ImmuneToSaboteurs= (boolean)
+这个建筑能否被破坏，如果填yes，破坏者就不能进入。如果写了CanC4=no或者TechLevel=-1或者CanBeOccupied=yes则默认yes，其他情况下为no
+
+
+CanPassiveAquire.Guard= (boolean)
+是否在防御模式（放在那不管）下能够主动攻击，如果设置no，那么这个单位不会主动攻击，不过在区域防守模式下依然可以主动攻击。默认yes
+
+CanPassiveAquire.Cloak= (boolean)
+是否能够主动攻击当隐形并且在防御模式，如果设置no, 那么这个单位在隐形时不会主动攻击，，不过在区域防守模式下依然可以主动攻击。CanPassiveAquire.Guard=no会覆盖这个标签，默认yes
+ 
+如果第一条yes（默认），第二条no，那隐形坦克在隐形状态就不会主动攻击，但是暴露时就会主动攻击，或者一些平时不会隐形的单位，也可以设置这条，当偶然获得隐形时就不会随便惹事了。
+
+ 
+OmniCrusher.Aggressive= (boolean)
+这个单位是否会在攻击时老是想着去压对方，即使它跑得比西方记者还慢，如果否，这个单位不会想法设法接近对方碾毙之。需要OmniCrusher=yes。默认yes
+
+CrushDamage= (integer - hitpoints)
+CrushDamage.Rookie= (integer - hitpoints)
+CrushDamage.Veteran= (integer - hitpoints)
+CrushDamage.Elite= (integer - hitpoints)
+当载具压过带有以上语句的单位时会对碾压者造成的伤害。默认"0"
+ 
+CrushDamage.Warhead= (Warhead)
+碾压伤害的弹头。默认[General]>C4Warhead
+一个武器有DiskLaser=yes的时候不结算AnimList=，ARES让动画有效。
+ 
+DiskLaserAnimEnabled= (boolean)
+总而言之设置yes就对了。默认no
+突击者属于一种巷战类的逻辑，原版当中有Assaulter=yes的单位可以进入驻兵建筑将建筑清空，ARES可以定义建筑以及突击者的突击等级。
+
+Assaulter.Level= (int)
+定义单位的突击等级，写在步兵上可以突击小于或等于其等级的建筑，写在建筑上定义防突击等级。默认"0"
+注：建筑的突击等级小于0的话意味着完全不能突击。
+
+
+Degrade.Enabled= (boolean)
+是否启用该逻辑，伤害频率由DamageDelay定义
+
+Degrade.Percentage= (double - percentage)
+损伤持续到建筑总血量的百分之几，"1"为不会损伤，0""为损伤到建筑摧毁。默认黄血就停止损伤，即[AudioVisual]?ConditionYellow
+
+Degrade.AmountNormal= (int - hitpoints)
+电力充足时损伤伤害，默认"0"
+
+Degrade.AmountConsumer= (int - hitpoints)
+电力不足时损伤伤害，默认"1"
+
+Degrade.Percentage= (double - percentage)
+损伤持续到多少停止。默认[General]?Degrade.Percentage
+
+Degrade.Amount= (int - hitpoints)
+伤害量，默认电力充足时和[General]?Degrade.AmountNormal一样，其他情况[General]?Degrade.AmountConsumer
+
+
+Degrades= (boolean)
+是否该国家启用该逻辑，有MultiplayPassive=yes的国家默认no，其他yes
+Degrades= (boolean)
+同上，不过这个是用于任务的，默认[Country]?Degrades
+
+
+ReloadAmount= (integer)
+弹药一次恢复多少，不支持负值。默认"1"
+
+EmptyReloadAmount= (integer)
+写0或负值就会让单位打完所有弹药后不会恢复，默认ReloadAmount
+ 
+注意：以上不支持飞机类单位
+ 
+ReloadRate= (double - minutes)
+恢复速率，停靠建筑必须有UnitReload=yes。默认[General]?ReloadRate
+ 
+
+NoAmmoWeapon= (integer)
+当弹药用尽后切换至另一武器。值为"0"是主武器，"1"为副武器，"-1"不切换武器。默认"-1"
+注意
+该标签不能覆盖被载具和步兵上的DeployFire=yes启用的DeployFireWeapon。
+
+NoAmmoAmount= (integer)
+如果弹药等于低于该值，则启用NoAmmoWeapon。默认"0"
+
+
+SelfHealing.Rate= (double - minutes)
+自愈速率。默认[General]?RepairRate.
+
+SelfHealing.Max= (double - percentage)
+自愈上限，自愈至总血量的多少后就不再自愈。单位升级后的自愈上限可以用下面3条语句调整。默认100%
+
+SelfHealing.RookieMax= (double - percentage)
+SelfHealing.VeteranMax= (double - percentage)
+SelfHealing.EliteMax= (double - percentage)
+对应新兵，老兵，精英的自愈上限。默认SelfHealing.Max
+
+SelfHealing.Amount= (integer - hitpoints)
+自愈时每次恢复多少血量，不能低于"0"。默认"1"
+
+SelfHealing.RookieAmount= (integer - hitpoints)
+SelfHealing.VeteranAmount= (integer - hitpoints)
+SelfHealing.EliteAmount= (integer - hitpoints)
+无需多言。默认SelfHealing.Amount
+
+SelfHealing.CombatDelay= (integer - frames) 
+在单位攻击（到底是攻击还是被攻击尚不清楚）之后多长时间不能自愈。默认"0"。
+
+Fake= (boolean)
+定义该建筑为假建筑。默认no
+
+EnemyUIName= (csf string)
+非友方看该建筑时显示这个名称，而不是真实名称。
+注意：目前该逻辑只适用于建筑，以后或许会扩展至所有类型单位。
+
+FakeOf= (TechnoType) 
+这个单位是什么单位的假单位。当使用快捷键查询该单位时，会重定义到原本的单位上。比较著名的是摸3的天秤和妹妹的关系。默认none。 
+ 
+ImmuneToBerserk= (boolean) 
+决定一个单位是否免疫狂暴，即神经突击车的攻击效果。可以覆盖ImmuneToPsionics和psionicsimmune升级能力的效果。如果yes，即使ImmuneToPsionics=no也能免疫狂暴；如果no，单位一定能被混乱气体影响。默认ImmuneToPsionics或psionicsimmune升级能力
+原版当中强制将可回收且1x1占地的建筑视为单位，如果你框框A的话就会把这些建筑也框选进来，现在有个语句来防止这种情况发生。
+
+MassSelectable= (boolean) 
+写no就不会被框选进来。 
+
+CrushDamage= (integer - hitpoints) 
+CrushDamage.Rookie= (integer - hitpoints) 
+CrushDamage.Veteran= (integer - hitpoints) 
+CrushDamage.Elite= (integer - hitpoints)
+这个单位被碾压时对碾压者造成的伤害，第一条优先级高于后面三条。默认"0" 
+
+CrushDamage.Warhead= (Warhead)
+碾压伤害弹头。默认[General]>C4Warhead 
+ 
+BountyEnablers= (list of BuildingTypes)
+只有在玩家拥有这个列表里的建筑时才会激活赏金逻辑，如果这个列表是空的，那么赏金逻辑不需要任何条件就激活，写none就是屏蔽该逻辑。默认none
+
+BountyDisplay= (boolean)
+是否摧毁单位获得赏金时显示获得效果。默认no
+ 
+
+Bounty= (boolean)
+该单位是否拥有获得赏金的能力。默认no
+
+Bounty.Display= (boolean)
+是否摧毁单位获得赏金时显示获得效果。默认[AudioVisual]?BountyDisplay
+ 
+Bounty.Value= (integer - credits)
+被杀时猎人获得多少赏金，可以设置负值用于惩罚玩家，如果设置，将重置下面几条。默认0
+
+Bounty.RookieValue= (integer - credits) 
+Bounty.VeteranValue= (integer - credits) 
+Bounty.EliteValue= (integer - credits)
+默认Bounty.Value。
+
+ 
+DamageRange= (double - cells)
+烟雾类粒子伤害范围，如果低于或等于"0.0"，所有在烟雾粒子所在单元格上的单位都会受到影响，每个单位都只受到一次影响。默认"0.0"
+ 
+;有形类粒子自定义色盘
+Palette= (filename with .pal extension)
+这还用得着解释？？默认ANIM.PAL 
+ 
+;动画可以产生粒子，但是不能设置产生位置，一定是在动画中心产生，现在可以设置偏移
+SpawnsParticle.RangeMinimum= (double - cells)
+距离动画中心产生粒子的最小距离。默认"0.0"
+如果写负值则使用其绝对值，这使得粒子产生位置有两倍几率更接近动画中心。
+
+SpawnsParticle.RangeMaximum= (double - cells)
+最大距离，必须大于等于最小距离。默认"0.0"
+除了使用动画型轨迹，ARES允许将烟雾类粒子系统挂在抛射体上，这会使得抛射体在飞向目标的过程中产生烟雾粒子，这个系统在VoxelAnimTypes上也有效。
+
+AttachedSystem= (ParticleSystemType)
+该抛射体使用该粒子系统，只有BehavesLike=smoke支持。
+
+
+FactoryPlant.Multiplier= (double - multiplier)
+单位的工业工厂倍率，最终的折扣将会乘以工业工厂本身的倍率，完全支持"-1.0"到"1.0"，"0.0"使倍率无效。默认"1.0"
+例子：如果工业工厂倍率是"0.6"，单位倍率为"0.5"，那么最后的价值将会是成本的"0.8"倍。换句话说：如果一个单位的价格减少了"60%"，乘数只有补助一半的成本，最终价格将在原始成本的"80%"。
+AlexB的奇思妙想，这TM搞得也太复杂了，我看了半天才看明白大概意思，这里以我的见解解释一下：假设一个"1000"块的单位，它的工业工厂倍率是"0.5"，而工业工厂将会使所有单位降价到原价的"60%"，即"0.6"，则降价的部分是原价的"40%"，乘以单位本身的倍率，则实际降价"20%"，最终单位价格是"800"，给个公式方便理解。
+单位最终价格=单位原价-[单位原价x（"1"-工业工厂倍率）x单位倍率]
+
+
+VeteranFlashTimer= (integer - frames)
+升级到老兵时闪光多长时间。默认"0"
+ 
+
+Promote.VeteranSound= (sound)
+单位升级到老兵时播放音效。默认[AudioVisual]>UpgradeVeteranSound
+
+Promote.EliteSound= (sound)
+单位升级到精英时播放音效。默认[AudioVisual]>UpgradeEliteSound
+
+Promote.VeteranFlash= (integer - frames)
+升级到老兵闪光多长时间。默认[AudioVisual]>VeteranFlashTimer
+
+Promote.EliteFlash= (integer - frames)
+精英。默认[AudioVisual]>EliteFlashTimer
+
+EVA.VeteranPromoted= (EVA message)
+当单位升级到老兵是播放EVA。默认EVA_UnitPromoted
+
+EVA.ElitePromoted= (EVA message)
+精英。默认EVA_UnitPromoted
+精英和老兵时转换单位（NPExt多段升级）
+只支持同类单位相互转换（步兵变步兵，载具变载具，飞机变飞机）
+- 如果新单位子弹总数更少，则减少子弹数。 
+- 生命值会被重新计算以使用新的Strength。
+- 隐形会正常的移交。 
+- 探照灯会重新定位。
+
+Promote.VeteranType= (TechnoType)  
+如果设置了，则当单位升级至老兵级时转换为该单位。默认none。
+
+Promote.EliteType= (TechnoType) 
+如果设置了，则当单位升级至精英级时转换为该单位。 默认none。
+
+Promote.VeteranExperience= (double) 
+该代码用来给予被老兵转换后的单位初始得到的经验倍率。可以将一个单位转换为另一个无等级的单位。（用"-1.0"来降低一级，这样一个老兵级单位变形后会成为另一个新兵级单位。）默认"0.0"。
+
+Promote.EliteExperience= (double) 
+同上，不过用于精英级转换时。默认"0.0"。
+提示：如果单位跳过老兵级直接升级为精英级，则不会启动老兵级转换。 
+注意：升级转换并不是递进的：假如一个单位转换后所处的经验等级仍然能够转换为下一个单位，这时转换不会发生。
+警告：转换有很多限制。比如如果转换后的步兵比以前更大（指Size），而他已经处于满载的载具里，升级转换不会发生。你不能改变Locomotor，如果单位可以进入载具或者建筑，并且单位可以升级，你不应该改变这个单位的大小。不能转换成有特殊武器的单位(时空，心控，寄生),……
+精英和老兵时获得的能力
+EMPIMMUNE 免疫EMP
+PROTECTED_DRIVER 免疫狙杀驾驶员
+RADIMMUNE 辐射免疫
+UNWARPABLE 无法被超时空传送
+POISONIMMUNE 免疫毒
+PSIONICWEAPONIMMUNE 免疫精神攻击
+PSIONICSIMMUNE 免疫控制（心灵控制超武依然可以有效） 
+ 
+现在可以设置宝箱当中钱的随机量。
+RandomCrateMoney= (integer - credits)
+一个随机数从"0"到该语句设置的值将加到钱箱给定的基本数值，设置"0"将不会产生随机数，永远是钱箱给定的数值。默认"900"
+
+
+FallRate.Parachute= (integer) 
+一个有降落伞的单位的空降加速度。默认"1".
+
+FallRate.NoParachute= (integer) 
+一个无降落伞的单位的空降加速度。默认"1".
+
+FallRate.ParachuteMax= (integer) 
+有降落伞的单位的最大下落速度，值必须为负。默认[General]?ParachuteMaxFallRate.
+
+FallRate.NoParachuteMax= (integer) 
+无降落伞的单位的最大下落速度，值必须为负。默认[General]?NoParachuteMaxFallRate.
+Ares支持单独设定炮台ROT而不是读取单位的ROT。
+
+TurretROT= (integer) 
+设置单位炮台的转向速度。有效值域从"0"到"127"。默认[TechnoType]?ROT.
+
+
+
+BuildupTime= (double - minutes) 
+建筑物的拔起所需时间。默认[General]>BuildupTime.
+ 注意：建筑物仍会在被放置下来的一瞬间就可以工作，而不是完全建成之后。
+
+SellTime= (double - minutes) 
+与建造时间相似不过是在变卖的时候用的。默认BuildupTime
+
+
+AIBuildCounts= (list of integers) 
+AI将在不同难度下建造几个这种建筑，依次为困难，中等，简单。设定数值必须大于等于"1"。默认"1,1,1"
+
+AIExtraCounts= (list of integers)
+AI将在不同难度下额外建造几个这种建筑，依次为困难，中等，简单。AI将会在随机建造完之后，额外建造建筑物。设定数值必须大于等于"0"，默认"0,0,0"
+
+
+AIBaseNormal= (boolean) 
+决定AI能否用此建筑进行拓展，当建筑既有UndeploysInto=又有ResourceGatherer=yes时为否，或者当一个建筑被判定为载具的时候也为否（即1x1的可以反部署的建筑）。
+
+AIInnerBase= (boolean) 
+决定AI是否会把这个建筑放到基地内部。默认同CloakGenerator的设定。
+ 
+ 
+;现在将可以设置当资金匮乏时维修是否暂停，而不是停止。
+
+RepairStopOnInsufficientFunds= (boolean)
+设置当资金匮乏时，维修是否会被停止。如果否，维修模式将不会被关闭，扳手将仍然可视，尽管建筑已经不是被修理的状态了。当资金恢复时，维修会一同恢复。这个逻辑只对玩家生效。默认是。
+全局设置的Dig和DigSound已经可以在有钻地行为的单位身上局部定义了，并且分成了钻入和钻出两部分。
+
+DigIn= (animation) 
+当单位钻入地面时播放的动画。默认[AudioVisual]>Dig.
+
+DigOut= (animation) 
+当单位钻出地面时播放的动画。默认[AudioVisual]>Dig.
+
+DigInSound= (sound entry) 
+当单位钻入地面时播放的音效。默认[AudioVisual]>DigSound.
+
+DigOutSound= (sound entry) 
+当单位钻出地面时播放的音效。默认[AudioVisual]>DigSound.
+ 
+ 
+;移动指针被用在以下场合上：设置工厂的集结点，反部署建筑物，命令单位移动。
+Cursor.Move= (mouse cursor) 
+指定单位的可移动指针，默认为Move
+
+Cursor.NoMove= (mouse cursor) 
+指定单位的不可移动针织，默认为NoMove
+
+
+;部署指针被用在以下场合上：释放驻军或乘员，单位的部署命令，或某些单位的副武器（比如尤里）。
+Cursor.Deploy= (mouse cursor)
+指定单位的可部署指针，默认为Deploy
+
+Cursor.NoDeploy= (mouse cursor) 
+指定单位的不可移动指针，默认为NoDeploy
+
+
+;进入指针被用在一下场合上：进入坦克碉堡（Bunker=yes），进入发电机（InfantryAbsorb=yes或UnitAbsorb=yes），进入回收站（Grinding=yes），进入维修厂或机场（UnitRepair=yes）以及进入载具。需注意的是间谍行为等非正常进入不是使用进入指针的。
+
+Cursor.Enter= (mouse cursor)
+命令其他单位进入此单位显示的指针，默认为Enter
+
+Cursor.NoEnter= (mouse cursor) 
+其他单位不可进入此单位显示的指针，默认NoEnter
+
+Cursor.Spy= (mouse cursor) 
+间谍渗透建筑物的时候显示这个指针。默认Enter
+
+
+武器的攻击指针也可以单独定义。
+Cursor.Attack= (mouse cursor) 
+当单位在攻击距离内时，显示的指针。默认为Attack
+
+Cursor.AttackOutOfRange= (mouse cursor) 
+当单位不在攻击距离内时显示的指针。默认为AttackOutOfRange
+注意：当有两种以上的单位被选中，这个逻辑就没用了。
+
+Passengers= (integer)
+这种地道网络系统所能容纳的最大人数，每个单元占用一格容量。
+
+MaxSize= (double)
+能进入隧道的单位的最大尺寸，大于这个值的单位进不来。
+ 
+
+
+Tunnel= (TunnelType)
+设置该建筑的隧道类型
+注意：
+隧道建筑是不允许拥有武器和炮塔的，更不能使用超空间监狱和心灵控制逻辑。
+警告：
+悬浮单位在进入UnitAbsorb=Yes的建筑时有BUG（虽然我不知道是啥BUG），在进入隧道入口的建筑有同样的问题。
+
+EngineerRepairable= (boolean) 
+决定工程师是否能进入修理建筑，如果no，则建筑仍然可以被扳手维修，但不能被工程师维修。默认同Repairable。
+
+BuildTime.Speed= (double - minutes) 
+每花费1000块钱所使用的分钟数。默认 [General]> BuildSpeed。 
+
+如果设置了，带有Wall= yes的建筑将不会再应用WallBuildSpeedCoefficient。 
+
+BuildTime.Cost= (integer - credits) 
+如果设置了，建筑的建造时间将使用这里设置的Cost进行计算，而不使用建筑自己的Cost。默认Cost。 
+建筑的建造时间=(Cost/"1000")*BuildSpeed 
+
+BuildTime.LowPowerPenalty= (double - modifier) 
+低电力时的建造时间惩罚倍数。默认[General]>LowPowerPenaltyModifier 
+
+BuildTime.MinLowPower= (double) 
+低电力时生产速度的最小值。默认[General]>MinLowPowerProductionSpeed。 
+
+BuildTime.MaxLowPower= (double) 
+低电力时生产速度的最大值。默认[General]>MaxLowPowerProductionSpeed 。
+
+BuildTime.MultipleFactory= (double - multiplier) 
+多工厂生产的建造速度因数。默认[General]>MultipleFactory。 
+
+AIFriendlyDistance= (integer - cells) 
+这个数值用于给AI在友军基地附近聚集单位。默认[General]>AISafeDistance
+
+Damage.Delay= (integer - frames) 
+动画造成伤害的间隔。默认"0"。
+
+
+DeployDir= (integer - facing) 
+当一个DeployToLand单位着陆时的朝向。有效值为"0"到"7"。 默认[General]DeployDir
+如果DeployToLand=yes单位没有DeployingAnim，他就不需要转向适合这个动画的方向，那么转向DeployDir就会被跳过。这不会影响到原版的武装直升机，因为他有DeployingAnim。
+DeployDir支持DeployToLand=no的单位
+如果单位有DeployingAnim，那么即使DeployToLand=no他也会转向DeployDir的方向。这样，DeployingAnim可以被做的更合适，单位就不会突然换面了。 
+
+Convert.Deploy= (TechnoType) 
+设置IsSimpleDeployer= yes单位部署变换成什么单位。变换发生在单位部署完成后，也就是DeployingAnim播放完之后。默认none。 
+部署后，单位是可动的，不像武装直升机那样部署后锁在那个格子里。 DeployToLand=yes也支持，DeployingAnim也可以看，而且DeployToLand=no也可以用DeployDir。 
+与升级转换有同样的限制，除了：  
+- 改变Locomotor是支持的（比如武装直升机变坦克这种变换） 
+- 因为这种变换一定是发生在地图上的，所以Size的变化是允许的。 
+悬浮单位也可以部署变形，如果DeployToLand=yes的话，单位会平滑地着陆；否则闪现到地面上。
+
+Convert.Script= (TechnoType) 
+当单位执行脚本时变换成什么单位。默认none。
+
+Convert.Water= (TechnoType) 
+当单位移动到海滩或水格上变换成什么单位。默认none。
+ 
+Convert.Land= (TechnoType) 
+当单位移动到既不是海滩也不是水的格子上变换成什么单位。默认none。
+ 
+
+DockUnloadCell= (2 integers - cell offset)
+矿厂的哪一格用来卸矿，这一格必须可通行，默认"3,1"
+
+DockUnloadFacing= (integer - facing32)
+卸矿时矿车朝向哪一面，默认"8"（东方）
+
+Harvester.LongScan= (integer - cells) 
+对Harvester= yes单位默认为[General]TiberiumLongScan，对于奴隶矿场默认为[General]SlaveMinerLongScan。 
+
+Harvester.ShortScan= (integer - cells) 
+对Harvester=yes单位默认为[General]TiberiumShortScan，对于奴隶矿场默认为[General]SlaveMinerShortScan，对于奴隶默认为[General]SlaveMinerSlaveScan. 
+
+Harvester.ScanCorrection= (integer - cells, defaults to [General]SlaveMinerScanCorrection) 
+给奴隶矿场用的。 
+
+Harvester.TooFarDistance= (integer - cells) 
+给Harvester=yes单位用的。有Teleporter=yes的单位默认为[General]ChronoHarvTooFarDistance，其他单位默认为[General]HarvesterTooFarDistance. 
+
+Harvester.KickDelay= (integer - frames) 
+给奴隶矿场用的。默认[General]SlaveMinerKickFrameDelay，用"-1"来禁用此功能。 
+
+
+UnitSell= (boolean) 
+决定这个建筑能否变卖其内部的载具。人类玩家可以点击变卖按钮，将鼠标悬至处于建筑内的载具，鼠标会自动变为SellUnit。默认UnitRepair
+
+Unsellable= (boolean) 
+决定此单位能否在有UnitSell=yes的Dock建筑内进行变卖。默认[General]>UnitsUnsellable=
+
+UnitsUnsellable= (boolean) 
+上一条全局规定。默认no
+
+KeepAlive= (boolean) 
+决定这个单位能否让玩家保持存活，这是从DontScore=和Insignificant=中分离出来的逻辑。只要玩家持有至少一个可以这样的单位，便不会因为快速游戏而被判负。 
+对于Insignificant=no和DontScore=no的建筑默认为yes，其他默认为no
+
+
+RadialIndicatorRadius= (integer - cells)
+对于HasRadialIndicator=yes的单位，覆写其视觉指示器的范围。默认遵循原版规则。
+扩展HasRadialIndicator给非建筑单位
+步兵载具飞机可以用HasRadialIndicator了，RadialIndicatorRadius=可以用来指定范围。但是它们的视觉指示器不会扫描，也不会集中。
+在使用之前，建议将以下内容添加到FAData.ini中对应栏目下，以保证逻辑能够正常使用。
+如果想在地图编辑器（FinalAlert2）中使用新的小队脚本UI，请自行寻找FA2Ext.dll，这是一个第三方拓展，Ares不提供
+
+; FinalAlert 2 support for Ares 3.0 functionality
+; Courtesy of Starkku
+
+
+ 
+;生还者，驾驶员，以及其他
+ 
+DefaultDisguise= (InfantryType)
+间谍出厂时默认的伪装类型
+ 
+Crew= (InfantryType)
+步兵驾驶员类型，该车辆或建筑要有Crewed=yes
+ 
+Engineer= (InfantryType)
+基地类的建筑卖掉或者被摧毁出来的工程师。默认[General]?Engineer
+ 
+Technician= (InfantryType)
+技术员，某些特殊建筑卖掉或被摧毁时出来。默认[General]?Technician
+ 
+SurvivorDivisor= (integer)
+卖建筑炸建筑的残兵数量，越大越少
+ 
+ 
+AI基础防御
+ 
+AI.BaseDefenses= (list of BuildingTypes)
+AI用的防御建筑名单
+ 
+AI.BaseDefenseCounts= (list of integers)
+AI的防御建筑数目，数字依次为困难，中等，简单
+ 
+ 
+伞兵
+ 
+ParaDrop.Types= (list of InfantryTypes and/or VehicleTypes)
+默认的科技机场伞兵，和国家设定一样，如果国家设定没有就用阵营设定，原有三阵营的默认值就是YuriParaDropInf附近那些，你懂的
+ 
+ParaDrop.Num= (list of integers)
+和国家设定一样，如果国家设定没有就用阵营设定
+ 
+ParaDrop.Aircraft= (AircraftType)
+和国家设定一样，如果国家设定没有就用阵营设定
+ 
+Parachute.Anim= (Animation)
+和国家设定一样，如果国家设定没有就用阵营设定。默认使用PARACH.Parachute.Anim=
+ 
+狩猎者
+ 
+HunterSeeker= (VehicleType)
+狩猎者超武使用的单位，覆盖全局值的[General]?GDIHunterSeeker和[General]?NodHunterSeeker。默认none
+ 
+阵营界面
+ 
+Sidebar.MixFileIndex= (integer)
+使用Sidec0*.mix作为界面
+ 
+Sidebar.YuriFileNames= (boolean)
+是否用尤里的界面sidec02md.mix和里面包含的其他内容
+ 
+ToolTipColor= (R,G,B)
+提示文本和分数界面等等的字体颜色第二第三阵营默认"255,255,0"，其余的都是"164,210,255"
+
+MessageTextColor= (Color scheme)
+地图触发动作"11"产生的文本颜色，第二阵营默认"6"号颜色，第三阵营默认"13"号颜色，其余的都是"11"号颜色，在原版rules里，这几个颜色分别是DarkRed，DarkSky，DarkBlue
+ 
+DialogBackground.Image= (filename, *including* the .shp extension)
+这个阵营的背景对话框shp，大小"452"x"326"，默认PUDLGBGA.SHP，PUDLGBGS.SHP和PUDLGBGY.SHP为第一第二以及其他阵营需要设置DialogBackground.Palette=
+ 
+DialogBackground.Palette= (filename, *including* the .pal extension)
+色盘默认DIALOG.PAL为第一第二阵营，其他阵营DIALOG.PAL
+
+LoadingTheme= (theme id) 
+多人游戏时阵营载入音乐。默认LOADING
+ 
+EVA.Tag= (EVA event)
+Eva文件的设定名，如酥菌的所有都是Russian，萌菌的所有都是Allied，原NP的第四阵营都是Fourth
+ 
+;战役
+CampaignScore.Background= (filename, *including* the .shp extension)
+一个"632"x"568"的图片用做战役背景。使用的色盘定义为CampaignScore.Palette。默认是ASCRBKMD.SHP，SSCRBKMD.SHP或SYCRBKMD.SHP作为第一，第二，第三及其他阵营的背景
+
+CampaignScore.Transition= (filename, *including* the .shp extension)
+过渡形态。使用色盘定义为CampaignScore.Palette。默认是ASCRTMD.SHP，SSCRTMD.SHP或SYCRTMD.SHP作为第一，第二，第三及其他阵营的过渡
+
+CampaignScore.Animation= (filename, *including* the .shp extension)
+不断转的那个东西，过渡形态结束后将会循环这玩意儿。使用的色盘定义为CampaignScore.Palette。默认是ASCRAMD.SHP，SSCRAMD.SHP或SYCRAMD.SHP 作为第一，第二，第三及其他阵营的转动动画
+
+CampaignScore.Palette= (filename, *including* the .pal extension)
+色盘。默认是ASCORE.PAL，SSCORE.PAL或YSCORE.PAL作为第一，第二，第三及其他阵营的色盘
+ 
+CampaignScore.UnderParTheme= (theme id)
+比最快时间完成得还快时播放这个。默认SCORE
+
+CampaignScore.OverParTheme= (theme id)
+比最快时间完成得慢时播放这个。默认SCORE
+ 
+
+MultiplayerScore.Background= (filename, *including* the .shp extension)
+一个"632"x"568"的图片用做背景。使用的色盘定义为MultiplayerScore.Palette。默认是MPASCRNL.SHP，MPSSCRNL.SHP或MPYSCRNL.SHP作为第一，第二，第三及其他阵营的背景
+
+MultiplayerScore.Palette= (filename, *including* the .pal extension)
+色盘。默认MPASCRN.PAL，MPSSCRN.PAL或MPYSCRN.PAL作为第一，第二，第三及其他阵营的背景
+
+MultiplayerScore.Bars= (filename, *including* the .pcx extension)
+各种条子，因为是pcx文件所以不需要色盘，一共有"10"条，编号"01"到"10"，写到这条语句里的时候要把编号换成~~，默认是mpascrnlbar~~.pcx，mpsscrnlbar~~.pcx或mpyscrnlbar~~.pcx作为第一，第二，第三及其他阵营的条子（~~是编号）
+ 
+MultiplayerScore.WinTheme= (theme id)
+战胜的音乐。默认SCORE
+
+MultiplayerScore.LoseTheme= (theme id)
+战败的音乐。默认SCORE
+ 
+GraphicalText.Image= (filename, *including* the .shp extension)
+游戏结束时的图片
+就是一辆坦克开火，显示游戏结束之类的那张图片，在原版里所有国家都一样，现在可以自定义，这个shp至少要有4帧：战役胜利战败，遭遇战胜利战败。图片。默认GRFXTXT.SHP
+
+GraphicalText.Palette= (filename, *including* the .pal extension)
+游戏结束时的图片色盘。默认GRFXTXT.PAL
+ 
+ 
+;AI基础建筑
+ 
+AI.PowerPlants= (list of BuildingTypes)
+AI认为这些东西是电厂
+ 
+ 
+;伞兵
+ 
+ParaDrop.Types= (list of InfantryTypes and/or VehicleTypes)
+单位注册名表，用于科技机场的伞兵类型，可以填坦克，默认和阵营设定一致，注意，旧的伞兵不支持坦克
+ 
+ParaDrop.Num= (list of integers)
+每个单位的数字列表
+ 
+ParaDrop.Aircraft= (AircraftType)
+飞机类型，和阵营一致
+ 
+Parachute.Anim= (Animation)
+默认的降落伞图像
+ 
+ 
+ 
+VeteranBuildings= (list of BuildingTypes)
+在这个列表里的建筑造出来就是精英级别
+ 
+GivesBounty= (boolean) 
+决定这个国家是否能得到赏金。no的话，即使单位设置了可以获得赏金，这个国家也不能得到赏金，默认yes。
+ 
+ 
+;国家界面
+ 
+File.Flag= (filename, *including* the .pcx extension)
+文件名，包含.pcx扩展名，国旗
+ 
+File.ObserverBackground= (filename, *including* the .pcx or .shp extension)
+观察者模式时右边看到的国家背景，大小"121"x"96"，shp用observer.pal色盘
+
+File.ObserverFlag= (filename, *including* the .pcx or .shp extension)
+观察者模式时右边看到的国旗
+ 
+File.ObserverFlagAltPalette= (boolean)
+如果是，用yrii.pal绘制shp，否则用observer.pal
+ 
+File.LoadScreen= (filename, *including* the .shp extension)
+载入界面，包括.shp扩展名，文件名格式是"filename%s*******.shp"，%为当前的分辨率，比如800,640
+ 
+File.LoadScreenPAL= (filename, *including* the .pal extension)
+载入色盘，包括扩展名
+ 
+LoadScreenText.Name= (CSF label)
+显示的国家名，Name：开头
+ 
+LoadScreenText.SpecialName= (CSF label)
+特殊单位的名字，如磁能坦克
+ 
+LoadScreenText.Brief= (CSF label)
+特殊单位的说明
+ 
+LoadScreenText.Color= (Color scheme)
+载入文字颜色，注册在[Colors]里
+ 
+LoadingTheme= (theme id)
+用该国家玩遭遇战时的载入音乐。默认是LOADING
+ 
+MenuText.Status= (CSF label)
+法国能建造巨炮，德国能建造坦克杀手的那一行
+ 
+RandomSelectionWeight= (integer)
+国家随机选中的权重，越大越容易被选中，默认"1"
+ 
+ListIndex= (integer)
+决定了国家选择表的顺序，如果有重复则按国家注册表顺序决定，负数数值的国家会隐藏。如果不想随机选中，设定RandomSelectionWeight=0. 此标签默认100
+ 
+File.Taunt=Taunts\filename
+如“Taunts\filename%02i.wav”，会让游戏自动加载filename01到"08"的东西，对战嘲笑设置，仅对"16"个国家生效
+从1.1开始使用~~代替%02i，如上例子变为“Taunts\filename~~.wav”
+
+StartInMultiplayer.Types= (list of InfantryTypes and/or VehicleTypes) 
+当遭遇战开始时，会有哪些单位被随机分配给这个国家的玩家。如果不设定，游戏会选取可用的AllowedToStartInMultiplayer单位。只支持InfantryTypes和VehicleTypes。使用<none> 来让这个国家没有任何初始单位。
+注意：现在如果没有起始步兵，不会再引起游戏崩溃了。
+
+;修正全局单位花费
+默认情况下，游戏将通过汇总和平均可作为初始单位的单位的所有成本（仅考虑这局游戏的国家）来确定一个单位的平均成本。单位计数设置与此相乘。（译者：举例来说，A国家初始单位为10000块的EPIC单位，B国家初始单位为100块的基础兵，那么当游戏开始时B国家的初始单位数量会远远大于A国家初始单位数量，但是当一局游戏里只有两个B国家时双方初始单位数量就相对正常，这个条目就是说明了这样的现象。）
+StartInMultiplayerUnitCost= (integer - credits) 
+一个平均单位的固定学额。如果不设置，游戏将使用上述方法。在这种情况下，ARES现在将推断的平均单位成本输出到日志文件中。
+
+ 
+;现在允许玩家初始直接获得建造场，而不是MCV。
+StartInMultiplayer.WithConst= (boolean)
+设置玩家是否将从BuildConst得到一个可用的建筑来代替BaseUnit中的载具。默认否。
+ 
+ApplyDamage= (boolean)
+使IsSonic=yes或UseFireParticles=yes的武器赋予Damage的伤害，如果写no就会禁用任何伤害就像Damage=0一样，同时不产生弹头动画（这个问题以后会解决）。默认IsSonic=yes或UseFireParticles=yes的武器为no，其他武器yes
+
+IvanBomb.Delay= (integer)
+爆炸延时
+ 
+IvanBomb.Warhead= (WarheadType)
+炸弹爆炸弹头
+ 
+IvanBomb.Damage= (integer)
+炸弹伤害
+ 
+IvanBomb.AttachSound= (sound name)
+丢上去的声音
+ 
+IvanBomb.TickingSound= (sound name)
+计时器滴滴答答的声音，填SOUNDMD的注册名，必须带Control=loop
+ 
+
+IvanBomb.DeathBomb= (boolean) 
+设置当这个炸弹安置在敌人身上时是否将会只在死亡后爆炸而不使用倒计时爆炸逻辑。默认否。
+
+IvanBomb.DeathBombOnAllies= (boolean)
+设置当这个炸弹安置在盟友身上时是否将会只在死亡后爆炸而不使用倒计时爆炸逻辑。默认否。
+
+IvanBomb.CanDetonateDeathBomb= (boolean)
+能否手动引爆死亡型炸弹。默认[CombatDamage]>CanDetonateDeathBomb.
+
+IvanBomb.DetonateOnSell= (boolean)
+如果被绑定的目标被变卖了，是否会引起爆炸。默认是。
+
+IvanBomb.Detachable= (boolean)
+能否拆弹
+
+IvanBomb.DestroysBridges= (boolean)
+能否能炸桥，桥梁维修小屋可以一直丢但是默认炸不掉
+ 
+IvanBomb.CanDetonateTimeBomb= (boolean)
+能否手动引爆
+ 
+IvanBomb.Image= (filename, *excluding*the .shp extension)
+图像，不要带扩展名。如果不设定，就读取原版的bombcurs.shp
+对于定时炸弹来说，图像需要带有任意数量的块（每块包含"2"帧）用于闪动；对于死亡炸弹来说，图像只需要单独的一帧。
+如果一个炸弹两者兼备，那么它的图像也应该同时符合两种要求
+
+原版的炸弹图像有"13"帧，"6"个闪动块和最后的"1"个死亡炸弹帧（死亡炸弹在RA2的计划中，但是被砍掉了）
+ 
+IvanBomb.FlickerRate= (integer)
+炸弹图像闪动频率，如果为"0"，则取消闪动。默认[CombatDamage]>IvanIconFlickerRate
+上面已经说了图像的偶数部分会被分为块，这句代码就是设置块内的闪动速度。
+比如设定为5，就每5帧在一块的两帧内切换一次。而如果取消闪动，那么就忠实的按照剩余时间百分比播放所有的帧，不再考虑块。
+
+;波
+Beam.Color= (R,G,B)
+颜色
+ 
+Beam.IsHouseColor= (boolean)
+是否是玩家所属色
+ 
+Beam.Duration= (integer)
+持续时间，默认"15"，有RadEruption=yes的为"5"到"20"随机数
+ 
+Beam.Amplitude= (float)
+振幅大小，默认"40"
+
+Bolt.Color1= (R,G,B)
+Bolt.Color2= (R,G,B)
+Bolt.Color3= (R,G,B)
+颜色，没啥好说的
+
+Bolt.ParticleSystem= (ParticleSystem) 
+决定在目标位置生成的粒子系统。使用<none>关闭这个功能。默认为DefaultSparkSystem。
+ 
+Wave.IsLaser= (boolean)
+大波
+Wave.IsBigLaser= (boolean)
+小波
+可以用于电磁波和声波
+ 
+ 
+Wave.Color= (R,G,B)
+颜色
+
+Wave.IsHouseColor= (boolean)
+是否是玩家所属色
+ 
+Wave.Intensity= (R,G,B) 
+相对于原始像素颜色，对波的颜色分量增加的值，支持负值使波变暗。"0,0,0"表示强度没有变化。默认值因波的类型而异。如果Wave.Color=被设置 ，则默认为"0,0,0"。
+
+ 
+Wave.ReverseAgainstVehicles= (boolean)
+默认IsMagBeam=yes的波会从目标向发射者绘制，发射者是车辆
+ 
+Wave.ReverseAgainstBuildings= (boolean)
+是否从目标向发射的建筑绘制
+ 
+Wave.ReverseAgainstInfantry= (boolean)
+是否从目标向发射的步兵绘制
+ 
+Wave.ReverseAgainstAircraft= (boolean)
+是否从目标向发射的飞机绘制
+ 
+Wave.ReverseAgainstOthers= (boolean)
+是否从目标向发射的其他玩意儿绘制
+ 
+ 
+AmbientDamage= (integer)
+穿透伤害，默认"0"
+
+ 
+LaserThickness= (integer)
+激光宽度，和NP一样，渣效果，而且强制玩家所属色
+
+Weapon= (Weapon) 
+决定动画伴随的武器，动画每帧发射一次武器。如果设置了，就会在这个动画所在的位置发射一个该武器的抛射体，并瞬间引爆它。伤害取决于动画设置的Damage，而不是武器的。这个武器必须是游戏已知的，即必须被单位使用过。如果没有任何单位使用这个武器，就必须注册在[WeaponTypes]里。
+当单位发射轨道炮时，如果前一次轨道炮的粒子尚未散尽，他就不能发射。现在可以用这个语句回避掉这个硬编码设定，但是这同时意味着会产生大量的粒子，可能会导致游戏卡顿。
+
+IsDetachedRailgun= (boolean) 
+决定这个武器是否为轨道炮（且无限制），默认为否。
+注意：目前不允许混用IsDetachedRailgun=yes和IsRailgun=yes。
+ 
+多方向抛射体固定为"32"方向，每个方向只能用一帧表示，现在ARES可以使"32"面抛射体在每面都有动画（因此你可以做出一个自轴旋转的shp导弹）。
+ 
+AnimLength= (integer - frames)
+抛射体每面的动画长度，该抛射体需要Rotates=yes。默认"1"
+ 
+注意，AnimRate不能用"0"，否则IE。
+全局设定里[CombatDamage]>BallisticScatter决定了全局弹道散布范围，ARES提供了微观值并且将其分为两个标签，这个标签想要起效，抛射体一定要写Inaccurate=yes和Arcing=yes才行
+ 
+BallisticScatter.Min= (float - cell range)
+散布最小范围。默认如果有FlakScatter=no或者Invisible=yes就是[CombatDamage]>BallisticScatter/"2"，否则是"0"
+ 
+BallisticScatter.Max= (float - cell range)
+散布最大范围。默认[CombatDamage]?BallisticScatter
+ 
+Ranged= (boolean)
+这个抛射体是否会用完燃料然后引爆自己。默认否
+ 
+ProjectileRange= (float - cell range)
+在引爆前能够飞多远,。默认"390"格子
+
+AroundTarget= (boolean)
+决定分裂或空爆子武器的散布原点，yes以目标为原点散布子武器，no则以抛体爆炸处为原点。
+空爆默认no，分裂默认yes。
+ 
+Splits= (boolean)
+该抛射体是否使用分裂逻辑。由AirburstWeapon定义分裂出的子武器，Cluster定义子武器数量。
+默认母弹会在命中目标后引爆，放出子武器。
+可和Airburst=yes连用使母弹在目标头上引爆。
+可和追击范围逻辑连用决定母弹追击多少距离后自行引爆。
+子武器弹头上的伤害比率和AffectsEnemies类设置会影响寻敌
+
+RetargetAccuracy= (float - percentage)
+分裂出来的子武器攻击原定目标的概率。有效值为"0"到"1"之间。值越高，越倾向攻击原定目标。默认"0"，一定会重新选择目标（如果该区域只有这一个单位那么还是会攻击这个单位）。
+
+RetargetSelf= (boolean) 
+分裂出的子武器是否会向发射者本身攻击。默认yes。
+
+
+AirburstWeapon= (Weapon)
+原版定死空爆出9个子武器，分别攻击3x3范围内的每个格子，现在可以自定义。
+
+AirburstSpread= (float - cell range)
+空爆覆盖半径，向这个范围内的每个格子发射一枚子武器，默认"1.5"（3x3）。不能和分裂逻辑混用。
+
+AffectsEnemies= (boolean)
+决定这个弹头是否能够影响它发射者的敌人。
+ 
+AffectsOwner= (boolean) 
+决定这个弹头是否能够影响它发射者的阵营。你可以用这个设置一个弹头能打自己和敌人，但是对友军无效，也可以设置对友军和敌人有效，但是对自己无效。
+默认同AffectsAllies
+ 
+EffectsRequireDamage= (bool) 
+决定这个弹头是否只会影响被该弹头伤害掉至少一滴血的目标，如果否，则无论是否造成伤害都会有影响。默认no。
+ 
+EffectsRequireVerses= (bool) 
+决定这个弹头是否只会影响弹头比例大于0的目标，如果否，则无论什么弹头比例都会有影响。默认yes。
+ 
+允许弹头不带伤害
+AllowZeroDamage= (boolean) 
+决定0伤害是否会影响到所有的目标，否则不影响。默认否。
+ 
+Malicious= (boolean)
+这个弹头是否会引起伊娃的警告，比如打矿车伊娃也不会说
+ 
+UnitLost.Suppress= (boolean)
+被这个弹头杀死的单位不会触发EVA警报，不过被打时的提示依然会说，所以视情况请结合非恶意弹头使用。
+ 
+
+DieSound.Override= (soundmd entry) 
+当目标被这个弹头击杀时播放这个，单位自己的DieSound将不再使用。使用<none>来回避DieSound。
+
+VoiceDie.Override= (soundmd entry) 
+当目标被这个弹头击杀时的语音，单位自己的VoiceDie将不再使用。使用<none>来回避VoiceDie。
+ 
+
+PreventScatter= (boolean)
+是否当用这个弹头攻击单位时不会让单位乱跑。默认否
+ 
+Sonar.Duration= (integer - frames)
+被声呐弹头击中的单位会强制现身这么久。
+
+DisableWeapons.Duration= (integer - frames)
+被击中的单位会无法开火这么久，注意，对海豹的C4这类特殊能力无效。
+
+Flash.Duration= (integer - frames) 
+被该弹头击中时会闪烁，就像被治疗的时候那样。在红色警戒里，一个单位被有Charges=yes的武器攻击时也会闪烁。只能用于攻击型弹头，不支持治疗武器。
+
+NukeFlash.Duration= (integer - frames)
+核弹闪光持续时间。NUKE默认"30"，其他"0"
+
+RelativeDamage= (boolean) 
+是否造成真实伤害，必须要有以下四个语句才有效。
+-RelativeDamage.Buildings= (integer - percent)
+-RelativeDamage.Aircraft= (integer - percent)
+-RelativeDamage.Infantry= (integer - percent)
+-RelativeDamage.Vehicles= (integer - percent )
+
+RelativeDamage.Terrain= (integer - percent)
+造成的百分比伤害，支持"-100"到"100"，正值为最大生命值百分比，负值为当前生命值百分比，"0"即无效
+真实伤害会将Organic=yes的载具视为步兵，ConsideredAircaraft=yes的载具视为空军。
+ 
+ 
+ 
+ 
+CellSpread.MaxAffect= (integer)
+该弹头打中建筑伤害最多计算几次，如果是"1"的话那么无论该弹头对该建筑命中多大范围，伤害就是武器的正常伤害。默认-1，即无限
+可以加铁幕，可以消铁幕。
+
+和EMP一样为局部定义，一个弹头有自己的叠加参数，比如强力铁幕弹头可以"+100"，最高"151"帧，垃圾铁幕弹头最高堆"20"帧一次"+10"，一个铁幕计数器"50"的单位被强力弹头打了变"150"，再被弱的打一下还是"150"。
+
+IronCurtain.Duration= (integer - frames)
+正数加，负数减，帧数
+
+IronCurtain.Cap= (integer)
+负数不能叠加，"0"无限叠加，不是"0"就是有个最大值除非铁幕计数器已经超过最大值
+
+IronCurtain.Modifier= (float - multiplier)
+单位受铁幕影响的倍数关系，默认"100"，"0"就是不受影响
+
+如果铁幕效果和普通效果同时存在，必定是先常规伤害，organic和步兵会秒杀
+
+IronCurtainFlash= (boolean) 
+是否会产生铁幕闪光现象。默认是。
+
+IronCurtain.Flash= (boolean) 
+局部覆盖。默认同[AudioVisual]>IronCurtainFlash。
+
+MindControl.Permanent= (boolean)
+和NP一样
+
+Temporal.WarpAway= (animation)
+超空间兵抹除单位后的动画，微观动画会覆盖[General]?WarpAway=
+
+IonCannon= (boolean)
+是否在该弹头生效时启动离子炮逻辑。
+
+IonCannon.Blast= (Animation)
+打击区域可选的第一个动画，这个只在弹头撞击地面时使用，如果打击区域在水上，会使用[CombatDamage]>SplashList的动画，默认[General]>IonBlast，写none可禁用。
+
+IonCannon.Beam= (Animation)
+打击区域可选的第二个动画，默认[General]>IonBeam，写none可禁用。
+
+IonCannon.Warhead= (Warhead)
+离子炮弹头，默认[CombatDamage]>IonCannonWarhead，写none可禁用。
+
+IonCannon.Damage= (integer - hitpoints)
+离子炮伤害，默认[CombatDamage]>IonCannonDamage。
+
+IonCannon.Rock= (boolean)
+是否VXL载具会被掀起，默认是
+
+IonCannon.Ripple= (integer - frames) 
+TS中离子炮的波纹视觉效果，纯视觉效果，没有实际影响，取值范围在"0"到"79"之间，包含"0"和"79"。IonCannon=yes默认"79"，其他默认"0"。
+参考值见下，不做翻译：
+· IonCannon.Ripple=1 - Forget it, nothing. 
+· IonCannon.Ripple=5 - Target cell, only voxel rippling 
+· IonCannon.Ripple=8 - Target cell, both voxel and SHP rippling. 
+· IonCannon.Ripple=10 - 1 cell radius 
+· IonCannon.Ripple=15 - 2 cell radius 
+· IonCannon.Ripple=20 - 3 cell radius 
+· IonCannon.Ripple=25 - 3 cell radius 
+· IonCannon.Ripple=28 - 3 cell unit-rippling, 4 cell terrain rippling radius 
+· IonCannon.Ripple=30 and onwards - 3 cell unit-rippling, 5 cell terrain-rippling radius
+ 
+
+BridgeAbsoluteDestroyer= (boolean)
+决定弹头是否能瞬间摧毁桥。需要Wall=yes。[CombatDamage]>IonCannonWarhead默认yes，其他默认no。
+
+
+PreImpactAnim= (string, animation ID)
+这个弹头实际爆炸前会先播放这个动画
+ 
+PreImpactAnim.Moves= (boolean) 
+如果yes，就会移动PreImpactAnim跟着本应处于爆炸中心的单位。默认no。
+
+Damage.Deployed= (float - multiplier)
+部署单位受伤比例，现在部署单位和匍匐单位独立了
+ 
+InfDeathAnim= (string, animation ID)
+和NP一样
+
+
+ 
+BerserkROFMultiplier= (float - multiplier)
+全局混乱开火速度倍数，越小越快。默认"0.5"，即开火速度快两倍
+ 
+Berserk.ROFMultiplier= (float - multiplier)
+微观混乱开火速度倍数，默认[CombatDamage]?BerserkROFMultiplier
+ 
+
+ 
+DeathWeapon.Suppress= (list of TechnoTypes)
+填单位名称，可以填多个，表示这个弹头不会触发这些单位的死亡武器。
+
+DeathWeapon.SuppressVehicles= (boolean)
+写yes后被这个弹头击杀的所有载具都不会触发死亡武器。如果写no，上面那条依然会检查。默认no
+ 
+DeathWeapon.SuppressInfantry= (boolean)
+同上，针对步兵的设置。默认no
+ 
+DamageAirThreshold= (integer - leptons)
+如果弹头在离地这么高的地方爆炸就会伤害到空中单位，低于这个高度就不会，-1代表永远会伤害到，写一个很高的值如9999就能防止该弹头伤害到空中单位。默认"0"
+
+DamageAirConsiderBridges= (boolean)
+是否所有弹头都能伤害到空中单位（视作在桥上爆炸）。默认no
+桥面上爆炸的高度相当于416leptons，即"4"层。
+
+
+;原版的海洋寄生单位（巨型乌贼）拥有斩杀效果。现在Ares支持将这种效果赋予常规弹头。 
+Culling.BelowHealth= (integer - percentage) 
+Culling.RookieBelowHealth= (integer - percentage, defaults to 0) 
+Culling.VeteranBelowHealth= (integer - percentage, defaults to 0) 
+Culling.EliteBelowHealth= (integer - percentage, defaults to -1) 
+血量低于这个百分比的单位会被斩杀。"1"到"100"用来代表百分比数值，"0"代表红血，"-1"代表黄血，"-2"代表绿血。需要Culling=yes。 Culling=yes的默认行为是：当开火者是新兵级或老兵级，目标血量处于红色状态便被斩杀；当精英级时，目标血量处于黄色状态便被斩杀。 
+
+Culling.Chance= (integer - percentage, defaults to 100) 
+Culling.RookieChance= (integer - percentage) 
+Culling.VeteranChance= (integer - percentage) 
+Culling.EliteChance= (integer - percentage) 
+当单位可以被斩杀时，概率是多少。需要Culling=yes。 
+注意：这个几率在弹头释放时结算，而非目标被弹头击中时结算。这意味着假如一击能够进行斩杀，那么会将范围内的所有的可斩杀目标进行斩杀。
+巷战时武器能对这个建筑内的人进行多少百分比的攻击而不仅仅是对建筑本身攻击，用来做战壕和掩体。
+ 
+UC.PassThrough= (float - chance)
+有多少几率攻击能够穿透这个掩体攻击到里面的步兵，默认"0"
+ 
+UC.FatalRate= (float - chance)
+如果武器能够攻击到驻兵，一击必杀的几率，默认"0"
+ 
+UC.DamageMultiplier= (float - multiplier)
+如果武器能够攻击到驻兵，伤害倍率
+ 
+SubjectToTrenches= (boolean)
+该弹体是否无视UC.PassThrough，"100%"命中驻兵，yes的话UC.PassThrough依然有效，no的话直接贯通，默认是
+ 
+ 
+
+ 
+Bunker.Raidable= (boolean)
+这个建筑能否被敌人步兵占据
+ 
+当被敌人占领时所属权属于敌人，玩家不能变卖这玩意儿除非敌人步兵离开
+
+ 
+Rubble.Destroyed= (BuildingType)
+该建筑被摧毁时会变成这种建筑。
+ 
+工程师进入后能修复成以下标签指定的建筑，修复时使用RepairTrench鼠标指针。
+ 
+警告：不要把这个建筑设置成本身，否则游戏卡死
+ 
+Rubble.Destroyed.Remove= (boolean)
+该建筑被摧毁时直接消失，不会转变为废墟建筑，覆盖Rubble.Destroyed=。默认否
+ 
+Rubble.Destroyed.Owner= (enum default|civilian|special|neutral)
+被摧毁时废墟建筑给谁。默认给原来的所有者
+ 
+Rubble.Destroyed.Strength= (integer)
+变成废墟建筑时的血量，正值意味着还剩这么多血量，负值里，"-99"意味着剩"99%"的血量，"-1"意味着剩"1%"的血量，剩余的值全都意味着满血。默认和设定建筑血量相同
+ 
+Rubble.Destroyed.Anim= (AnimationType) 
+变成废墟或者被摧毁直接消失时的动画
+ 
+Rubble.Intact= (BuildingType)
+工程师修复后变成这种建筑，如果不指定的话就无法再恢复原来的建筑（设置成别的建筑也是可以的！）
+ 
+Rubble.Intact.Remove= (boolean)
+工程师进去后把废墟建筑移除，覆盖Rubble.Intact=。默认否
+ 
+Rubble.Intact.Owner= (enum default|civilian|special|neutral)
+不需要解释
+ 
+Rubble.Intact.Strength= (integer)
+不需要解释。默认"-1"，"1%"的血量
+ 
+Rubble.Intact.Anim= (AnimationType)
+不需要解释
+ 
+IsTrench= (string - trench type ID)
+指定这个战壕的名称，只有同种战壕能够穿越，意味着战壕得用围墙，激光墙类型的建筑
+
+CanBeOccupiedBy= (list of InfantryTypes)
+只有这种步兵能占据这个建筑，该步兵必须设置可以占据建筑
+
+ 
+Refinery.UseStorage= (boolean)
+这条代码决定精炼厂是否会将矿石储存起来而不是化为现金。被直接转化的矿石将不占据储存空间。默认值为no。
+ 
+ 
+Message.SilosNeeded= (csf label)
+矿满的时候出现CSF提示
+ 
+PipScale=Tiberium
+储藏的矿石将以一个特定的PipScale表现出来。储藏矿石的建筑将通过格子显示当前有多少被占据的空间，并将其与该建筑的总格数进行直观对比。矿石将显示为黄色，彩色矿石则是蓝色。
+若要将该萝鸡用于带有Refinery=yes或ResourceDestination=yes的建筑上，你还需要添加Refinery.UseStorage=yes。这个条件之所以被添加，是因为如果没有的话，游戏会自动让所有未被修改过的矿石精炼厂都带有相应的PipScale。
+ 
+
+TiberiumSpill= (boolean)
+是否被摧毁时泄露泰矿。默认否
+某个有该属性的单位（比如器官受）移到泰伯利亚矿上就能回血的设定已经恢复并且可以自由定制。
+ 
+TiberiumHealEnabled= (boolean)
+是否允许泰伯利亚矿可以治疗单位，同时需要以下参数设定。默认否
+ 
+TiberiumHeal= (float - minutes)
+每多少分钟回血。默认"1.13333"，即"68"秒
+ 
+ 
+ 
+TiberiumHeal= (boolean)
+有这条语句的单位可以被泰矿治疗。默认否。
+ 
+ 
+Heal.Delay= (float - minutes)
+泰矿治疗间隔，默认为[General]>TiberiumHeal
+ 
+Heal.Step= (integer)
+泰矿对空军的治愈值，默认[General]>RepairStep
+ 
+Heal.IStep= (integer)
+泰矿对步兵的治愈值，默认[General]>IRepairStep
+ 
+Heal.UStep= (integer)
+泰矿对载具的治愈值，默认[General]>URepairStep
+
+
+TiberiumRemains= (boolean)
+该单位被摧毁时是否留下泰伯利亚，默认TiberiumHeal当[General]>TiberiumHealEnabled=yes开启时，否则不
+在TS里，一般步兵站在泰伯利亚矿上会受到伤害，并且有几率死亡后变成器官受。
+ 
+TiberiumDamageEnabled= (boolean)
+泰伯利亚是否能够伤害步兵，默认否
+ 
+TiberiumProof= (boolean)
+是否免疫泰矿伤害。步兵默认否，其他类型单位是
+   
+TiberiumTransmogrify= (integer - percent)
+一个因泰矿伤害而死的单位转化为[General]>SmallVisceroid的概率。默认值为"0"。
+EX1注：该语句在Ares中生效后，其默认概率并非为"0"，而是"40%"，该语句最早在TS中存在时后面的数值就是"40"。
+ 
+TiberiumTransmogrify= (integer - percent)
+一个因泰矿伤害而死的特定单位转化为[General]>SmallVisceroid的概率。默认值为[General]>TiberiumTransmogrify。 
+当采集了泰矿的采矿车（好像矿仓也可以？不清楚）被摧毁时会爆炸，爆炸威力取决于矿石的量，这个功能还没有完全恢复，有这些语句可以用。
+
+TiberiumExplosive= (boolean)
+是否在采矿车里的泰矿当采矿车被摧毁时产生爆炸，默认否
+ 
+TiberiumExplosiveWarhead= (warhead)
+在TS里被强制为C4弹头，并且范围固定"1.5"，现在可以自定义，默认是none 
+ 
+TiberiumExplosiveAnim= (animation)  
+矿爆动画。 需要不设置TiberiumExplosiveWarhead。
+某些覆盖物被带有TiberiumChainReaction=yes的动画攻击后就会产生泰伯利亚矿爆，在TS里可以产生一系列连锁反应，在YR里这个无效，不过现在可以了，并且有更多自定义。
+ 
+ExplosionWarhead= (warhead)
+矿爆的弹头，默认[General]>C4Warhead
+ 
+ExplosionDamage= (integer)
+矿爆伤害，默认是[CombatDamage]>TiberiumExplosionDamage
+ 
+Debris.Chance= (integer - percent)
+产生碎片的概率，影响到连锁反应的进程，整数，默认"33"（即"33％"）
+ 
+OverlayExplodeThreshold=(integer)
+伤害高于这个值才会产生矿爆，默认"0"
+禁止在游戏模式ini里修改超武的action和type，要用就用rules，写个新的超武，在游戏模式里重做关联。
+ 
+SuperWeapons= (list of SuperWeaponTypes)
+该建筑关联这些超级武器。
+
+SW.Range= (float,int)
+填一个数，或两个数，前者是圆的半径，后者是矩形的长宽
+ 
+SW.CreateRadarEvent= (bool)
+是否建立雷达事件
+
+SW.AffectsHouse= (enum none谁都不|owner发出者|allies盟友|team自己和盟友|enemies敌人|all全部)
+影响对象，可以设多个
+
+SW.AffectsTarget= (enum land|water|empty|infantry|units|buildings)
+可以作用的地形和对象，可以设多个
+
+SW.ShowCameo= (boolean)
+是否在防御栏显示此超武，默认是，AutoFire的默认隐藏
+
+SW.Deferment= (integer frames)
+超武生效前帧数，仅对部分有效
+ 
+SW.TimerVisibility= (enum - owner,allies,team,enemy,others,all,none)  
+当ShowTimer=yes时，哪些玩家可以看见计时器，默认all。
+
+SW.InitialReady= (boolean,) 
+决定这个超武是否刚获得时就充能完毕，当发射一次之后，计时恢复正常。默认no
+ 
+SW.VirtualCharge= (boolean) 
+决定这个超武使用虚拟充能
+这个逻辑可以用来分开超武充能和建筑存在。如果没有建筑了，计时器会隐藏到后台继续充能，等到所属方再次持有建筑时重新显示图标和计时器。默认no
+
+SW.Shots= (integer) 
+决定此超武能够用多少次，"-1"代表无限。此逻辑暂时不支持持续性超武。默认"-1"
+目前，被升级工具箱或地图触发带来的超武也会共享次数。
+
+SW.PostDependent= (SuperWeapon)
+定义超时空的两个超武链接，例如[ChronoSphereSpecial]>SW.PostDependent=ChronoWarpSpecial
+ 
+
+SW.FireIntoShroud= (boolean)
+能否丢进黑雾，默认是
+ 
+SW.UseAITargeting= (boolean, defaults to no) 
+如果是，则人类玩家点击图标时自动发射超武，而不需要手动选择目标。选择目标交给AITargeting。
+如果不符合AI瞄准的约束条件，则超武图标会黑掉（约束条件见下），如果超武目前无法依靠AITargeting发射，会反馈一个文本信息给玩家。
+ 
+SW.AutoFire= (boolean)
+自动发出，会丢到效果最好的地方，默认否
+
+SW.ManualFire= (boolean)
+人工发出，如果autofire=no的话这行代码就没用，有个蛋用
+ 
+SW.RequiresTarget= (enum land|water|empty|infantry|units|buildings)
+可以点什么类型的目标，不是此目标的话就不能点下去，比如护盾只能点建筑
+
+SW.RequiresHouse= (enum none|owner|allies|team|enemies|all)
+是否对敌人盟友之类的生效
+ 
+SW.Group= (integer) 
+设置超武组号，可以在AI脚本中涉及到超级武器的部分指定该组号，默认"0"。需要搭配SW.AITargeting=IronCurtain使用。
+
+SW.AITargeting= (enum SW Targeting Type)
+AI怎么用
+None：不会用
+LightningStorm：侵略性，不能和其他闪电一起
+Nuke：侵略性或用触发指定
+PsychicDominator；最大的敌人单位集群
+GeneticMutator：3X3内最大的敌人步兵集群
+ParaDrop：敌人家防御最差的地方
+ForceShield：敌人超武砸的地方
+NoTarget：随便砸
+Offensive：侵略性
+Stealth：只攻击隐形单位，受SW.RequiresTarget和SW.RequiresHouse影响
+Base：砸自己基地
+EnemyBase：砸敌人基地
+HunterSeeker：像NoTarget一样，但是会打敌人的单位，这个只对一些超武有用
+IronCurtain: 运用55号脚本关联启动，类似原版铁幕。
+Self：砸这个超武的超武建筑
+LightningRandom：随机瞄准，仍然读取指示者和抑制者
+Attack：类似于NoTarget，但是会在所属方被攻击时启动（类似于自卫）
+LowPower：类似于NoTarget，但是会在所属方处于低电力时启动
+LowPowerAttack：把上面那两个结合在一起
+
+SW.AIRequiresTarget= (enumeration none|land|water|empty|infantry|units|buildings|all)
+AI版RequiresTarget
+
+SW.AIRequiresHouse= (enumeration owner|allies|team|enemies|others|all)
+AI版RequiesHouse。
+
+SW.AITargeting.Preference= (SW targeting preference) 
+决定此超武会偏向于发射在哪个，由地图触发行为设定的格，默认取决于Type=. 
+有效值为： 
+"none":无偏向
+"offensive": 偏向于由地图触发行为设定的侵略性格子。"135"号行为设定这种格子，"136"号行为移除这种格子
+"defensive": 偏向于由地图触发行为设定的防御性格子。
+
+SW.AITargeting.Constraints= (SW targeting constraints) 
+填此超武所需的发射约束环境，多个约束条件用逗号隔开。默认取决于Type=。 
+有效值为：
+"none":没有约束条件
+"offensive_cell_clear":地图触发行为"135"没有设定侵略性格子时
+"defensive_cell_clear":地图触发行为"140"没有设定防御性格子时
+"offensive_cell_set":直到地图触发行为"135"设定了侵略性格子时
+"defensive_cell_set":直到地图触发行为"140"设定了防御性格子时
+"enemy":当发射方已经选定了一个所属方为敌人时
+"lightningstorm_inactive":当没有任何闪电风暴处于发射状态时
+"dominator_inactive":当没有任何心灵控制处于发射状态时
+"attacked":当发射方被攻击时
+"lowpower":当发射方处于低电力状态时
+以下约束环境对玩家无效：
+"lightningstorm_inactive"，因为玩家会在闪电风暴激活时得到一条发射失败的回馈信息
+"dominator_inactive"，因为玩家会在心灵控制激活时得到一条发射失败的回馈信息
+"attacked"，因为这是辅助AI使用的，玩家能够正确的判别何时应该发设
+"lowpower"，同上
+  
+ 
+SW.RangeMaximum= (float - cell range)
+SW.RangeMinimum= (float - cell range)
+最大范围和最小范围，负数即无限。默认"-1"，随便打
+ 
+SW.Designators= (list of TechnoTypes)
+需要这些单位作为指示者，不写就是不需要
+ 
+SW.AnyDesignator= (boolean)
+是否任何单位都能做指示者，覆盖SW.Designators。默认否
+ 
+DesignatorRange= (integer - cells)
+指示者的指示范围。默认和[TechnoType]>Sight一样
+ 
+SW.Inhibitors= (list of TechnoTypes) 
+需要这些单位作为抑制者。
+
+SW.AnyInhibitor= (boolean)
+是否任何单位都能做抑制者，覆盖上面那个。
+ 
+InhibitorRange= (integer - cells)
+抑制者的抑制范围。
+ 
+SW.RequiredHouses= (list of HouseTypes) 
+这个超武归属于那个国家。
+
+SW.ForbiddenHouses= (list of HouseTypes) 
+哪些国家不能用这个超武。
+ 
+SW.AllowPlayer= (boolean) 
+决定这个超武是否为玩家所有，默认yes
+
+SW.AllowAI= (boolean) 
+决定这个超武是否为AI所有，默认yes
+ 
+SW.AuxBuildings= (list of BuildingTypes)
+这个超武需要这些建筑存在时才能使用。
+ 
+SW.NegBuildings= (list of BuildingTypes)
+这个超武在有这些建筑存在时不能使用。
+ 
+SW.AlwaysGranted= (boolean) 
+决定此超武是否不需要建筑，直接出现。仍然遵循AuxBuilding, SW.AuxBuidings, SW.NegBuildings, SW.ForbiddenHouses, SW.RequiredHouses, SW.AllowPlayer和SW.AllowAI。默认no
+ 
+ 
+Cursor= (cursor definition)
+可以释放时的鼠标，默认攻击鼠标指针
+ 
+NoCursor= (cursor definition)
+不能释放时的鼠标，默认禁止鼠标指针
+ 
+SW.ChargeToDrainRatio= (float multiplier)
+此超武有效时间，默认为[General]>ChargeToDrainRatio
+ 
+SW.Unstoppable= (boolean)
+是否禁止手工停止，注意这个功能简直就是火风暴专用，用于别的超武会发生不可预期的效果
+ 
+ 
+Money.Amount= (integer - credits)
+超武开火时加钱，负数扣钱，默认"0"
+ 
+Money.DrainAmount= (integer - credits)
+火风暴扣钱，默认"0"
+
+Money.DrainDelay= (integer - frames)
+火风暴扣钱间隔
+
+
+SW.Animation= (animation)
+目标地点的动画
+
+SW.AnimationHeight= (integer)
+动画高度
+
+SW.AnimationVisibility= (enumeration none|owner|allies|team|enemies|all)
+谁能看见动画
+
+SW.Sound= (sound)
+目标地点的声音
+
+SW.ActivationSound= (sound)
+超武成功触发的声音，如闪电风暴
+
+
+
+EVA.Detected= (EVA event)
+超武建筑建造
+
+EVA.Ready= (EVA event)
+就绪
+
+EVA.Activated= (EVA event)
+启动
+ 
+EVA.Impatient= (EVA event)
+超武还不能释放
+
+EVA.InsufficientFunds= (EVA event)
+钱不够，默认EVA_InsufficientFunds
+
+EVA.SelectTarget= (EVA event)
+点超武图标时
+ 
+不想用就写none。
+ 
+
+Message.Detected= (CSF label)
+探测到
+ 
+Message.Ready= (CSF label)
+就绪
+ 
+Message.Launch= (CSF label)
+发动
+ 
+Message.Activate= (CSF label)
+某超武产生效果，如闪电风暴
+
+Message.Abort= (CSF label)
+同类超武已发动
+
+Message.InsufficientFunds= (CSF label)
+钱不够
+ 
+Message.FirerColor= (boolean)
+是否用玩家色显示信息，默认否
+
+Message.Color= (Color scheme)
+指定颜色，比Message.FirerColor=yes 权限低
+ 
+Message.CannotFire= (CSF label)
+当玩家依靠AITargeting发射超武失败时，显示此信息。默认MSG:CannotFire
+ 
+
+ 
+Text.Hold= (CSF label)
+没电
+ 
+Text.Ready= (CSF label)
+就绪
+
+Text.Charging= (CSF label)
+火风暴，尚未充能完毕
+
+Text.Active= (CSF label)
+火风暴，已激活
+
+Text.Preparing= (CSF label)
+准备中
+
+
+
+Light.Enabled= (boolean)
+是否引起全局光改变，只支持第一超武
+
+Light.Ambient= (integer)
+环境亮度，太高会卡
+
+Light.Red= (integer)
+Light.Green= (integer)
+Light.Blue= (integer)
+颜色，一群蛋疼的家伙居然没有把RGB合成一个标签
+
+
+
+Lightning.Duration= (integer - frames)
+持续时间。默认[General] >LightningStormDuration，"-1"是无限长
+
+Lightning.RadarOutage= (integer - frames)
+受到SW.AffectsHouse影响的玩家的雷达关闭时间。默认[General] >LightningStormDuration
+
+Lightning.RadarOutageAffects= (enum)
+影响对象。默认enemies
+
+Lightning.HitDelay= (integer - frames)
+两个云放电的间隔。默认[General] >LightningHitDelay
+ 
+Lightning.ScatterDelay= (integer - frames)
+刷出云的间隔。默认[General] >LightningScatterDelay
+
+Lightning.ScatterCount= (integer)
+一次刷云产生的数目。默认Lightning.ScatterDelay ，"0"或负数导致只有中心雷击
+
+Lightning.Separation= (integer - distance)
+两个云之间的最小距离。默认[General] >LightningSeparation
+
+Lightning.PrintText= (boolean)
+是否会出现闪电风暴接近中的CSF。默认[General] >LightningPrintText
+ 
+Lightning.IgnoreLightningRod= (boolean)
+是否无视建筑避雷针LightningRod=yes。默认no
+
+Lightning.DebrisMin= (integer)
+一次最少产生碎片数。默认"2"
+
+Lightning.DebrisMax= (integer)
+最大。默认"4"
+ 
+Lightning.CloudHeight= (integer - leptons)
+云的高度，小于"0"的话会把云放在闪电表的第一个闪电上面
+
+Lightning.BoltExplosion= (Animation)
+雷击动画。默认 [General] >WeatherConBoltExplosion
+ 
+Lightning.Sounds= (list of Sounds)
+雷击声音。默认 [AudioVisual] >LightningSounds
+ 
+Lightning.Clouds= (list of Animation)
+云类型，不得缺少。默认[General] >WeatherConClouds
+
+Lightning.Bolts= (list of Animation)
+电类型，可以缺少。默认[General] >WeatherConBolts
+
+Lightning.Debris= (list of Animation)
+雷击产生的碎片类型[General] >MetallicDebris
+Bouncer=yes不得用于雷的动画，否则击中建筑立刻IE
+
+
+ 
+Nuke.Payload= (Weapon)
+砸下来的核弹类型。默认nukepayload
+ 
+Nuke.TakeOff= (Animation)
+ 
+核弹起灰时候的动画。默认[General] >NukeTakeOff.Nuke.TakeOff=
+ 
+Nuke.PsiWarning= (Animation)
+ 
+心灵探测器探测到核弹的警告动画。默认PSIWARN.Nuke.PsiWarning=[SuperWeapon] >Nuke.SiloLaunch= (boolean)
+ 
+
+ 
+Dominator.FirstAnim= (Animation)
+尤里的大头动画。默认[General] >DominatorFirstAnim
+ 
+Dominator.FirstAnimHeight= (integer - leptons)
+大头高度。默认"750"
+ 
+Dominator.SecondAnim= (Animation)
+生效时候的动画。默认 [General] >DominatorSecondAnim
+ 
+Dominator.SecondAnimHeight= (integer - leptons)
+生效动画高度。默认"0"
+ 
+Dominator.FireAtPercentage= (integer)
+写整数。表示在这个百分比的大头动画播放完毕时候控制生效，默认[General] >DominatorFireAtPercentage
+ 
+Dominator.ControlAnim= (Animation)
+被控制的单位头上的圆圈。默认[CombatDamage] >PermaControlledAnimationType
+ 
+Dominator.Capture= (boolean)
+是否可以控制。默认可以
+ 
+Dominator.Ripple= (boolean)
+是否使用波纹效果
+ 
+Dominator.CaptureMindControlled= (boolean)
+是否可以控制已经被控制的单位。默认是
+ 
+Dominator.CapturePermaMindControlled= (boolean)
+是否控制已经被控制器永久控制的单位。默认是
+ 
+Dominator.CaptureImmuneToPsionics= (boolean)
+是否可以强行控制免疫的单位。默认否
+ 
+Dominator.PermanentCapture= (boolean)
+是否永久。默认是，不得再控制回去
+ 
+
+ 
+SW.PostDependent= (super weapon)
+超时空的副超武，默认超舞列表的第一个ChronoWarp类
+ 
+Chronosphere.BlastSrc= (Animation)
+起始点动画。默认[General]?ChronoBlast
+ 
+Chronosphere.BlastDest= (Animation)
+目标点动画。默认[General]?ChronoBlastDest
+ 
+Chronosphere.ReconsiderBuildings= (boolean)
+是否移动车辆变成的建筑。默认移动
+ 
+Chronosphere.KillOrganic= (boolean)
+是否杀兵。默认yes，no的话步兵也可超时空
+ 
+Chronosphere.KillTeleporters= (boolean)
+是否杀Teleporter=yes的单位。默认no
+ 
+Chronosphere.KillCargo= (boolean) 
+当单位被超时空时，击杀内部的乘员/驻兵。默认no
+ 
+Chronosphere.AffectsIronCurtain= (boolean)
+是否可以移动铁幕单位。默认no
+ 
+Chronosphere.AffectsUnwarpable= (boolean)
+是否受Warpable=no影响。默认yes
+ 
+Chronosphere.AffectsUndeployable= (boolean)
+是否影响可以打包的建筑，如果yes,建筑会像车辆一样找最近的空地着陆。默认no
+ 
+Chronosphere.BlowUnplaceable= (boolean)
+是否摧毁超时空失败的建筑。默认yes
+
+ 
+ 
+
+Protect.Duration= (integer - frames)
+力场护盾持续时间。默认[General] >ForceShieldDuration和[CombatDamage] >IronCurtainDuration
+
+Protect.PowerOutage= (integer - frames)
+力场护盾掐电时间。护盾默认[General] >ForceShieldBlackoutDuration，其他0
+
+Protect.PlayFadeSoundTime= (integer - frames)
+消失声音在彻底消失之前若干帧开始播放[SuperWeapon] >SpecialSound，必须小于Protect.Duration。护盾默认[General] >ForceShieldPlayFadeSoundTime，其他0
+
+
+Mutate.Explosion= (boolean)
+如果是，就用damage和warhead造个爆炸，无视其他，否的话就用SW.Warhead杀兵，无视比例和免疫系统。默认[General] >MutateExplosion
+
+Mutate.IgnoreCyborg= (boolean)
+是否无视电子人Cyborg=yes，Mutate.Explosion=yes则无视。默认no
+
+Mutate.IgnoreNotHuman= (boolean)
+是否影响NotHuman=yes set，如果 Mutate.Explosion=yes无视。默认no
+
+Mutate.KillNatural= (boolean)
+是否直接地杀死Natural=yes，用弹头SW.Warhead。默认yes，在有那啥啥代码的时候被无视
+
+ 
+ 
+ParaDrop.Types= (list of InfantryTypes and/or VehicleTypes)
+单位类型。对于Type=AmerParaDrop默认为AmerParaDropInf=
+ 
+ParaDrop.Num= (list of integers)
+每个单位的数字。对于Type=AmerParaDrop默认AmerParaDropNum=
+ 
+ParaDrop.Aircraft= (AircraftType)
+默认飞机和国家相同
+ 
+ParaDrop.Count= (integer - number of planes)
+飞机数目默认"1"，可以单独设定超武的每一个飞机
+ 
+ParaDrop.ID.PlaneX.*=
+ID 是国家或阵营名 X 是正整数，起始点 "2" 终点是飞机数目 Count。第一架飞机不要用 PlaneX ，如果要，设定所有阵营，ID不写
+这个功能就是比如第一个飞机是入侵者第二个飞机是黑鹰第三个是运输机
+[Superweapon] >Paradrop.Country.PlaneX.*=国家设定
+[Superweapon] >Paradrop.Side.PlaneX.*=阵营设定X
+[Superweapon] >Paradrop.PlaneX.*= 超武默认飞机X
+[Superweapon] >Paradrop.Country.*= 国家默认飞机X
+[Superweapon] >Paradrop.Side.*= 阵营默认飞机X
+[Superweapon] >Paradrop.*= 超武的默认飞机
+[Country] >Paradrop.*=国家默认飞机
+[Side] >Paradrop.*= 阵营默认飞机
+[General] >*=全局默认飞机
+
+
+
+SpyPlane.Type= (AircraftType)
+侦察机类型
+ 
+SpyPlane.Count= (integer)
+侦察机数量
+ 
+SpyPlane.Mission= (mission)
+执行任务(Guard, Attack, Move, etc)。默认pyPlane_Approach
+ 
+
+ 
+SonarPulse.Delay= (integer - frames)
+持续多少帧，默认"60"
+
+
+SW.Deferment= (integer - frames)
+单位丢上来之前的延迟，默认"20"
+
+Deliver.Types= (list of TechnoTypes)
+丢出来的单位，建筑也可以
+
+Deliver.Buildups= (boolean)
+丢建筑出来是否播放建造动画。默认否
+这个语句在"0".C被移除了，现在总是会播放建造动画
+ 
+Deliver.Owner= (enum invoker|neutral|special|civilian)
+丢出来的单位归属谁。默认超武发射者
+ 
+Deliver.BaseNormal= (boolean) 
+当建筑被此超武投下来时，可否用来当做拓展建筑。如果yes，则遵循建筑设定，no则无法拓展。默认yes
+ 
+
+Firestorm.Wall= (boolean)
+这个建筑是否是火风暴围墙，默认否
+ 
+FirestormWarhead= (Warhead)
+这个弹头用于启动的火风暴摧毁单位时使用。不能写none否则爆炸。默认是[General]?C4Warhead
+
+DamageToFirestormDamageCoefficient= (double - multiplier)
+这个值乘以火风暴对单位造成的伤害将会反映到火风暴的持续时间，换句话说就是火风暴将会减少使用时间当火风暴摧毁单位的时候，这个值越高，火风暴摧毁单位后减少的持续时间越多。默认"0.0"，摧毁单位时不会减少持续时间。TS里的值为"0.1"
+ 
+FirestormActiveAnim= (AnimationType)
+火风暴启动后的节点动画，使用建筑色盘。默认GAFSDF_A
+
+FirestormIdleAnim= (AnimationType)
+启动后时不时冒出来的火柱。默认FSIDLE
+
+FirestormGroundAnim= (AnimationType)
+干掉地面单位后产生的火柱。默认FSGRND
+
+FirestormAirAnim= (AnimationType)
+干掉空中单位后产生的火柱，默认FSAIR
+ 
+
+SW.MaxCount= (integer)
+当拥有多个发射建筑时，一次能够发射最多几个狩猎者，例如设置为"5"时即使你有"10"座发射建筑，一次也只能发射最多"5"个，低于"5"个发射建筑还是以发射建筑数量为准发射相同数量的狩猎者。默认为"1"
+ 
+ 
+
+ 
+HunterSeeker.Buildings= (list of BuildingType)
+能够发出狩猎者的建筑，可以不是挂载超武的建筑，如果没有建筑可以发出的话那么狩猎者无法发出且超武不会重新计时。默认[SpecialWeapons]?HSBuilding
+ 
+HunterSeeker.Type= (VehicleType)
+释放出去的单位，覆盖默认值。默认是这个阵营的HunterSeeker（在新增阵营板块）
+被释放出来的单位如果带有Harvester=yes则会自动进入采矿任务
+ 
+HunterSeeker.RandomOnly= (boolean)
+是否所有敌人单位都能成为狩猎者的目标，如果不是, 非平民目标会成为多人游戏中玩家的首选，如果没有首选目标， 那么就会选择一个随机的目标进行攻击。默认否
+ 
+ 
+HSBuilding= (list of BuildingTypes)
+能够发出狩猎者的建筑，不一定必须是挂载狩猎者超武的建筑。默认none, TS使用的是GAPLUG，NATMPL
+ 
+
+
+ 
+DropPod.Types= (list of InfantryTypes)
+空降仓里的兄贵类型，只能是步兵，可以设多个，出来的可能性都是一样的。默认为[General]?DropPodTypes
+ 
+DropPod.Veterancy= (float)
+出来的兄贵等级，这个值可以取"0.0"到[General]?VeteranCap定义的值。默认"2.0"（老兵）
+ 
+DropPod.Minimum= (integer)
+丢下来的套子的最小数量。默认[General]?DropPodMinimum
+ 
+DropPod.Maximum= (integer)
+丢下来的套子的最大数量。默认[General]?DropPodMaximum
+ 
+
+ 
+EMPulse.Cannons= (list of BuildingType)
+指定这个建筑作为EMP炮的发射器，如果不设定，所有EMPulseCannon=yes的建筑都会被认定为发射器，需要注意，使用EMP炮的所有建筑都必须设置主武器。默认none
+
+EMPulse.TargetSelf= (boolean)
+是否打自己，和死亡武器很类似，如果要成功发射，必须设置DamageSelf=yes，卧槽什么蛋疼功能。默认否
+ 
+EMPulse.Linked= (boolean)
+是否当仅一门炮需要满足发射范围，其他炮是否满足发射范围也无所谓，只有在SW.MaxCount超过1时才会表现出来，区别在于这门炮可以只作为指示者，不必要参与开火。默认否
+
+EMPulse.PulseBall= (Animation)
+发射武器前在炮口FLH位置表现的准备动画，写none可以禁用。默认PULSBALL
+
+EMPulse.PulseDelay= (integer - frames)
+发射前的延迟，默认"32"。
+ 
+发射表现为EMP炮瞄准目标，炮口产生准备动画，然后发射出一个炮弹打击指定地点，该建筑实际上没有真正地开火，武器的效果也是无效的。
+ 
+如果EMPulse.TargetSelf=yes，一个炮弹会立即引爆在所有EMP炮的位置，当然，这些建筑实际上也没有真正地开火。
+ 
+如果建筑有EMPulseCannon=no被放进EMPulse.Cannons，这个建筑会很正常地发射它的主武器，不需要充能和检测发射范围。
+Type=Battery
+ 
+
+ 
+SW.AITargeting= (enum)
+默认为LowPower。
+
+Battery.Power= (integer - power) 
+当启动时，会给所属方提供多少电力，默认"0"
+ 
+Battery.Overpower= (list of BuildingTypes) 
+当启动时，将所属方的这些建筑过载，过载后的建筑将会使用副武器代替主武器，不要求一定要有Overpowerable=yes
+ 
+Battery.KeepOnline= (list of BuildingTypes) 
+当启动时，保持所属方的这些建筑不进入断电状态。如果设置雷达建筑，断电之后雷达不会消失。不能阻止建造速度降低。
+
+CampaignList= (boolean)
+允许使用这种列表，默认否
+ 
+ShowDebugCampaigns= (boolean)
+在战役列表里显示DebugOnly=yes设置的地图. 默认否
+ 
+HoverSound= (sound)
+选择战役的时候出现这种声音。默认 AlliedCampaignSelect，SovietCampaignSelect和BootCampSelect
+
+Summary= (CSF label)
+展现战役介绍在难度条下面
+
+LoadScreenText.Color= (Color scheme)
+战役载入文本颜色，使用[Colors]列表里的颜色，比如LoadScreenText.Color=AlliedLoad
+
+LoadingTheme= (theme id)
+载入任务时的音乐（必须用thememd.ini里写的），写none就是没音乐。默认是LOADING
+
+LoadingTheme= (theme id)
+用该国家玩遭遇战时的载入音乐。默认是LOADING
+-CD 免CD
+-NOLOGO 不载入EASB的LOGO
+-LOG 产生debug.log日志文件
+-LOG-CSF 把csf缺失写进去
+-STRICT 把ie写进去
+-AI-CONTROL 允许玩家控制AI
+-AFFINITY:N 用以控制游戏会选择哪个CPU运行，尚未完全实装不推荐使用。N代表组合数。
+可以弄"4"个任务入口，自定义于uimd.ini。
+
+
+CampaignX= (battle)
+按按钮从哪关开始，必须在battle.ini里有，如果要隐藏按钮就写CampaignX=no。默认ALL1，SOV1，TUT1或norespectively
+
+CampaignX.Image= (filename, *including* the .shp extension)
+按钮的样子，大小260x136，可参考fsalg.shp。默认fsalg.shp或fsslg.shp
+
+CampaignX.Palette= (filename, *including* the .pal extension)
+色盘。默认fsalg.pal，fsslg.pal或fsbclg.pal
+
+CampaignX.Subline= (CSF label)
+按钮下方的CSF。默认为STT:AlliedCampaignIcon，STT:SovietCampaignIcon或STT:CampaignAnimTutorial
+
+CampaignX.Tooltip= (CSF label)
+把鼠标放在按钮上底部工具条显示的CSF。默认为CampaignX.Subline
+
+Count= (integer)
+要显示的颜色数，8-16
+ 
+SlotX.DisplayColor= (R,G,B)
+第几个颜色显示的颜色
+
+SlotX.ColorScheme= (Color scheme)
+在rulesmd的[Colors]定义配色方案的名称
+
+SlotX.Tooltip= (CSF label)
+底部工具条显示的CSF
+ 
+
+ 
+DirectX.Force= (hardware|emulation)
+ 
+While hardware is the default, emulation has the same effect as the special ddraw.dll which made the games faster by not drawing the effects that aren’t supported by software emulation.
+ 
+emulation is not available on Windows Vista and later. Ares defaults to hardware on such systems.
+ 
+Ares.ini is not intended to be included or edited by mods, as this file may include various other settings in future that the end-user wishes to set themselves. Launch Base does not permit mods to include ares.ini, and also provides its own interface to allow the user to modify the above graphical settings.
+ 
+不翻译，自己理解
+ 
+ 
+DebugKeysEnabled= (boolean)
+抓虫子热键是否允许，默认是。
+ 
+
+ 
+;在uimd.ini里添加修改：
+
+SinglePlayerButton= (action)
+单人游戏
+
+NetworkButton= (action)
+局域网
+
+WWOnlineButton= (action)
+国际网络
+
+MoviesAndCreditsButton= (action)
+电影和制作人员名单
+
+CampaignButton= (action)
+战役
+
+SkirmishButton= (action)
+遭遇战
+
+SneakPeeksButton= (action)
+先睹为快
+
+PlayMoviesButton= (action)
+放小电影
+
+ViewCreditsButton= (action)
+制作人员
+
+  
+Structures= (list of BuildingTypes)
+会出现的建筑。默认CABUNK01,CABUNK02,CAARMY01,CAARMY02,CAARMY03,CAARMY04,CACHIG03,CANEWY01,CANEWY14,CANWY09,CANWY26,CANWY25,CATEXS07
+ 
+Vehicles= (list of VehicleTypes)
+车辆。默认TRUCKA,TRUCKB,COP,EUROC,SUVW,SUVB,FTRK,AMBU
+ 
+Infantry= (list of InfantryTypes)
+平民。默认CIV1,CIV2,CIV3,CIVA,CIVB,CIVC
+
+ 
+Color.Border1= (R,G,B)
+第一颜色控制边界的划定。默认"167,190,197"
+
+Color.Border2= (R,G,B)
+第二颜色控制边界的划定。默认"104,122,128"
+
+Color.Text= (R,G,B)
+所有文本的默认颜色，不影响观察者的颜色Color.Observer.Text，默认"55,255,0"(黄色)
+
+Color.X.Text= (R,G,B)
+对于某些类型的控件的文本颜色，X可以是一个按钮，标签（描述），列表，复选框，组合框 （下拉列表），观察者（下拉列表中，选择与观察者），GroupBox（框架），滑块，或编辑 （文本框）。默认"238,238,238"（浅灰色）为观测器，即[UISettings] >Color，除了文本
+
+Color.Selection= (R,G,B)
+选择项目的默认背景色。默认"255,0,0"(红色)
+
+Color.X.Selection= (R,G,B)
+对于某些类型的控件选定项的背景色，X可以是一个列表，ComboBox（下拉列表）或观察者（下拉列表中选择与观察者）。默认"98,98,98"（深黑）
+ 
+Color.Disabled= (R,G,B)
+禁用控件的默认文本颜色绘制。默认"159,0,0"（深红）
+ 
+Color.X.Disabled= (R,G,B)
+对某些类型的禁用控件的文本颜色，X可以是一个列表，ComboBox（下拉列表），观察者（下拉列表中选择与观察者）或滑块。默认"167,0,0"（深红) 按键，"143,143,143"（灰色）观察
+ 
+

@@ -1,0 +1,391 @@
+==========代码名对照=========== 
+;带**为默认不可制造单位
+;RA2代表原版专属单位，YR代表尤里的复仇专属单位，GH代表共和国之辉专属单位
+
+==========综合=========== 
+General=全局设置
+SpecialWeapons=超级武器设置
+AudioVisual=音频设置
+Radiation=辐射设置
+AI=电脑玩家设置
+IQ=电脑智商设置
+Header=地图基本参数
+Preview=地图预览设置
+PreviewPack=地图预览色块
+AiTriggerTypesEnable=AI触发允许设置
+Basic=地图基本设置
+Houses=所属方
+IsoMapPack5=地图地形块
+Lighting=地图光照设置
+Map=地图参数
+OverlayDataPack=覆盖图块
+OverlayPack=覆盖图块
+SpecialFlags=特殊设置
+Structures=地图建筑
+Terrain=地图地形对象
+Units=地图移动单位
+Waypoints=路径点
+#include=包含文件
+
+==========国家与阵营============ 
+Americans=美国
+Alliance=韩国
+French=法国
+Germans=德国
+British=英国
+Africans=利比亚
+Arabs=伊拉克
+Confederation=古巴
+Russians=苏俄
+YuriCountry=尤里
+GDI=盟军阵营
+Nod=苏联阵营
+Neutral=平民
+Special=治安
+ThirdSide=尤里阵营
+Civilian=平民阵营
+Mutant=治安阵营
+
+==========步兵============ 
+魔鬼终结者------------------ARND ** --TERMIGUN =YR
+蓝波--------------------STLN ** --STALGUN / STALGREN =YR
+西木之星------------------CLNT ** ---CLINTGUN =YR
+登月火箭员-------------LUNR ** --Lunarlaser =YR
+
+美国大兵----------------E1---M60 / Para /UCPara，UCElitePara 
+盟军警犬----------------ADOG--GoodTeeth / VirtualScanner  
+盟军工程师--------------ENGINEER--DefuseKit / VirtualScanner 
+重装大兵----------------GGI------M60 / MissileLauncher =YR
+火箭飞行兵--------------JUMPJET---20mm 
+间谍--------------------SPY--MakeupKit  
+海豹部队----------------GHOST -- MP5 / Sapper / C4=yes 
+谭雅--------------------TANY--DoublePistols / Sapper 
+超时空军团兵------------CLEG----NeutronRifle 
+超时空突击队------------CCOMAND--ChronoMP5 / FakeC4 
+心灵突击队--------------PTROOP--MindControl =YR
+狙击手------------------SNIPE---AWP 
+
+
+动员兵------------------E2----M1Carbine / UCM1Carbine，UCEliteM1Carbine 
+苏联警犬----------------DOG--BadTeeth / VirtualScanner 
+防空步兵----------------FLAKT -- FlakGuyGun / FlakGuyAAGun 
+苏联工程师--------------SENGINEER--DefuseKit / VirtualScanner 
+磁暴步兵----------------SHK -- ElectricBolt / AssaultBolt 
+疯狂伊文----------------IVAN--IvanBomber 
+特工--------------------SJJD ** --没有这个人 
+鲍里斯------------------BORIS--AKM / Flare =YR
+超时空伊文--------------CIVAN--IvanBomber 
+恐怖分子----------------TERROR--TerrorBomb 
+辐射工兵----------------DESO--RadBeamWeapon / RadEruptionWeapon 
+
+尤里新兵----------------INIT--PsychicJab / UCPsychicJab，UCElitePsychicJab =YR
+奴隶----------------SLAV ** --SHOVEL =YR
+尤里工程师--------------YENGINEER =YR
+狂兽人------------------BRUTE--Punch / Smash =YR
+病毒狙击手--------------VIRUS--Virusgun =YR
+尤里复制人----------------YURI--MindControl / PsiWave
+尤里X----------------YURIPR--SuperMindControl / SuperPsiWave =YR
+心灵突击队--------------YURIPT =RA2
+尤里改------------------YURIPP =RA2
+
+神州弩兵---------PLA =GH
+神州突击队---------GHOST2 =GH
+神州警犬---------CDOG =GH
+神州英雄---------HOVI =GH
+
+黄衣服女平民--------------------CIV1**  
+白衣服平民-------CIV2 **  
+技师-------CIV3 **
+工人样平民-------CIVA ** 
+牛仔平民-------CIVB ** 
+黑衣蓝裤平民-------CIVC **  
+棒球员平民-------CIVBBP **  
+海滩胖男平民-------CIVBFM ** 
+海滩女平民-------CIVBF ** 
+海滩瘦男平民-------CIVBTM **  
+老人平民-------CIVSFM ** 
+红衣服女平民-------CIVSF ** 
+黑衣服平民-------CIVSTM ** 
+黄衣服将军---------------VLADIMIR ** 
+绿衣服将军---------------PENTGEN ** 
+苏联卫兵----------------CTECH **  
+骆驼--------------------CAML ** =YR 
+奶牛--------------------COW ** 
+鳄鱼--------------------ALL ** --- AlligatorBite / VirtualScanner 
+北极熊------------------POLARB ** --- BearBite / VirtualScanner 
+暴龙 ------------------DNOA ** =YR 
+腕龙--------------------DNOB ** =YR 
+猴子----------------------JOSH ** --- ChimpBite / VirtualScanner 
+终级保镖----------------SSRV ** -- Pistola 
+总统--------------------PRES ** 
+洛马诺夫总理------------RMNV ** =YR 
+爱因斯坦----------------EINS ** =YR 
+木乃伊-----------------MUMY ** =YR 
+未知-------------WWLF ** =YR 
+
+==========车辆============== 
+灰熊坦克----------------MTNK--105mm 
+多功能步兵车------------FV -----HoverMissile 
+幻影坦克----------------MGTK----MirageGun 
+光棱坦克----------------SREF----Comet/SuperComet 
+战斗要塞----------------BFRT--20mmRapid =YR
+盟军机动基地车--------------AMCV 
+超时空采矿车(倒矿)-------CMON ** 
+超时空采矿车--------------CMIN 
+遥控坦克--------------ROBO--Robogun =YR
+坦克杀手----------------TNKD--SABOT 
+榴弹炮--------------HOWI **--HowitzerGun 
+
+恐怖机器人--------------DRON--DroneJump / VirtualScanner 
+防空履带车------------------HTK --FlakTrackGun / FlakTrackAAGun 
+犀牛坦克----------------HTNK--120mm 
+V3火箭发射车------------V3 -- V3Launcher / V3ROCKET 
+天启坦克----------------APOC 120mmx / MammothTusk 
+苏联机动基地车--------------SMCV 
+武装采矿车(倒矿)--------HORV ** 
+武装采矿车----------------HARV--20mmRapid 
+磁能坦克----------------TTNK --TankBolt 
+自爆卡车----------------DTRUCK--Demobomb / none 
+
+狂风坦克----------------LTNK--ATGUN =YR
+盖特坦克------------YTNK =YR
+磁电坦克----------------TELE--MagneticBeam / MagneShake =YR
+精神控制车------------------MIND--MultipleMindControlTank =YR
+镭射幽浮----------------DISK--DiskLaser / DiskDrain =YR
+神经突击车--------------CAOS--ChaosAttack / VirtualScanner =YR
+尤里机动基地车--------------PCV =YR
+奴隶矿场(倒矿)----------------SMON ** =YR
+奴隶矿场----------------SMIN--20mmRapid =YR
+
+神州步兵车---------HOWI =GH
+神州V3火箭---------V32 =GH
+神州机动基地车---------CMCV =GH
+神州矿车---------CHAR =GH
+神州矿车(倒矿)---------CHOR ** =GH
+神州天启坦克---------CAPC =GH
+
+黄色汽车----------CAR **  
+黑色汽车------EUROC ** 
+包厢型汽车-------SUVB ** 
+跑车型汽车-------STANG  ** 
+包厢型汽车-------SUVW  ** 
+校车---------BUS ** 
+野营车-------WINI ** 
+小货车-------PICK ** 
+皮卡型汽车-----PTRUCK ** 
+卡车--------TRUCKA ** 
+吉普车--------JEEP ** =YR 
+卡车(载货)--TRUCKB ** 
+豪华轿车-----LIMO ** 
+计程车-------TAXI ** 
+警车---------COP ** 
+挖土机-------CONA ** 
+宣传车-------PROPA ** 
+巴士----------DDBX ** =YR 
+黑色计程车-----BCAB ** =YR 
+黄色计程车-----YCAB ** =YR 
+摄影车---------DOLY ** =YR 
+电车----------CBLC ** =YR 
+救火车--------FTRK ** =YR 
+救护车--------AMBU ** =YR 
+
+
+=============舰船================= 
+盟军运输艇--------------LCRF 
+驱逐舰------------------DEST--155mm / ASWLauncher，ASW 
+海豚--------------------DLPH--SonicZap 
+神盾巡洋舰--------------AEGIS--Medusa 
+航空母舰----------------CARRIER--HornetLauncher / HORNET 
+
+苏联运兵船--------------SAPC 
+海蝎--------------------HYD--FlakTrackGun / FlakWeapon 
+台风级攻击潜艇----------------SUB--SubTorpedo 
+巨型乌贼----------------SQD--SquidGrab / SquidPunch 
+无畏级战舰--------------DRED-- DredLauncher / DMISL 
+
+尤里运兵船--------------YHVR =YR
+雷鸣潜艇----------------BSUB --BoomerTorpedo / CruiseLauncher CMISL =YR
+
+神州驱逐舰---------DEST2 =GH
+神州潜艇---------SUB2 =GH
+神州海豚---------CDLPH =GH
+神州航空母舰---------CARRIER2 =GH
+神州无畏级战舰---------MBOAT =GH
+
+海岸巡逻艇--------------CDEST ** 
+拖船--------------------TUG ** 
+游船--------------------CRUISE ** 
+尼米兹号航空母舰--------CARRIERB ** 
+将军无畏级战舰----------DREDB ** 
+维拉迪摩指挥舰----------VLAD ** 
+
+============飞机============== 
+夜鹰直升机--------------SHAD--BlackHawkCannon 
+入侵者战机--------------ORCA--Maverick 
+鱼鹰反潜机--------------ASW ** --ASWBomb 
+黄蜂航母舰载机------------------HORNET ** --HornetBomb / HornetCollision 
+黑鹰战机----------------BEAG--Maverick2 
+基洛夫空艇--------------ZEP--BlimpBomb
+武装直升机--------------SCHP -- BlackHawkCannon 160mm =YR 
+米格战机----------------BPLN ** --Maverick3 =YR
+侦察机----------------SPYP **--SpyCameraWeapon =YR
+V3火箭------------------V3ROCKET ** 
+无畏级导弹--------------DMISL **
+雷鸣导弹 --------------------------CMISL ** =YR
+运输机-----------------PDPLANE **
+神州运输直升机---------SEEK =GH
+歼10战机---------J10 =GH
+ 
+ =============建筑=============== 
+GAPOWR 盟军发电厂 
+GAREFN 盟军矿厂 
+GAPILE 盟军兵营 
+GAWEAP 盟军战车工厂 
+GAAIRC 盟军空军指挥部 
+AMRADR 美国空军指挥部--AmericanParaDropSpecial 
+GADEPT 盟军维修厂 
+GAYARD 盟军船厂 
+GATECH 盟军作战实验室 
+GAROBO 控制中心 =YR
+GAOREP 矿石精炼器 
+GAWALL 盟军围墙 
+GAPILL 机枪碉堡---Vulcan2 
+NASAM 爱国者飞弹 --RedEye2 
+GAGAP 裂缝产生器 
+ATESLA 光棱塔----PrismShot / PrismSupport 
+GASPYSAT 间谍卫星 
+GACNST 盟军建造厂 
+GTGCAN 法国巨炮 GrandCannonWeapon
+GACSPH 超时空传送仪 --- ChronoSphereSpecial 
+GAWEAT 天气控制机 --- LightningStormSpecial 
+
+NAPOWR 磁能反应炉  
+NAREFN 苏联矿厂 
+NAHAND 苏联兵营 
+NAWEAP 苏联战车工厂 
+NARADR 苏联雷达 --- SpyPlaneSpecial 
+NADEPT 苏联维修厂 
+NAYARD 苏联造船厂 
+NATECH 苏联作战实验室 
+NANRCT 核子反应炉 --- NukePayload 
+NAINDP 工业工厂 =YR
+NAWALL 苏联围墙 
+NABNKR 战斗碉堡 =YR
+NALASR 哨戒炮--Vulcan 
+NAFLAK 防空炮--FlakWeapon 
+TESLA 磁暴线圈 -- CoilBolt / OPCoilBolt 
+NACNST 苏联建造厂 
+NAIRON 铁幕装置 --- IronCurtainSpecial 
+NAMISL 核弹发射井 -- NukeSpecial 
+
+YAPOWR 生化反应炉 =YR
+YAREFN 奴隶矿场 =YR
+YABRCK 尤里兵营 =YR
+YAWEAP 尤里战车工厂 =YR
+NAPSIS 心灵感应器 --- PsychicRevealSpecial 
+YAYARD 尤里船厂 =YR
+YAGRND 部队回收厂 =YR
+YATECH 尤里作战实验室 =YR
+GAFWLL 护城墙 =YR
+NATBNK 坦克碉堡 =YR
+YAGGUN 盖特机炮 =YR
+YAPSYT 心灵控制塔----MultipleMindControlTower =YR
+NACLON 复制中心
+YAGNTC 基因突变器 --- GeneticConverterSpecial =YR
+YAPPET 心灵控制器 --- PsychicDominatorSpecial =YR
+YACNST 尤里建造场 =YR
+
+DMTK 灰熊坦克(部署) ** =GH
+CAWALL 神州围墙 =GH
+CACNST 神州建造场 =GH
+CAHAND 神州兵营 =GH
+CAREFN 神州矿场 =GH
+CAWEAP 神州战车工厂 =GH
+CARADR 神州空军指挥部 =GH
+CAYARD 神州船厂 =GH
+CADEPT 神州维修厂 =GH
+CATECH 神州作战实验室 =GH
+CAARMR 神州训练中心 =GH
+CNANRCT 神州核电站 =GH
+CAPILL 喷火碉堡 =GH
+CASAM 神州爱国者飞弹 =GH
+CTESLA 神州光棱塔 =GH
+CASPYSAT 神州间谍卫星 =GH
+CACSPH 神州时空传送机 =GH
+CAWEAT 神州天气控制机 =GH
+CNAMISL 神州核弹发射井 =GH
+
+GASAND=沙袋 ** 
+CAAIRP=科技机场 ** ---ParaDropSpecial 
+CAOILD=科技钻油井 ** ---ProduceCashStartup= @ ProduceCashAmount= @ ProduceCashDelay
+CAHOSP＝市民医院 ** =RA2
+CAMACH＝科技机器商店 ** =YR
+CAOUTP＝科技前哨站 ** ----HoverMissile 
+CAPOWR＝科技电厂 ** =YR
+CASLAB＝秘密科技实验室 ** 
+CATHOSP＝科技医院 ** =YR
+CATIME01＝时间机器 ** =YR
+CATIME02＝时间机器 ** =YR
+CALAB＝爱因斯坦实验室 ** 
+GATE1=闸门 ** 
+CABUNK01=燃料库 ** 
+CABUNK02=燃料库 ** 
+CABUNK03=燃料库 ** 
+CABUNK04=燃料库 ** 
+CABHUT=桥梁维修小屋 ** 
+CAGARD01=警戒亭 ** 
+CAMIAM04=救生员休息亭 ** 
+CAUSFGL=美国国旗 ** 
+CACUFGL=古巴国旗 ** 
+CAFRFGL=法国国旗 ** 
+CAGEFGL=德国国旗 ** 
+CAIRFGL=伊拉克国旗 ** 
+CALBFGL=利比亚国旗 ** 
+CARUFGL=俄国国旗 ** 
+CAUKFGL=英国国旗 ** 
+CASKFGL=韩国国旗 ** 
+CALOND04=英国国会 ** =YR
+CALOND05=大本钟 ** =YR
+CALOND06=伦敦塔 ** =YR
+CAMORR06=理克酒馆 ** =YR
+CAEGYP01=金字塔 ** 
+CAEGYP02=金字塔 ** 
+CAEGYP03=金字塔 ** 
+CASEAT01=西雅图太空针塔 ** =YR
+CASEAT02=巨软园区 ** =YR
+CASTL04=拱门 ** 
+CASYDN03=雪梨歌剧院 ** =YR
+CAEAST01=复活岛石像 ** =YR
+CAEAST02＝尤里雕像 ** ----PrismShot =YR
+CATRAN03＝尤里要塞 ** =YR
+CAEGYP03=人面狮身像 ** 
+CALUNR01=登月小艇 ** =YR
+CAMIAM08=亚历桑那纪念馆 ** 
+CAPRS03=世界惊奇博物馆 ** 
+CACHIG04=芝加哥协会大楼 ** 
+CAEURO05=雕像 ** 
+CAFARM06=灯塔 ** 
+CAPARS01=埃菲尔铁塔 ** 
+CAPARS11=巴黎凯旋门 ** 
+CAWASH14=杰佛逊纪念馆 ** 
+CAWASH19=胜利纪念碑 ** 
+CAWASH15=林肯纪念馆 ** 
+CARUS03=克里姆林宫 ** 
+CAWASH01=白宫 ** 
+CATRAN01=地窖 ** 
+CAWASH19=胜利纪念碑 ** 
+CACOLO01=空军学院礼拜堂 ** 
+CARUS08=球状戏院 ** 
+CARUS09=球状戏院 ** 
+CARUS10=球状戏院 ** 
+CARUS11=球状戏院 ** 
+CAMISC06=V3飞弹 ** 
+CAARMY01=军队营帐 ** 
+CAARMY02=军队营帐 ** 
+CAARMY03=军队营帐 ** 
+CAARMY04=军队营帐 ** 
+CAFRMB=移动式厕所 ** 
+CATECH01=通讯中心 ** 
+AMMOCRAT=弹药箱 ** 
+CAMISC01=油桶 ** 
+CAMISC02=油桶 ** 

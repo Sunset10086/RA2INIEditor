@@ -1,0 +1,196 @@
+
+ ;[General]
+;computer and movement controls
+BaseBias=num 当敌人靠近AI时，AI对敌人威胁的判定倍数，会影响AI对单位威胁值的敏锐度。可以调高。
+BaseDefenseDelay=num -AI派出防御部队处理基地威胁的延迟时间。(单位:分钟)
+CloseEnough=num -AI执行"移动到"指令时，距离目的地多近就视为完成接近。
+Stray=num 一个小队在执行任务时，偏离这个距离之内时不会导致小队重组。可以适当增加以便AI可以使用大部队。
+RelaxedStray=num 执行"集结"指令(应该是指"53","54"号指令)时，以这个数值替代Stray。可以适当增加以便AI可以使用大部队。
+
+TeamDelays=X,Y,Z （困难、中等、简单）的AI创造部队时间间隔。(单位:帧)
+
+AIHateDelays=X,Y,Z （困难、中等、简单）的AI选择敌人的时间间隔。(单位:帧)
+AIAlternateProductionCreditCutoff=num -AI资金低于这个数值就不再花钱。
+
+MultiplayerAICM=X,Y,Z （困难、中等、简单）的AI开局时的金钱【百分比】。公式为：AI开局金钱=玩家开局金钱*(X+"100")/"100"。
+AIVirtualPurifiers=X,Y,Z （困难、中等、简单）的AI获取资金的倍数。
+AISlaveMinerNumber=X,Y,Z  （困难、中等、简单）的AI的奴隶矿车数。
+HarvestersPerRefinery=X,Y,Z  三个阵营每个矿场的矿车数。
+AIExtraRefineries=X,Y,Z  （困难、中等、简单）的AI追加的矿场数。(Ares里的建议不给矿场加AIBuildCounts，如果需要增加矿场数量的话用AIExtraCounts)
+FillEarliestTeamProbability=X,Y,Z  （困难、中等、简单）的AI制造第一个部队的时间。(单位:帧)
+
+MinimumAIDefensiveTeams=X,Y,Z  （困难、中等、简单）的AI最少守家部队(IsBaseDefense=yes)数量。
+MaximumAIDefensiveTeams=X,Y,Z  （困难、中等、简单）的AI最多守家部队数量。(Min和Max即使都写"0,0,0"也会至少造"1"队守家部队)
+UseMinDefenseRule=bool  -AI在制造了满足MinimumAIDefensiveTeams数量的守家部队之后才开始制造其他小队。
+ UseMinDefenseRule= 无论写啥AI都会至少先造一个守家部队，但是写no的话AI不会因为没有可造的守家部队而傻掉。所以如果UseMinDefenseRule=yes，要保证每个阵营【至少有一个】(不是只有一个!)可用的IsBaseDefense=yes的小队，否则AI不会出兵。
+
+TotalAITeamCap=X,Y,Z  （困难、中等、简单）的AI可以同时使用的部队总数。
+DissolveUnfilledTeamDelay=num  -AI在多久后会解散一个不完整的部队。理论上不应降低，否则AI制造成员较多的部队时会在制造完毕之前就解散该队伍。(单位:帧)
+
+; *** New -AI type snippets ***
+AISafeDistance=num  -AI执行"53"号指令时的集结点与敌方基地的距离。
+(Ares)AIFriendlyDistance=num  -AI执行"54"号指令时的集结点与己方基地的距离。默认=AISafeDistance
+
+AIMinorSuperReadyPercent=num  -AI使用次级超武的几率
+
+AlliedBaseDefenseCounts=X,Y,Z
+SovietBaseDefenseCounts=X,Y,Z
+ThirdBaseDefenseCounts=X,Y,Z
+三个阵营在（困难、中等、简单）时的防御建筑数量系数。计算公式:((已有建筑的价格-"2000")/"1500" * GDIBaseDefenseCoefficient) + "3"*(该系数-"1")
+
+AIPickWallDefensePercent=X,Y,Z  （困难、中等、简单）的AI选择围墙来替代防御建筑的概率。
+AIRestrictReplaceTime=num  -AI建筑被摧毁后，用电厂/防御建筑/围墙替代被摧毁建筑的时间。(单位:帧)
+ThreatPerOccupant=num  每个驻军对可进驻建筑威胁值的提升。
+
+GuardAreaTargetingDelay=num  区域警戒(Area Guard)状态下AI搜索目标的延迟。
+NormalTargetingDelay=num  闲置状态下AI搜索目标的延迟。
+DisabledDisguiseDetectionPercent=X,Y,Z  （困难、中等、简单）的AI识破幻影的概率。
+
+AISuperDefenseProbability=X,Y,Z  （困难、中等、简单）的AI用护盾防御超武的概率。
+AISuperDefenseFrames=num  -AI用护盾防御超武的延迟。(单位:帧)
+AISuperDefenseDistance=num  基地的多少距离内是AI考虑使用护盾的范围。
+
+;AI trigger weighting parameters
+AITriggerSuccessWeightDelta=num  触发成功权重变化值(可以写负值)。
+AITriggerFailureWeightDelta=num  触发失败权重变化值(通常是负值)。
+AITriggerTrackRecordCoefficient=num  触发权重变化系数(建议写1)。
+ 
+;威胁值相关:
+;default threat evaluation controls
+MyEffectivenessCoefficientDefault=num  当AI的单位与威胁等级高于自身的目标交战时，会在计算威胁时乘以这个系数。帮助AI恃强凌弱。
+TargetEffectivenessCoefficientDefault=num  当AI的单位与威胁等级高于自身的目标交战时，会在计算威胁时乘以这个系数。防止AI以卵击石。
+TargetSpecialThreatCoefficientDefault=num  当AI目标具有SpecialThreatValue时，会在计算威胁时考虑这个系数。
+TargetStrengthCoefficientDefault=num  当AI的单位将目标指向生命比自己高的单位时，会根据敌方生命百分比考虑这个系数。
+TargetDistanceCoefficientDefault=num  当AI的单位选择目标时，会根据距离考虑这个系数。defaults for dumb threat evaluation  与default threat evaluation controls基本相同，但是适用于HasStupidGuardMode=yes的单位。
+DumbMyEffectivenessCoefficient=num
+DumbTargetEffectivenessCoefficient=num
+DumbTargetSpecialThreatCoefficient=num
+DumbTargetStrengthCoefficient=num
+DumbTargetDistanceCoefficient=num
+EnemyHouseThreatBonus=num
+以上数值都不是百分数，而官方给的数值却是按百分数填的。都除以"100"可能会获得较为明显的效果。
+
+
+
+;[CombatDamage]
+Crush=num  距离这么近时AI会尝试用碾压代替开火。写高点的话AI的车辆更容易直接碾压玩家步兵。
+
+;[AI]
+BuildConst=list  基地列表(可以不是基地)。在Ares里，决定StartInMultiplayer.WithConst=true时开局给的【建筑】。
+BuildPower=list  电力建筑列表，每个阵营只能写一个。开局必然会先造一个，因此如果有给某个阵营使用昂贵电力插件作为电力供给的情况，请把兵营或其他开局就能造的建筑注册到电力列表里。
+BuildRefinery=list  矿场列表。
+BuildBarracks=list  兵营列表。
+BuildTech=list  高科列表。
+BuildWeapons=list  工厂列表。
+BuildRadar=list  雷达列表。
+ConcreteWalls=list  围墙列表。
+BuildNavalYard=list  船坞列表。
+
+AlliedBaseDefenses=list
+SovietBaseDefenses=list
+ThirdBaseDefenses=list
+AIForcePredictionFudge=X,Y,Z
+ （困难、中等、简单）的AI根据敌方拥有单位的造价总和，按照此处数值的百分比选择防空，反装甲或反步兵的防御建筑。(数值越小越敏感)
+
+MaximumBaseDefenseValue=num  -AI防御建筑的威胁值总和(不包括防空建筑)。
+ComputerBaseDefenseResponse=num   影响AI对基地和ToProtect单位的响应程度，具体效果未知。
+
+PatrolScan=num  -AI执行巡逻任务时搜索敌人的时间。(单位:分钟)
+CreditReserve=num  低于这个资金量时AI不再进行维修。
+PathDelay=num  堵车时间隔这么长时间再次尝试通过。(单位:分钟)
+BlockagePathDelay=num  再次尝试隔这么长时间仍无法通过则绕路。(单位:帧)
+AutocreateTime=num  平均间隔多长时间建造一队具有"Autocreate=yes"标签的小队。(单位:分钟)
+InfantryReserve=num  -AI拥有高于这个数值的金钱时将会一直建造步兵。
+InfantryBaseMult=num  如果AI当前建筑数量乘以此数值比步兵数量多，则一直制造步兵。
+PowerSurplus=num  -AI电力超出临界不足这个数值时将会制造电厂。
+BaseSizeAdd=num  -AI的基地规模不会大于玩家基地规模的这个倍数。
+
+RefineryRatio=num
+RefineryLimit=num
+BarracksRatio=num
+BarracksLimit=num
+WarRatio=num
+WarLimit=num
+DefenseRatio=num
+DefenseLimit=num
+AARatio=num
+AALimit=num
+TeslaRatio=num
+TeslaLimit=num
+HelipadRatio=num
+HelipadLimit=num
+AirstripRatio=num 
+AirstripLimit=num 
+ 各类建筑的建造比重和数量限制，各类Ratio总和不能低于"1"。
+
+Paranoid=bool  -AI私下进行PY交易共同对抗玩家。
+PowerEmergency=num  砸锅卖铁保电量的电量临界值。(%)
+AIBaseSpacing=num  -AI建筑间隔距离，写"0"会无法正常摆建筑，稍微增大可以缓解AI堵车。
+
+;[IQ]  一系列数字，通常结合地图中所属方的IQ设置生效。遭遇战中AI的IQ均为最大值。
+MaxIQLevels=num  IQ最大值。
+SuperWeapons=num  -AI自动使用超武。
+Production=num  自动建造建筑物。
+GuardArea=num  新造出来的小队自动进入Area Guard状态。
+RepairSell=num  可以选择维修或变卖受损建筑。
+AutoCrush=num  自动碾压。
+Scatter=num  规避有弹道的抛射体。
+ContentScan=num  使[Easy]、[Normal]、[Difficult]项下的ContentScan生效。
+Aircraft=num  自动补充飞机。
+Harvester=num  自动补充矿车。
+SellBack=num  允许变卖建筑。
+(ARES)TogglePower=num  没电时让可断电建筑停止工作。
+
+;[Easy]、[Normal]、[Difficult]  这仨的注册名称写！倒！了！Easy代表的是困难，Difficult代表的是简单。(然而里面的数值是正常的，WWSB!)
+ContentScan=bool  -AI使用运输单位时，会将运输工具及乘客的Points和ThreatPosed都考虑进去。写no或此项不满足的话则只考虑运输工具自身的。
+
+
+ThreatPosed=num
+SpecialThreatValue=num
+详见Rules中的威胁值部分，给单位安排合理的威胁值会影响到AI选择目标的优先顺序，关系到AI能否选择合适的目标进行攻击。
+
+
+AIBasePlanningSide=num  写阵营序号(0=GDI,1=Nod,2=ThirdSide，Ares新阵营依次往后排)，标明第几个阵营会建造该建筑(写"-1"时所有阵营都可造)。
+AIBuildThis=bool  -AI是否会建造该建筑。
+(Ares)AIBuildCounts=X,Y,Z  -AI至少建造几个该建筑。
+(Ares)AIExtraCounts=X,Y,Z  -AI可能额外补充几个该建筑。
+
+ToProtect=bool  写yes的单位受到攻击时，AI会出动守家部队去保护。原版海军都有这句，但海军加这个意义不大，除非给海军加守家部队……
+
+
+;[TeamTypes]
+VeteranLevel=1  无视。
+MindControlDecision=0  被心灵控制后的动作，0=随缘、1=加入控制者作战小队、2=部队回收厂卖钱、3=生化反应炉填电、4=搜索敌人、5=摸鱼
+Loadable=yes/no  运载单位写yes会计算ContentScan。
+Full=no  无视。
+Annoyance=no  无视。
+GuardSlower=no  无视。
+House=<none>  无视。
+Recruiter=yes/no  可否从低优先级的队伍和闲置单位中直接调用成员。
+Autocreate=yes/no  结合地图预置单位生效。遭遇战中，在条件满足的情况下，平均每隔AutocreateTime规定的时间，制造一队带有Autocreate的小队。
+Prebuild=yes/no  可能会在不需要时提前造好该队伍。(待确认)
+Reinforce=no  无视。
+Droppod=no  无视。
+UseTransportOrigin=no  无视。
+Whiner=no  无视。
+LooseRecruit=yes/no  完成任务后解散。
+Aggressive=yes/no  和Suicide共同起作用。
+Suicide=yes/no  和Aggressive共同起作用。
+Priority=num  优先级。
+Max=num  该小队最大生成数量。
+Group=-1  除非特殊需要。另："-2"时会选取任何TaskForce。
+OnTransOnly=no  无视。
+AvoidThreats=yes/no  是否会按威胁计算方法寻找最小威胁路径。
+IonImmune=no  无视。
+TransportsReturnOnUnload=yes/no  运输工具完成任务后是否回家。
+AreTeamMembersRecruitable=yes/no  队伍成员可否被调去更高优先级的队伍中。
+IsBaseDefense=yes/no  守家部队。
+OnlyTargetHouseEnemy=yes/no  是否只针对敌对方。
+Script=ScriptTypes  注册在[ScriptTypes]里的Script。
+TaskForce=TaskForce  注册在[TaskForces]里的TaskForce。
+
+
+IgnoreGlobalAITriggers=bool  是否屏蔽全局AI。AI测试图的关键语句。另外一些特殊玩法地图也可以屏蔽掉全局AI，用地图内置AI取代全局。
+
+
+
